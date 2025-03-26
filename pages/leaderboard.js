@@ -9,7 +9,7 @@ const Leaderboard = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     async function firestoreGetLeaderboard() {
-    await fetch(`https://youtube-collect-kqmsvpgbq-dharans-projects-840a6d7c.vercel.app/api/leaderboard/route`, {
+    await fetch(`/api/leaderboard/route`, {
         method: "GET"
     })
     .then(res => res.json())

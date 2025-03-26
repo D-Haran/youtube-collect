@@ -33,7 +33,7 @@ export default function Home() {
   };
 
 async function firestoreUpdateUserData(userId) {
-  await fetch(`https://youtube-collect-kqmsvpgbq-dharans-projects-840a6d7c.vercel.app/api/user/${userId}/set_data/route`, {
+  await fetch(`/api/user/${userId}/set_data/route`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ balance: balance, userId: userId, investments: videoInvestments })
@@ -50,7 +50,7 @@ const handleSignout = () => {
 }
 
 async function firestoreGetUserData(userId) {
-  await fetch(`https://youtube-collect-kqmsvpgbq-dharans-projects-840a6d7c.vercel.app/api/user/${userId}/get_data/route`, {
+  await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
   .then(res => res.json())
@@ -60,7 +60,7 @@ async function firestoreGetUserData(userId) {
 
 async function firestoreCheckUserInvestments(userId) {
   var new_investments = []
-    await fetch(`https://youtube-collect-kqmsvpgbq-dharans-projects-840a6d7c.vercel.app/api/user/${userId}/investment_checks/route`, {
+    await fetch(`/api/user/${userId}/investment_checks/route`, {
         method: "GET"
     })
     .then(res => {return res.json();})

@@ -53,8 +53,8 @@ async function firestoreGetUserData(userId) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
-  .then(res => res.json())
-  .then(data => {setFirestoreUserData(data.data); setVideoInvestmentHistory(data.data.investmentHistory.reverse())});
+  .then(res => {console.log(res); res.json()})
+  .then(data => {console.log(data); setFirestoreUserData(data.data); setVideoInvestmentHistory(data.data.investmentHistory.reverse())});
 }
 
 
@@ -63,7 +63,7 @@ async function firestoreCheckUserInvestments(userId) {
     await fetch(`/api/user/${userId}/investment_checks/route`, {
         method: "GET"
     })
-    .then(res => {return res.json();})
+    .then(res => {console.log(res); return res.json();})
     .then(data => {console.log("DATA: ", data); new_investments = data.data.investments});
     return new_investments
   }

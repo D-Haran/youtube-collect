@@ -12,7 +12,7 @@ const Premium = () => {
         method: "GET"
     })
     .then(res => res.json())
-    .then(data => {console.log(data.data); setLeaderboard(data.data)});
+    .then(data => {console.log(data); setLeaderboard(data.data)});
     }
     
 

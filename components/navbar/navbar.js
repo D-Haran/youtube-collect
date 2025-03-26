@@ -2,9 +2,11 @@ import React from 'react'
 import styles from './navbar.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useUser, signOutWithGoogle } from "../../context/userContext";
 
 const Navbar = ({userDisplayName}) => {
+  const router = useRouter()
   return (
     <div className={styles.container}>
         <div className={styles.left}>
@@ -38,7 +40,7 @@ const Navbar = ({userDisplayName}) => {
             </Link>
             <div className={styles.navBarItem}>
                 {userDisplayName}
-                <p onClick={() => {signOutWithGoogle(); window.location.reload();}}>Sign Out</p>
+                <p onClick={() => {signOutWithGoogle(); router.push('/');}}>Sign Out</p>
             </div>
         </div>
     </div>

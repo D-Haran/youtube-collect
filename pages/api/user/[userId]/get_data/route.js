@@ -10,7 +10,7 @@ export default async function GET(req, res) {
     try {
         if (admin.apps.length === 0) {
     admin.initializeApp({
-      credential: admin.credential.cert(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY)})
+      credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
   }
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()

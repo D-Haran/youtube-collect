@@ -14,7 +14,7 @@ export default async function GET(req, res) {
         // const video_id = url.split('watch?v=')[1]
         console.log(video_id)
         let res;
-        await fetch(`http://127.0.0.1:8000/get_video_metadata/${video_id}`)
+        await fetch(`https://youtube-collect-2dug6j5ot-dharans-projects-840a6d7c.vercel.app/get_video_metadata/${video_id}`)
         .then(res => res.json())
         .then(json => res = json);
         return res
@@ -27,7 +27,7 @@ export default async function GET(req, res) {
         try {
           var res = 0
         console.log("THISSSSSS ONE: ", video_id)
-        await fetch(`http://127.0.0.1:8000/collect_ratio/${video_id}`)
+        await fetch(`https://youtube-collect-2dug6j5ot-dharans-projects-840a6d7c.vercel.app/collect_ratio/${video_id}`)
           .then(res => res.json())
           .then(json => {res = (json[2])});
         return res

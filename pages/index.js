@@ -53,7 +53,7 @@ async function firestoreGetUserData(userId) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
-  .then(res => {console.log(res); res.json()})
+  .then(res => {console.log(res); return res.json()})
   .then(data => {console.log(data); setFirestoreUserData(data.data); setVideoInvestmentHistory(data.data.investmentHistory.reverse())});
 }
 

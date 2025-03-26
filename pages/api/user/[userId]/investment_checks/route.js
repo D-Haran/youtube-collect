@@ -28,7 +28,7 @@ export default async function GET(req, res) {
           var res = 0
         console.log("THISSSSSS ONE: ", video_id)
         await fetch(`https://youtube-collect-2dug6j5ot-dharans-projects-840a6d7c.vercel.app/collect_ratio/${video_id}`)
-          .then(res => res.json())
+          .then(res => {console.log(res);return res.json()})
           .then(json => {res = (json[2])});
         return res
         }catch (error) {

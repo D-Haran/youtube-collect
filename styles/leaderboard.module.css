@@ -1,0 +1,76 @@
+.someCSSModulesClass {
+    margin: 0;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
+.title {
+    padding: 40px;
+    font-weight: 90;
+    color: wheat;
+}
+.title a {
+    color: #0070f3;
+    text-decoration: none;
+  }
+
+  .title a:hover,
+  .title a:focus,
+  .title a:active {
+    text-decoration: underline;
+  }
+
+  .title {
+    margin: 0;
+    line-height: 1.15;
+    font-size: 4rem;
+  }
+
+  .title,
+  .description {
+    text-align: center;
+  }
+
+.container {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin-top: 55px;
+    background: rgb(117,0,0);
+    background: linear-gradient(180deg, rgba(117,0,0,1) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+  }
+
+.leaderboardContainer {
+    background-color: rgb(0, 0, 0);
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  overflow-y: scroll;
+  border-radius: 20px;
+  height: 70vh;
+  font-size: smaller;
+  color: white;
+}
+
+.leaderboardUsersContainer {
+    margin-top: -20px;
+}
+
+.metricLabelsContainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-weight: 90;
+    align-items: center;
+    margin-left: 100px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.metricLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+    font-weight: 200;
+}

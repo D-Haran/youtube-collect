@@ -1,0 +1,71 @@
+.container {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgb(4, 4, 4) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+  }
+
+
+  .balanceContainer {
+    background-color: rgba(0, 0, 0, 0.707);
+    font-size: 30px;
+    color: white;
+    border: 2px solid rgb(131, 10, 10);
+    box-shadow: 0 0 0.4em rgb(255, 255, 255);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px;
+    margin: auto;
+    width: min-content;
+    font-weight: 800;
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+}
+
+.investmentsContainer {
+  display: grid;
+  padding: 10%;
+  width: 90vw;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  grid-gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  border: solid 1px black;
+  border-radius: 12px;
+  grid-auto-flow: column;
+}
+
+.investmentsOptionsContainer {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  color: rgba(240, 248, 255, 0.328);
+  cursor: pointer;
+}
+
+
+.loading {
+  padding: 40px;
+}
+
+.videoInvestmentHistoryContainer {
+  display: flex;
+  padding: 30px;
+  width: 90vw;
+  gap: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  align-items: center;
+  border: solid 1px black;
+  border-radius: 12px;
+  overflow-x: scroll;
+}

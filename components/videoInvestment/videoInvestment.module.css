@@ -1,0 +1,194 @@
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    border: 1px solid rgba(255, 255, 255, 0.654);
+    width: 100%;
+    border-radius: 8px;
+    max-height: min-content;
+    padding: 6px;
+    background-color: #0f0f0f;
+    margin-top: 20px;
+    background: rgba(58, 58, 58, 0.314);
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 20px );
+-webkit-backdrop-filter: blur( 20px );
+border-radius: 10px;
+}
+
+.currentHeader {
+    font-size: smaller;
+}
+
+.balance {
+
+    font-size: 30px;
+    color: #e10707;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.info {
+    font-size: auto;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    max-height: min-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid white;
+}
+
+
+.currentMediaTitle {
+    text-align: left;
+}
+
+.stat {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: min-content;
+    text-align: center;
+}
+
+.thumbnail {
+    height: min-content;
+    width: min-content;
+    border-radius: 8px 8px 8px 8px;;
+    padding-right: 5px;
+}
+
+.videoPreviewContainer {
+    display: flex;
+    padding: auto;
+}
+
+.topVideoStat {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    max-height: min-content;
+}
+
+.titleAndThumbnail {
+    /* display: flex; */
+    height: min-content;
+    cursor: pointer;
+}
+
+.titleAndThumbnail:hover {
+    text-decoration: underline;
+}
+
+.investedThumbnail {
+    display: block;
+  max-width:100px;
+  max-height:50px;
+  width: auto;
+  height: auto;
+}
+.bottomVideoStat {
+    width: 100%;
+    max-height: min-content;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.videoMetricNumber {
+    font-size: 20px;
+}
+
+.videoMetric {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    width: 40%;
+    min-width: 0;
+    margin: 10px;
+    border-radius: 6px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.investedVideoTitle {
+    white-space: wrap;
+    text-overflow: ellipses;
+    overflow: hidden;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+    max-height: min-content;
+    padding-top: 5px;
+    margin: 0;
+}
+
+.videoSell {
+    background-color: aliceblue;
+    color: black;
+}
+
+.investmentContainer {
+    display: grid;
+    grid-template-rows: fit-content(8ch) 1fr;
+    grid-gap: 10px;
+    border: 1px solid rgba(162, 12, 12, 0.654);
+    min-width: 300px;
+    border-radius: 8px;
+    height: min-content;
+    padding: 6px;
+    background-color: #1f1f1f;
+    background: rgba(0, 0, 0, 0.587);
+box-shadow: 0 8px 32px 0 rgba(38, 38, 41, 0.891);
+backdrop-filter: blur( 20px );
+-webkit-backdrop-filter: blur( 20px );
+border-radius: 10px;
+color: white;
+}
+
+.currentVideoDetailsContainer {
+    background-color: rgba(0, 0, 0, 0.807);
+    border-radius: 10px;
+    padding: 16px;
+    padding-top: 5px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.investInputContainer {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+
+.investmentInput {
+    width: 90%;
+}
+
+.loading {
+    padding: 40px;
+}
+
+.ratioStat {
+    text-align: right;
+}
+
+.ratioStatProfitContainer {
+    margin: 0;
+    padding: 0;
+display: flex;
+text-align: right;
+justify-content: right;
+}
+
+.youcoinsLogo {
+    height: 70px;
+    width: 70px;
+    padding-right: 5px;
+}

@@ -1,0 +1,111 @@
+.container {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    max-height: min-content;
+    border-radius: 15px;
+    border: 1px solid rgb(250, 249, 209);
+    margin: 10px;
+    
+}
+
+.userContainer {
+    width: 100%;
+    max-height: min-content;
+    border-radius: 15px;
+    background-color: rgb(250, 249, 209);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    color: black;
+    align-items: center;
+    padding: 10px;
+}
+
+.rank {
+    padding: 20px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+}
+.middle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userBalance {
+    font-weight: 250;
+}
+
+.right {
+    width: 100%;
+    text-align: right;
+    height: min-content;
+    padding: 10px;
+    justify-content: right;
+    align-items: center;
+    background-color: #d7d7d794;
+    border-radius: 15px;
+    color: rgb(10, 10, 10);
+    font-size: small;
+}
+
+.userName {
+    display: flex;
+    align-items: center;
+    font-weight:90;
+}
+.bestPickHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 1rem;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+}
+
+.bestPick {
+  display: inline;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  color: #00000090;
+}
+
+.bestPick :hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.bestPickImg {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.bestPickImg :hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.nothing {
+  font-style: italic;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.bestPickTitle{
+    margin: 0;
+    width: 20%;
+    text-overflow: ellipsis;
+    display: inline;
+    align-items: right;
+    justify-content: flex-end;
+}

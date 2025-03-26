@@ -1,0 +1,91 @@
+.container {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin-top: 55px;
+    background: rgb(117,0,0);
+    background: linear-gradient(180deg, rgba(117,0,0,1) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+  }
+
+  .title {
+    margin: 0;
+    padding: 40px;
+    line-height: 1.15;
+    font-size: 4rem;
+    color: white;
+    font-weight: 90;
+  }
+
+  .title,
+  .description {
+    text-align: center;
+  }
+
+.plans {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  
+  .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 300px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    text-align: center;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
+  
+  .card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+  }
+  
+  .featureList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .featureList li {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .button {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .button:hover {
+    background-color: #005dc1;
+  }
+  
+  .button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .premium {
+    border: 2px solid gold;
+  }
+  

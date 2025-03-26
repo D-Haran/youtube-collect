@@ -6,7 +6,7 @@ import firebaseApp from "../../../firebase/clientApp";
 export default async function GET(req, res) {
     if (admin.apps.length === 0) {
         admin.initializeApp({
-          credential: admin.credential.cert(require("../../../firebase-key.json"))})
+          credential: admin.credential.cert(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)})
       }
     try {
         const docRef = admin.firestore().collection("profile")

@@ -8,7 +8,7 @@ const Premium = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     async function firestoreGetLeaderboard() {
-    await fetch(`http://localhost:3000/api/leaderboard/route`, {
+    await fetch(`https://youtube-collect-kqmsvpgbq-dharans-projects-840a6d7c.vercel.app/api/leaderboard/route`, {
         method: "GET"
     })
     .then(res => res.json())

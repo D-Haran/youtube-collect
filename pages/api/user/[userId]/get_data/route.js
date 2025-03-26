@@ -1,15 +1,17 @@
 import * as admin from "firebase-admin";
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from "next/server";
-if (admin.apps.length === 0) {
-    admin.initializeApp({
-      credential: admin.credential.cert(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY)})
-  }
+
 
 export default async function GET(req, res) {
+    
     // const { userId } = req.params;
     const userId = req.query.userId;
     try {
+        if (admin.apps.length === 0) {
+    admin.initializeApp({
+      credential: admin.credential.cert(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY)})
+  }
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()
         const data = profileData.data()

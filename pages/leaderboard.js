@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Query } from 'firebase/firestore'
-import LeaderboardUser from '../components/leaderBoardUser/leaderBoardUser'
+import LeaderboardUser from '../components/leaderBoardUser/leaderboardUser'
 import styles from '../styles/leaderboard.module.css'
 import Navbar from '../components/navbar/navbar'
 import { useUser, signOutWithGoogle, signInWithGoogle } from "../context/userContext";

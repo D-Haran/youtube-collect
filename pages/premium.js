@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Query } from 'firebase/firestore'
-import LeaderboardUser from '../components/leaderBoardUser/leaderBoardUser'
 import styles from '../styles/premium.module.css'
 import Navbar from '../components/navbar/navbar'
 import Image from 'next/image'
-import Head from 'next/head'
 import { useUser } from '../context/userContext'
 
 const Premium = () => {

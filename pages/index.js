@@ -158,7 +158,7 @@ useEffect(() => {
     <div className={styles.container}>
       <Head>
         <title>Youtube Collect</title>
-        <link rel="icon" href="/YouCoins_logo.png" />
+        <link rel="icon" href="/youCoinsLogo.png" />
       </Head>
 
       <main>
@@ -171,7 +171,7 @@ useEffect(() => {
         <div>
           <div className={styles.balanceContainer}>
           <Image 
-          src="/YouCoins_logo.png"
+          src="/youCoinsLogo.png"
         width={100}
         height={100}
         alt="Picture of the author"

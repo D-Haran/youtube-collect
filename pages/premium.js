@@ -28,7 +28,7 @@ const Premium = () => {
       <h2>
         <p>Collect Basic</p>
       <Image 
-        src="/YouCoins_Logo.png"
+        src="/youCoinsLogo.png"
         width={80}
         height={80}
         alt="Picture of the author"

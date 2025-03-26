@@ -27,7 +27,7 @@ const LeaderboardUser = ({user, index, me}) => {
         </div>
         <div className={styles.middle}>
         <Image 
-          src="/YouCoins_logo.png"
+          src="/youCoinsLogo.png"
         width={40}
         height={40}
         alt="Picture of the author"

@@ -10,6 +10,7 @@ export default async function GET(req, res) {
     // const { userId } = req.params;
     const userId = req.query.userId;
     const get_any_video_metadata = async (video_id) => {
+      try {
         // const video_id = url.split('watch?v=')[1]
         console.log(video_id)
         let res;
@@ -17,15 +18,24 @@ export default async function GET(req, res) {
         .then(res => res.json())
         .then(json => res = json);
         return res
-
+      }catch (error) {
+        console.log(error.message)
+        res.status(500).json({ success: false, error: error.message });
+    }
       }
       const get_collect_ratio_video = async (video_id) => {
-        var res = 0
+        try {
+          var res = 0
         console.log("THISSSSSS ONE: ", video_id)
         await fetch(`http://127.0.0.1:8000/collect_ratio/${video_id}`)
           .then(res => res.json())
           .then(json => {res = (json[2])});
         return res
+        }catch (error) {
+          console.log(error.message)
+          res.status(500).json({ success: false, error: error.message });
+      }
+        
       }
     function getCrashChanceForMilestone(pnl) {
         if (pnl >= 2000) return 0.40;

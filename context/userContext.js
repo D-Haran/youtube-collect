@@ -23,7 +23,7 @@ export default function UserContextComp({ children }) {
           // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
           setUser({ uid, displayName, email, photoURL });
           const jwt = require("jsonwebtoken");
-          const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+          const JWT_SECRET = process.env.JWT_SECRET;
           console.log(JWT_SECRET)
           var token = await getIdToken(auth.currentUser, true);
           console.log(token)

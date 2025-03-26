@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from "next/server";
 if (admin.apps.length === 0) {
     admin.initializeApp({
-      credential: admin.credential.cert(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)})
+      credential: admin.credential.cert(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY)})
   }
 
 export default async function GET(req, res) {

@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import styles from '../styles/premium.module.css'
 import Navbar from '../components/navbar/navbar'
 import Image from 'next/image'
 import { useUser } from '../context/userContext'
+import firebaseApp from '../firebase/clientApp'
+import {getCheckoutUrl} from './stripePayment'
+import {getPremiumStatus} from './getPremiumStatus'
+
 
 const Premium = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
-    async function firestoreGetLeaderboard() {
-    await fetch(`/api/leaderboard/route`, {
-        method: "GET"
-    })
-    .then(res => res.json())
-    .then(data => {console.log(data); setLeaderboard(data.data)});
-    }
+    const [isPremium, setIsPremium] = useState(false)
+    const router = useRouter()
+
+    useEffect(() => {
+      const checkPremium = async () => {
+        if (firebaseApp) {
+          const newPremiumStatus = user
+          ? await getPremiumStatus(firebaseApp)
+          : false;
+        setIsPremium(newPremiumStatus);
+      };
+        }
+        
+      checkPremium();
+    }, [firebaseApp, user]);
     
+    const handleUpgradeToPremium = async () => {
+      const priceId = "price_1R74u8HaSp5G9lrw3cUTBeP3"
+      const checkoutUrl = await getCheckoutUrl(firebaseApp, priceId)
+      router.push(checkoutUrl)
+    }
 
   return (
     <div className={styles.someCSSMoludesClass}>
@@ -42,7 +60,7 @@ const Premium = () => {
         <li><b>10</b> minute Investment cooldown</li>
         <li><b>65%</b> limit of available balance to invest in one video</li>
       </ul>
-      <button className={styles.button} disabled>Current Plan</button>
+      <button className={styles.button} disabled={isPremium ? false : true}>Current Plan</button>
     </div>
 
     {/* Premium Plan Card */}
@@ -64,7 +82,7 @@ const Premium = () => {
         <li><b>6</b> minute Investment cooldown</li>
         <li><b>75%</b> limit of available balance to invest in one video</li>
       </ul>
-      <button className={styles.button}>Upgrade</button>
+      <button disabled={isPremium ? true : false} className={styles.button} onClick={handleUpgradeToPremium}>Upgrade</button>
         </div>
     </div>
         </div>

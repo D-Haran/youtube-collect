@@ -2,7 +2,7 @@
     display: flex;
     position: fixed;
     align-items: center;
-    height: min-content;
+    height: 90px;
     padding: 20px;
     color: white;
     top: 0;

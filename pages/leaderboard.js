@@ -36,11 +36,9 @@ const Leaderboard = () => {
             <div className={styles.leaderboardUsersContainer}>
                 {leaderboard &&
             leaderboard.map((profile, index) => {
-                console.log(profile)
-                console.log(user)
                 return(
                     <div className={styles.leaderboardUserContainer}>
-                        <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={user?.displayName == profile.userName ? true : false} />
+                        <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={user?.uid == profile.id ? true : false} />
                     </div>
                 )
             })

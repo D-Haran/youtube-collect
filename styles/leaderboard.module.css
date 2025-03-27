@@ -34,7 +34,7 @@
 .container {
     min-height: 100vh;
     min-width: 100vw;
-    margin-top: 55px;
+    padding-top: 90px;
     background: rgb(117,0,0);
     background: linear-gradient(180deg, rgba(117,0,0,1) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
   }

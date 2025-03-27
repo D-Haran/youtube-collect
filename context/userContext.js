@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { createFirebaseApp, firebaseAuth } from "../firebase/clientApp";
+import firebaseApp, { createFirebaseApp, firebaseAuth } from "../firebase/clientApp";
 import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, getIdToken } from "firebase/auth";
+import { getPremiumStatus } from "../pages/getPremiumStatus";
 import axios from "axios";
 
 export const UserContext = createContext();
@@ -13,27 +14,29 @@ export default function UserContextComp({ children }) {
     // Listen authenticated user
     const app = createFirebaseApp();
     const auth = getAuth(app);
+    
     const unsubscriber = onAuthStateChanged(auth, async (user) => {
       try {
         if (user) {
+          var isPremium = false
+          const newPremiumStatus = user
+          ? await getPremiumStatus(firebaseApp)
+          : false;
+          console.log("PREMIUM?: ", newPremiumStatus)
+        isPremium = newPremiumStatus;
           console.log("USER: ", user)
           // User is signed in.
           const { uid, displayName, email, photoURL } = user;
           // You could also look for the user doc in your Firestore (if you have one):
           // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
-          setUser({ uid, displayName, email, photoURL });
-          const jwt = require("jsonwebtoken");
-          const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
-          console.log(JWT_SECRET)
+          setUser({ uid, displayName, email, photoURL, isPremium });
           var token = await getIdToken(auth.currentUser, true);
-          console.log(token)
-          console.log("TOKEN: ", token)
           document.cookie = "accessToken="+token
         } else {
           setUser(null)
         };
       } catch (error) {
-        // Most probably a connection error. Handle appropriately.
+        console.log(error.message)
       } finally {
         setLoadingUser(false);
       }

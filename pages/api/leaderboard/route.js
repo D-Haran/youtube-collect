@@ -16,7 +16,9 @@ export default async function GET(req, res) {
         const leaderboard = await data.get().then(querySnapshot => {
             let docs = querySnapshot.docs;
             for (let doc of docs) {
-                leaderboardList.push(doc.data())
+              const profile = doc.data()
+              profile.id = doc.id
+                leaderboardList.push(profile)
               console.log(`Document found at path: ${doc.data().balance}`);
             }
           });

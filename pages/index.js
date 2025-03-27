@@ -32,15 +32,15 @@ export default function Home() {
     borderColor: "red",
   };
 
-async function firestoreUpdateUserData(userId) {
-  await fetch(`/api/user/${userId}/set_data/route`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ balance: balance, userId: userId, investments: videoInvestments })
-  })
-  .then(res => res.json())
-  .then(data => console.log("Balance updated:", data));
-}
+  async function firestoreUpdateUserData(userId) {
+    await fetch(`/api/user/${userId}/set_data/route`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: user.displayName })
+    })
+    .then(res => res.json())
+    .then(data => console.log("Balance updated:", data));
+  }
 
 const handleSignout = () => {
   signOutWithGoogle()
@@ -53,8 +53,8 @@ async function firestoreGetUserData(userId) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
-  .then(res => {console.log(res); return res.json()})
-  .then(data => {console.log(data); setFirestoreUserData(data.data); setVideoInvestmentHistory(data.data.investmentHistory.reverse())});
+  .then(res => {if (res.status == 500) {console.log(res);firestoreUpdateUserData(userId); firestoreGetUserData(userId); return {success: false}} else {return res.json();} })
+  .then(data => {console.log("DATAAA", data); if (data.success) {setFirestoreUserData(data?.data); if (data.data?.investmentHistory.length > 0){data.data?.investmentHistory.reverse(); setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30))}; }});
 }
 
 
@@ -118,15 +118,18 @@ useEffect(() => {
 
 
   useEffect(() => {
-    if (!loadingUser) {
-      if (user) {
-        firestoreGetUserData(user.uid)
-        get_video_investments()
+    if (!loadingUser && !firestoreUserData) {
+      const myAsyncFunction = async() => {
+        if (user) {
+        await firestoreGetUserData(user.uid)
+        await get_video_investments()
         setLoggedIn(true)
         console.log("INVESTMENTS:", videoInvestments)
       } else {
         setLoggedIn(false)
       }
+      }
+      myAsyncFunction()
     }
     // You also have your firebase app initialized
   }, [loadingUser, user]);
@@ -137,17 +140,6 @@ useEffect(() => {
     }
     
   }, [firestoreUserData])
-
-  const createUser = async () => {
-    if (!loadingUser && loggedIn) {
-      console.log(user?.uid)
-      const db = getFirestore();
-      const profile = { balance: 0, investments: {} };
-      await setDoc(doc(db, "profile", String(user.uid)), profile);
-    } else {
-      alert("User is not logged in yet")
-    }
-  };
 
   useEffect(() => {
     setHoldingHistoryOpen(!currentHoldingsOpen)
@@ -162,20 +154,30 @@ useEffect(() => {
       </Head>
 
       <main>
-        {user &&
+        {(user) &&
           <Navbar userDisplayName={user.displayName}/>
         
         }
         
-        {firestoreUserData ?
+        {(firestoreUserData && user) ?
         <div>
           <div className={styles.balanceContainer}>
-          <Image 
+            {user.isPremium ?
+            <Image 
+          src="/premiumCoins.png"
+        width={100}
+        height={100}
+        alt="Picture of the author"
+        />
+        :
+        <Image 
           src="/youCoinsLogo.png"
         width={100}
         height={100}
         alt="Picture of the author"
         />
+          }
+          
           <h1 className="title">
           <NumberFlow value={(Number(balance.toFixed(2)))}  />  
             </h1>

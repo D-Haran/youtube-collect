@@ -30,8 +30,8 @@ export default async  function POST(req, res) {
         }
         var historyInvestment = sellingInvestment
         historyInvestment.investmentType = "SELL"
-        await admin.firestore().collection("profile").doc(userId).set({ 
-            
+        historyInvestment.dateOfActivity = new Date(Date.now())
+        await admin.firestore().collection("profile").doc(userId).set({
             balance: Number(newBalance),
             investments: new_investments,
             investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment)

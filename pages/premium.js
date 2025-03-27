@@ -5,8 +5,8 @@ import Navbar from '../components/navbar/navbar'
 import Image from 'next/image'
 import { useUser } from '../context/userContext'
 import firebaseApp from '../firebase/clientApp'
-import {getCheckoutUrl} from './stripePayment'
-import {getPremiumStatus} from './getPremiumStatus'
+import {getCheckoutUrl} from '../stripe/stripePayment'
+import {getPremiumStatus} from '../stripe/getPremiumStatus'
 
 
 const Premium = () => {

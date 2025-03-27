@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import firebaseApp, { createFirebaseApp, firebaseAuth } from "../firebase/clientApp";
 import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, getIdToken } from "firebase/auth";
-import { getPremiumStatus } from "../pages/getPremiumStatus";
+import { getPremiumStatus } from "../stripe/getPremiumStatus";
 import axios from "axios";
 
 export const UserContext = createContext();

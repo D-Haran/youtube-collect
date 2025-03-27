@@ -37,6 +37,7 @@ export default async  function POST(req, res) {
                 investment.crashed = false
                 investment.lastMilestone = 0
                 var historyInvestment = investment
+                historyInvestment.dateOfActivity = new Date(Date.now())
                 historyInvestment.investmentType = "BUY"
                 var arrUnion = docRef.set({
                     investments: admin.firestore.FieldValue.arrayUnion(investment),

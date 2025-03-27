@@ -151,6 +151,7 @@ useEffect(() => {
       <Head>
         <title>Youtube Collect</title>
         <link rel="icon" href="/youCoinsLogo.png" />
+        <meta name="google-site-verification" content="odCTNV3mrGrvM2JpHbiMllYzHWTEldh95mlprg9skOA" />
       </Head>
 
       <main>

@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export default async  function POST(req, res) {
     // const { userId } = req.params;
-    const { investment_id, userId, profited } = req.body;
+    const { investment_id, userId, profited, viewsAtSell } = req.body;
     try {
         const docRef = await (await admin.firestore().collection("profile").doc(userId).get()).data()
         const bestPick = docRef.bestPick
@@ -30,6 +30,7 @@ export default async  function POST(req, res) {
         }
         var historyInvestment = sellingInvestment
         historyInvestment.investmentType = "SELL"
+        historyInvestment.viewsAtSell = viewsAtSell
         historyInvestment.dateOfActivity = new Date(Date.now())
         await admin.firestore().collection("profile").doc(userId).set({
             balance: Number(newBalance),

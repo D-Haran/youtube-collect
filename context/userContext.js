@@ -23,7 +23,7 @@ export default function UserContextComp({ children }) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ idToken }),
-          }).then(res => res.json()).then(data => {console.log("CONTEXT DATAAAAA", data.sessionCookie); document.cookie = "sessionCookie="+data.sessionCookie});
+          }).then(res => res.json()).then(data => {document.cookie = "sessionCookie="+data.sessionCookie});
           var isPremium = false
           const newPremiumStatus = user
           ? await getPremiumStatus(firebaseApp)

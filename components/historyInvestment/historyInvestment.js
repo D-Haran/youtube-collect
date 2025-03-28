@@ -3,7 +3,7 @@ import styles from './historyInvestment.module.css'
 
 const HistoryInvestment = ({video}) => {
   const profit_loss = video?.curr_ratio > video?.initial_ratio
-  const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
+  const hoursSinceUpload = (Number(video?.video_metadata.snippet?.hoursSinceUpload || 0.00)).toFixed(1)
   console.log(video)
   return (
     <div className={styles.investmentContainer}>

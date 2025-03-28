@@ -18,10 +18,15 @@ export default async function GET(req, res) {
         if (data.investments && data.investments.length > 1) {
             data.investments.reverse()
         }
-        const diffTime = Math.abs(new Date(data.lastRefreshed) - (Date.now()));
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
-        if (diffDays != 0) {
-            docRef.update({lastRefreshed: Date(Date.now()),
+        function getUTCDateString(date) {
+            const d = new Date(date);
+            return d.toISOString().split("T")[0];
+          }
+        const now = new Date(Date.now());
+        const lastDate = getUTCDateString(new Date(data.lastRefreshed));
+        const currentDate = getUTCDateString(now);
+        if (lastDate !== currentDate) {
+            docRef.update({lastRefreshed: new Date().toISOString(),
             daily_trades_left: profileData.premium ? 12 : 5})
         }
         res.json({ success: true, data });

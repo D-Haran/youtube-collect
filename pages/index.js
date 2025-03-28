@@ -25,6 +25,7 @@ export default function Home() {
   const [holdingHistoryOpen, setHoldingHistoryOpen] = useState(true)
   const [videoInvestmentHistory, setVideoInvestmentHistory] = useState([])
   const [investmentsLoaded, setInvestmentsLoaded] = useState(false)
+  const [currentUser, setCurrentUser] = useState(user)
 
   const override = {
     display: "block",
@@ -118,6 +119,7 @@ useEffect(() => {
 
 
   useEffect(() => {
+    if (user != currentUser) {
       const myAsyncFunction = async() => {
         if (user) {
         await firestoreGetUserData(user.uid)
@@ -129,8 +131,10 @@ useEffect(() => {
       }
       }
       myAsyncFunction()
+    }
+      
     // You also have your firebase app initialized
-  }, [loadingUser, user]);
+  }, [loadingUser, user?.uid]);
 
   useEffect(() => {
     if (firestoreUserData) {

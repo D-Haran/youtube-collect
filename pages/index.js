@@ -159,7 +159,7 @@ useEffect(() => {
         
         }
         
-        {(firestoreUserData && user) ?
+        {(firestoreUserData && user && !loadingUser) ?
         <div>
           <div className={styles.balanceContainer}>
             {user.isPremium ?
@@ -254,7 +254,36 @@ useEffect(() => {
           }
         </div>
         :
-        <button onClick={user ? handleSignout : signInWithGoogle}>Sign {user ? "Out" : "In"}</button>
+        <div>
+          {
+            !loadingUser ?
+            <div>
+              <h1 className={styles.title}>Welcome to Youtube Collect</h1>
+          <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
+          <div className={styles.buttonContainer}>
+              <button className={styles.signinButton} onClick={user ? handleSignout : signInWithGoogle}>
+            Sign {user ? "Out" : "In"}
+          </button>
+          </div>
+              <footer className={styles.footer}>
+          &copy; 2025 YouTube Collect. All rights reserved.
+        </footer>
+            </div>
+            :
+            <ClipLoader
+                className={styles.loading}
+                color="#e10707"
+                loading={true}
+                cssOverride={override}
+                size={80}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            
+          }
+          
+        </div>
+        
         }
         
 

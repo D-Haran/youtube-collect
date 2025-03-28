@@ -10,7 +10,44 @@
     background: linear-gradient(180deg, rgb(4, 4, 4) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
   }
 
+  .title {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
 
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #cccccc;
+  }
+
+  .signinButton {
+    background-color: #9f1f1f;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .signinButton:hover {
+    background-color: #860606;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer {
+    margin-top: 4rem;
+    font-size: 0.9rem;
+    color: #888;
+  }
   .balanceContainer {
     background-color: rgba(0, 0, 0, 0.707);
     font-size: 30px;

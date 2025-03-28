@@ -14,7 +14,7 @@ export default async function GET(req, res) {
         // const video_id = url.split('watch?v=')[1]
         console.log(video_id)
         let res;
-        await fetch(`https://youtube-collect-2dug6j5ot-dharans-projects-840a6d7c.vercel.app/get_video_metadata/${video_id}`)
+        await fetch(`https://youtube-collect.vercel.app/get_video_metadata/${video_id}`)
         .then(res => res.json())
         .then(json => res = json);
         return res
@@ -27,7 +27,7 @@ export default async function GET(req, res) {
         try {
           var res = 0
         console.log("THISSSSSS ONE: ", video_id)
-        await fetch(`https://youtube-collect-2dug6j5ot-dharans-projects-840a6d7c.vercel.app/collect_ratio/${video_id}`)
+        await fetch(`https://youtube-collect.vercel.app/collect_ratio/${video_id}`)
           .then(res => {console.log(res);return res.json()})
           .then(json => {res = (json[2])});
         return res
@@ -62,7 +62,7 @@ export default async function GET(req, res) {
                     const milestone = Math.floor(PnL / 100) * 100;
                     console.log("MILESTONE: ", milestone)
                     
-                    const milestones_passed = milestone - inv.lastMilestone
+                    const milestones_passed = milestone - inv.lastMilestone || 0
                     console.log(milestones_passed)
                     if (milestones_passed>0) {
                         for (let s = 0; s < (milestones_passed/100); s++) {

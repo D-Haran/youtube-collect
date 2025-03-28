@@ -18,6 +18,12 @@ export default function UserContextComp({ children }) {
     const unsubscriber = onAuthStateChanged(auth, async (user) => {
       try {
         if (user) {
+          const idToken = await user.getIdToken();
+          await fetch("/api/auth/login/route", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken }),
+          });
           var isPremium = false
           const newPremiumStatus = user
           ? await getPremiumStatus(firebaseApp)

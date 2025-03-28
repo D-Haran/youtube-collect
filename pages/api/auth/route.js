@@ -12,16 +12,14 @@ export default async  function POST(req, res) {
   try {
       // Verify token using Firebase Authentication
       // const decoded = await admin.auth().verifyIdToken(token);
-      const sessionCookie = req.cookies.session;
-      const decoded = await admin.auth().verifySessionCookie(sessionCookie, true);
+      const decoded = await admin.auth().verifySessionCookie(token, true);
       const userId = decoded.uid;
       const userName = decoded.name;
-      console.log(decoded)
 
       // Send back the verified user ID
       res.json({ success: true, data: {userId, userName} });
   } catch (error) {
-    
+    console.error(error.message)
       res.status(401).json({ success: false, error: "Invalid token" });
   }
   }

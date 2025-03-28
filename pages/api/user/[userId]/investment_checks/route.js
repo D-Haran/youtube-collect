@@ -14,7 +14,7 @@ export default async function GET(req, res) {
         // const video_id = url.split('watch?v=')[1]
         console.log(video_id)
         let res;
-        await fetch(`https://youtube-collect.vercel.app/get_video_metadata/${video_id}`)
+        await fetch(`https://youtube-collect-api.vercel.app/get_video_metadata/${video_id}`)
         .then(res => res.json())
         .then(json => res = json);
         return res
@@ -27,8 +27,8 @@ export default async function GET(req, res) {
         try {
           var res = 0
         console.log("THISSSSSS ONE: ", video_id)
-        await fetch(`https://youtube-collect.vercel.app/collect_ratio/${video_id}`)
-          .then(res => {console.log(res);return res.json()})
+        await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
+          .then(res => {return res.json()})
           .then(json => {res = (json[2])});
         return res
         }catch (error) {
@@ -120,7 +120,7 @@ export default async function GET(req, res) {
         }
         res.json({ success: true, data });
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ success: false, error: error.message });
     }
 }

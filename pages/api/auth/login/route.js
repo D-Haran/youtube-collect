@@ -7,9 +7,7 @@ export default async function handler(req, res) {
   try {
     const sessionCookie = await admin.auth().createSessionCookie(idToken, { expiresIn });
 
-    // Set cookie
-    res.setHeader("Set-Cookie", `session=${sessionCookie}; Path=/; HttpOnly; Secure; Max-Age=${expiresIn / 1000}`);
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, sessionCookie });
   } catch (error) {
     res.status(401).json({ error: "Failed to create session cookie" });
   }

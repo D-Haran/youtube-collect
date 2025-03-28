@@ -119,7 +119,6 @@ useEffect(() => {
 
 
   useEffect(() => {
-    if (user != currentUser) {
       const myAsyncFunction = async() => {
         if (user) {
         await firestoreGetUserData(user.uid)
@@ -131,8 +130,6 @@ useEffect(() => {
       }
       }
       myAsyncFunction()
-    }
-      
     // You also have your firebase app initialized
   }, [loadingUser, user?.uid]);
 

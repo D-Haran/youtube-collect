@@ -43,8 +43,8 @@ export default async function GET(req, res) {
         if (pnl >= 500) return 0.20; 
         if (pnl >= 400) return 0.15; 
         if (pnl >= 300) return 0.12; 
-        if (pnl >= 200) return 0.04; 
-        if (pnl >= 100) return 0.03; 
+        if (pnl >= 200) return 0.09; 
+        if (pnl >= 100) return 0.04; 
         return 0;
       }
     try {

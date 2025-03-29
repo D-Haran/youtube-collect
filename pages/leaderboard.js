@@ -4,16 +4,29 @@ import LeaderboardUser from '../components/leaderBoardUser/leaderboardUser'
 import styles from '../styles/leaderboard.module.css'
 import Navbar from '../components/navbar/navbar'
 import { useUser, signOutWithGoogle, signInWithGoogle } from "../context/userContext";
+import ClipLoader from "react-spinners/HashLoader";
 
 const Leaderboard = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    const override = {
+      display: "block",
+      margin: "0 auto",
+      borderColor: "red",
+    };
+
+
     async function firestoreGetLeaderboard() {
     await fetch(`/api/leaderboard/route`, {
         method: "GET"
     })
     .then(res => res.json())
-    .then(data => {console.log(data); setLeaderboard(data.data)});
+    .then(data => {console.log(data); 
+      setLeaderboard(data.data);
+      setLoading(false)
+    });
     }
     useEffect(() => {
         firestoreGetLeaderboard()
@@ -28,22 +41,42 @@ const Leaderboard = () => {
             </div>
             
         <div className={styles.leaderboardContainer}>
-            <div className={styles.metricLabelsContainer}>
-                <h3 style={{textDecoration: 'underline', fontWeight: "200"}}>Name</h3>
-                <h3 className={styles.metricLabel}>Realized Gains</h3>
-                <h3 className={styles.metricLabel}>Best Pick</h3>
+          {
+            !loading ?
+            <>
+              <div className={styles.metricLabelsContainer}>
+                  <h3 style={{textDecoration: 'underline', fontWeight: "200"}}>Name</h3>
+                  <h3 className={styles.metricLabel}>Realized Gains</h3>
+                  <h3 className={styles.metricLabel}>Best Pick</h3>
+              </div>
+              <div className={styles.leaderboardUsersContainer}>
+                  {leaderboard &&
+              leaderboard.map((profile, index) => {
+                  return(
+                      <div className={styles.leaderboardUserContainer}>
+                          <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={user?.uid == profile.id ? true : false} />
+                      </div>
+                  )
+              })
+          }  
+              </div>
+            </>
+            :
+            <div className={styles.loadingContainer}>
+              <ClipLoader
+                className={styles.loading}
+                color="#e10707"
+                loading={true}
+                cssOverride={override}
+                size={80}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
             </div>
-            <div className={styles.leaderboardUsersContainer}>
-                {leaderboard &&
-            leaderboard.map((profile, index) => {
-                return(
-                    <div className={styles.leaderboardUserContainer}>
-                        <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={user?.uid == profile.id ? true : false} />
-                    </div>
-                )
-            })
-        }  
-            </div>
+            
+            
+          }
+            
           
         </div>
         

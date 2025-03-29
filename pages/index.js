@@ -189,8 +189,8 @@ useEffect(() => {
         />
           }
           
-          <h1 className="title">
-          <NumberFlow value={(Number(balance.toFixed(2)))}  />  
+          <h1 className={"title"}>
+          <NumberFlow value={(Number(balance.toFixed(2)))} />  
             </h1>
         </div>
         <div className={styles.investmentsOptionsContainer}>
@@ -436,6 +436,7 @@ useEffect(() => {
         body {
           padding: 0;
           margin: 0;
+          background: black;
           font-family:
             -apple-system,
             BlinkMacSystemFont,

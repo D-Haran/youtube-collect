@@ -1,5 +1,6 @@
 .container {
     min-height: 100vh;
+    min-width: 100vw;
     padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
@@ -8,6 +9,14 @@
     align-items: center;
     background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgb(4, 4, 4) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+  }
+
+  .balance {
+    font-size: 3rem;
+    line-height: 1.15;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: white;
   }
 
   .title {
@@ -74,8 +83,6 @@
   padding-top: 20px;
   padding-bottom: 20px;
   grid-gap: 10px;
-  justify-content: center;
-  justify-items: center;
   border: solid 1px black;
   border-radius: 12px;
   overflow-x: scroll;

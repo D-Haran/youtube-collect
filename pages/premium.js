@@ -60,7 +60,7 @@ const Premium = () => {
         <li><b>10</b> minute Investment cooldown</li>
         <li><b>65%</b> limit of available balance to invest in one video</li>
       </ul>
-      <button className={styles.button} disabled={isPremium ? false : true}>Current Plan</button>
+      <button className={styles.button} disabled={isPremium ? false : true}>{isPremium ? "Basic Plan" : "Current Plan"}</button>
     </div>
 
     {/* Premium Plan Card */}
@@ -82,7 +82,7 @@ const Premium = () => {
         <li><b>6</b> minute Investment cooldown</li>
         <li><b>75%</b> limit of available balance to invest in one video</li>
       </ul>
-      <button disabled={isPremium ? true : false} className={styles.button} onClick={handleUpgradeToPremium}>Upgrade</button>
+      <button disabled={isPremium ? true : false} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
         </div>
     </div>
         </div>

@@ -1,7 +1,6 @@
 .someCSSModulesClass {
     margin: 0;
     height: 100vh;
-    overflow-y: hidden;
   }
 
 .title {
@@ -35,6 +34,7 @@
     min-height: 100vh;
     min-width: 100vw;
     padding-top: 90px;
+    padding-bottom: 20px;
     background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgb(4, 4, 4) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
   }
@@ -47,7 +47,7 @@
   width: 85%;
   overflow-y: scroll;
   border-radius: 20px;
-  height: 70vh;
+  height: 80vh;
   font-size: smaller;
   color: white;
 }

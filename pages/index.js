@@ -272,7 +272,7 @@ useEffect(() => {
               <h1 className={styles.title}>Welcome to Youtube Collect</h1>
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
           <div className={styles.buttonContainer}>
-              <button className={styles.signinButton} onClick={user ? handleSignout : signInWithGoogle}>
+              <button className={styles.signinButton} disabled={user ? true : false} onClick={user ? handleSignout : signInWithGoogle}>
             Sign {user ? "Out" : "In"}
           </button>
           </div>

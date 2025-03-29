@@ -83,6 +83,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   grid-gap: 10px;
+  justify-content: safe center;
   border: solid 1px black;
   border-radius: 12px;
   overflow-x: scroll;

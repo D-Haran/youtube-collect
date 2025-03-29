@@ -38,12 +38,13 @@ export default async function GET(req, res) {
         
       }
     function getCrashChanceForMilestone(pnl) {
-        if (pnl >= 2000) return 0.40;
-        if (pnl >= 1000) return 0.25;
-        if (pnl >= 500) return 0.12; 
-        if (pnl >= 400) return 0.7; 
-        if (pnl >= 300) return 0.05; 
-        if (pnl >= 200) return 0.03; 
+        if (pnl >= 2000) return 0.50;
+        if (pnl >= 1000) return 0.35;
+        if (pnl >= 500) return 0.20; 
+        if (pnl >= 400) return 0.15; 
+        if (pnl >= 300) return 0.12; 
+        if (pnl >= 200) return 0.04; 
+        if (pnl >= 100) return 0.03; 
         return 0;
       }
     try {

@@ -68,18 +68,17 @@
 }
 
 .investmentsContainer {
-  display: grid;
+  display: flex;
   padding: 10%;
   width: 90vw;
   padding-top: 20px;
   padding-bottom: 20px;
-  grid-template-columns: repeat(auto-fit, 1fr);
   grid-gap: 10px;
   justify-content: center;
   justify-items: center;
   border: solid 1px black;
   border-radius: 12px;
-  grid-auto-flow: column;
+  overflow-x: scroll;
 }
 
 .investmentsOptionsContainer {

@@ -62,7 +62,7 @@ export default function UserContextComp({ children }) {
 export async function signOutWithGoogle() {
   try {
     await firebaseAuth.signOut();
-    document.cookie = "accessToken=nothing"
+    document.cookie = "sessionCookie=nothing"
   } catch (error) {
     console.error('Error signing out with Google', error);
   }

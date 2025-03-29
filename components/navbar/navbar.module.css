@@ -12,6 +12,23 @@
     z-index: 99;
 }
 
+.signOutButton {
+    color: white;
+    cursor: pointer;
+}
+
+.profileName {
+    position: absolute;
+    top: 60px;
+    right: 50px;
+    transition: ease-in-out;
+    transition-duration: 100ms;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+}
+
 .left {
     text-align: left;
     width: 100%;
@@ -31,8 +48,13 @@
 }
 
 .navBarItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
 }
 
 .getPremium {

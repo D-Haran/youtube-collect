@@ -8,6 +8,7 @@ import firebaseApp from '../../firebase/clientApp'
 
 const Navbar = ({userDisplayName}) => {
   const [isPremium, setIsPremium] = useState(false)
+  const [profileReveal, setProfileReveal] = useState(false)
   const user = useUser()
   useEffect(() => {
     if (user) {
@@ -44,14 +45,30 @@ const Navbar = ({userDisplayName}) => {
                     src="/premiumLogo.png"
                     width={30}
                     height={30}
-                    alt="Picture of the author"
+                    alt="Premium Coins"
                     /> 
                 
             </div>
             </Link>
             <div className={styles.navBarItem}>
-                {userDisplayName}
-                <p onClick={() => {signOutWithGoogle(); router.push('/');}}>Sign Out</p>
+              <Image 
+                onMouseEnter={() => setProfileReveal(true)}
+                onMouseLeave={() => setProfileReveal(false)} 
+                className={styles.profileLogo}
+                    src="/Profile.png"
+                    width={30}
+                    height={30}
+                    alt="Profile"
+                    /> 
+                {profileReveal && <p className={styles.profileName}>{userDisplayName}</p>}
+                <p className={styles.signOutButton}  onClick={() => {signOutWithGoogle(); router.push('/');}}>
+                <Image 
+                    src="/SignOut.png"
+                    width={30}
+                    height={30}
+                    alt="Sign Out"
+                    /> 
+                </p>
             </div>
         </div>
     </div>

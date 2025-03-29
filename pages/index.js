@@ -54,8 +54,19 @@ async function firestoreGetUserData(userId) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
-  .then(res => {if (res.status == 500) {console.log(res);firestoreUpdateUserData(userId); firestoreGetUserData(userId); return {success: false}} else {return res.json();} })
-  .then(data => {console.log("DATAAA", data); if (data.success) {setFirestoreUserData(data?.data); if (data.data?.investmentHistory?.length > 0){data.data?.investmentHistory?.reverse(); setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30))}; }});
+  .then(res => {if (res.status == 500) {
+    console.log(res);
+    firestoreUpdateUserData(userId); 
+    firestoreGetUserData(userId); 
+    return {success: false}} 
+    else 
+    {return res.json();} })
+  .then(data => {console.log("DATAAA", data); if (data.success) {
+    setFirestoreUserData(data?.data); 
+    if (data.data?.investmentHistory?.length > 0)
+    {data.data?.investmentHistory?.reverse(); 
+      setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30))};
+    }});
 }
 
 

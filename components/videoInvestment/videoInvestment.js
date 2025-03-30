@@ -55,7 +55,7 @@ const VideoInvestment = ({video}) => {
                  (nextMilestoneRange >= 70) 
                 &&
                 <b><p>
-                "Your position is overheating... there's a chance of a meltdown at "+(Number(video.lastMilestone)+100)+"% returns!"
+                "Your position is overheating... there's a chance of a meltdown at {(Number(video.lastMilestone)+100)}% returns!"
                 </p></b>
 }
               </div>

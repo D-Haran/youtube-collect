@@ -29,7 +29,7 @@ const Premium = () => {
     }, [firebaseApp, user]);
     
     const handleUpgradeToPremium = async () => {
-      const priceId = "price_1R74u8HaSp5G9lrw3cUTBeP3"
+      const priceId = "price_1R8CmlHaSp5G9lrwqnZJvr15"
       const checkoutUrl = await getCheckoutUrl(firebaseApp, priceId)
       router.push(checkoutUrl)
     }
@@ -75,7 +75,7 @@ const Premium = () => {
         /> 
         
     </h2>
-      <p className={styles.price}>$2.99/month</p>
+      <p className={styles.price}>$9 one time fee</p>
       <ul className={styles.featureList}>
         <li><b>12</b> trades per day</li>
         <li><b>5</b> active investments at a time</li>

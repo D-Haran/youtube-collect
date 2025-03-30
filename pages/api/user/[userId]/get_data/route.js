@@ -14,7 +14,8 @@ export default async function GET(req, res) {
   }
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()
-        const data = profileData.data()
+        if (profileData.exists) {
+            const data = profileData.data()
         if (data.investments && data.investments.length > 1) {
             data.investments.reverse()
         }
@@ -30,6 +31,10 @@ export default async function GET(req, res) {
             daily_trades_left: profileData.premium ? 12 : 5})
         }
         res.json({ success: true, data });
+        } else {
+            res.status(450).json({ success: false, error: "User Does Not Exist!" });
+        }
+        
     } catch (error) {
         console.log(error.message)
         res.status(500).json({ success: false, error: error.message });

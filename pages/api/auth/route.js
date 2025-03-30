@@ -7,7 +7,6 @@ if (admin.apps.length === 0) {
 
 export default async  function POST(req, res) {
   const { token } = req.body;
-  console.log("GOTTT")
   res.status
   try {
       // Verify token using Firebase Authentication
@@ -24,23 +23,4 @@ export default async  function POST(req, res) {
   }
   }
 
-// export default async function handler(req, res) {
-//     if (req.method === 'POST') {
-        // const { token } = req.body;
-        // console.log("GOTTT")
-        // res.status
-        // try {
-        //     // Verify token using Firebase Authentication
-        //     const decoded = await admin.auth().verifyIdToken(token);
-        //     const userId = decoded.uid;
-    
-        //     // Send back the verified user ID
-        //     res.json({ success: true, userId });
-        // } catch (error) {
-        //     res.status(401).json({ success: false, error: "Invalid token" });
-        // }
-//     } else {
-//       // Handle any other HTTP method
-//     }
-// }
 

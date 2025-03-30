@@ -19,7 +19,6 @@ export default async function GET(req, res) {
               const profile = doc.data()
               profile.id = doc.id
                 leaderboardList.push(profile)
-              console.log(`Document found at path: ${doc.data().balance}`);
             }
           });
         leaderboardList.reverse()

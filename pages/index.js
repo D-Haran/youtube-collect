@@ -54,10 +54,11 @@ async function firestoreGetUserData(userId) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
-  .then(res => {if (res.status == 500) {
+  .then(res => {if (res.status == 450) {
     console.log(res);
-    firestoreUpdateUserData(userId); 
-    firestoreGetUserData(userId); 
+    firestoreUpdateUserData(userId).then(data => {
+      firestoreGetUserData(userId); 
+    })
     return {success: false}} 
     else 
     {return res.json();} })

@@ -12,7 +12,6 @@ const Navbar = ({userDisplayName}) => {
   const user = useUser()
   useEffect(() => {
     if (user) {
-      console.log(user)
     setIsPremium(user?.user?.isPremium)
   }
   }, [user])

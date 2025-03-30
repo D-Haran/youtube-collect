@@ -23,7 +23,7 @@ const Leaderboard = () => {
         method: "GET"
     })
     .then(res => res.json())
-    .then(data => {console.log(data); 
+    .then(data => {
       setLeaderboard(data.data);
       setLoading(false)
     });

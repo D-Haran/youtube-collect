@@ -32,9 +32,7 @@ export default function UserContextComp({ children }) {
           const newPremiumStatus = user
           ? await getPremiumStatus(firebaseApp)
           : false;
-          console.log("PREMIUM?: ", newPremiumStatus)
         isPremium = newPremiumStatus;
-          console.log("USER: ", user)
           // User is signed in.
           const { uid, displayName, email, photoURL } = user;
           // You could also look for the user doc in your Firestore (if you have one):
@@ -46,7 +44,6 @@ export default function UserContextComp({ children }) {
           setUser(null)
         };
       } catch (error) {
-        console.log(error.message)
       } finally {
         setLoadingUser(false);
       }

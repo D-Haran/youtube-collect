@@ -15,16 +15,13 @@ export default async function GET(req, res) {
 
     const isPremium = q.get().then(querySnapshot => {
       if (querySnapshot.docs.length === 0) {
-            console.log("No active or trialing subscriptions found");
             res.json({ success: true, data: {premium: false}});
           } else {
-            console.log("Active or trialing subscription found");
             res.json({ success: true, data: {premium: true}});
           }
     })
 
     } catch (error) {
-        console.log(error.message)
         res.status(500).json({ success: false, error: error.message });
     }
 }

@@ -8,8 +8,8 @@ export default async  function POST(req, res) {
     const { investment, userId, percent_of_balance } = req.body;
 
     try {
-        const docRef = await admin.firestore().collection("profile").doc(userId)
-        var docRefData = (await admin.firestore().collection("profile").doc(userId).get()).data()
+        const docRef = admin.firestore().collection("profile").doc(userId)
+        var docRefData = (await docRef.get()).data()
         const cooldown_from_firestore = docRefData.cooldown
         const daily_trades_left = docRefData.daily_trades_left
         const holding_limit = docRefData.premium ? 8 : 3

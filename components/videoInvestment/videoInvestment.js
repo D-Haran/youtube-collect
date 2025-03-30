@@ -6,10 +6,8 @@ import { numify } from "numify";
 
 const VideoInvestment = ({video}) => {
   const [loadingSell, setLoadingSell] = useState(false)
-  console.log("CURR: ", video)
             const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
             const nextMilestoneRange = (((video.curr_ratio - video.initial_ratio)/video.initial_ratio)*100 - video.lastMilestone)
-            console.log("NEXT MILESTONE RANGE: ", nextMilestoneRange)
             return(
               <LoadingOverlay
               active={loadingSell}

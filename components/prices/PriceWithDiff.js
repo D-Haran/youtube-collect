@@ -1,6 +1,5 @@
 import NumberFlow, { NumberFlowGroup } from '@number-flow/react'
 export default function PriceWithDiff({ value, diff }) {
-	console.log(diff)
 	return (
 		<NumberFlowGroup>
 			<div

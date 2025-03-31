@@ -26,7 +26,6 @@ export default async function GET(req, res) {
       const get_collect_ratio_video = async (video_id) => {
         try {
           var res = 0
-        console.log("THISSSSSS ONE: ", video_id)
         await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
           .then(res => {return res.json()})
           .then(json => {res = (json[2])});
@@ -61,10 +60,8 @@ export default async function GET(req, res) {
                     const PnL = Math.ceil(((new_collect_ratio - inv.initial_ratio)/inv.initial_ratio)*100 || 1)
                     console.log(PnL)
                     const milestone = Math.floor(PnL / 100) * 100;
-                    console.log("MILESTONE: ", milestone)
                     
                     const milestones_passed = milestone - inv.lastMilestone || 0
-                    console.log(milestones_passed)
                     if (milestones_passed>0) {
                         for (let s = 0; s < (milestones_passed/100); s++) {
 

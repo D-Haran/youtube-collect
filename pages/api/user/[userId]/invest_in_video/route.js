@@ -11,8 +11,7 @@ export default async  function POST(req, res) {
         const docRef = admin.firestore().collection("profile").doc(userId)
         var docRefData = (await docRef.get()).data()
         const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
-        const isPremium = q.get().then(querySnapshot => {
-            console.log(querySnapshot)
+        const isPremium = await q.get().then(querySnapshot => {
             if (querySnapshot.docs.length === 0) {
                   return false
                 } else {
@@ -28,10 +27,7 @@ export default async  function POST(req, res) {
         if (investment.initial_ratio <= 0) {
             investment.initial_ratio = 0.134
         }
-
-        console.log(num_investments)
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now(): true
-        console.log(percent_of_balance)
         if ((cooldown_from_firestore == null || !on_cooldown || percent_of_balance <= percent_of_balance_limit) && daily_trades_left > 0 && num_investments < holding_limit && percent_of_balance <= percent_of_balance_investment_limit) {
             if (percent_of_balance <= percent_of_balance_limit) {
                 if (cooldown_from_firestore != null) {
@@ -40,7 +36,7 @@ export default async  function POST(req, res) {
                     var cooldown = (new Date(Date.now() + 120000))
                 }
             } else {
-                var cooldown = docRefData.premium ? new Date(Date.now() + 360000) : new Date(Date.now() + 600000)
+                var cooldown = isPremium ? new Date(Date.now() + 360000) : new Date(Date.now() + 600000)
             }
             if (cooldown_from_firestore == null || !on_cooldown) {
                 investment.crashed = false

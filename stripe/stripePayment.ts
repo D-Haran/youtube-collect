@@ -20,7 +20,7 @@ export const getCheckoutUrl = async (
   const db = getFirestore(app);
   const checkoutSessionRef = collection(
     db,
-    "customers",
+    "profile",
     userId,
     "checkout_sessions"
   );
@@ -29,6 +29,7 @@ export const getCheckoutUrl = async (
     price: priceId,
     success_url: window.location.origin,
     cancel_url: window.location.origin,
+    mode: 'payment'
   });
 
   return new Promise<string>((resolve, reject) => {

@@ -14,10 +14,10 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
   if (!userId) throw new Error("User not logged in");
 
   const db = getFirestore(app);
-  const subscriptionsRef = collection(db, "customers", userId, "subscriptions");
+  const subscriptionsRef = collection(db, "profile", userId, "payments");
   const q = query(
     subscriptionsRef,
-    where("status", "in", ["trialing", "active"])
+    where("status", "in", ["succeeded"])
   );
 
   return new Promise<boolean>((resolve, reject) => {

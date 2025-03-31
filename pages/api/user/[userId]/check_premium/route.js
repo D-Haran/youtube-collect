@@ -1,7 +1,4 @@
 import * as admin from "firebase-admin";
-import { NextApiRequest, NextApiResponse } from 'next'
-import { NextResponse } from "next/server";
-import { orderBy, query, where, limit, collection } from "firebase-admin/firestore";
 
 
 export default async function GET(req, res) {
@@ -11,7 +8,8 @@ export default async function GET(req, res) {
         const firebaseApp = admin.initializeApp({
         credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
     }
-    const q = admin.firestore().collection("customers").doc(userId).collection("subscriptions").where("status", "in", ["trialing", "active"])
+
+    const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
 
     const isPremium = q.get().then(querySnapshot => {
       if (querySnapshot.docs.length === 0) {

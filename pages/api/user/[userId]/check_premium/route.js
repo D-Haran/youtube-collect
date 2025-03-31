@@ -15,6 +15,18 @@ export default async function GET(req, res) {
       if (querySnapshot.docs.length === 0) {
             res.json({ success: true, data: {premium: false}});
           } else {
+            
+            const fetchProfile = async() => {
+              const docRef = admin.firestore().collection("profile").doc(userId)
+              const profileData = await docRef.get()
+                if (profileData.exists) {
+                const data = profileData.data()
+                if (data.premium == false) {
+                  docRef.update({premium: true})
+                }
+              }
+            }
+            fetchProfile()
             res.json({ success: true, data: {premium: true}});
           }
     })

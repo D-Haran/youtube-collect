@@ -31,7 +31,11 @@ const Premium = () => {
     const handleUpgradeToPremium = async () => {
       const priceId = "price_1R8CmlHaSp5G9lrwqnZJvr15"
       const checkoutUrl = await getCheckoutUrl(firebaseApp, priceId)
-      router.push(checkoutUrl)
+        await fetch(`${api_domain}/api/user/${user.uid}/check_premium/route`, {
+            method: "GET"
+        })
+        .then(res => {router.push(checkoutUrl)})
+      
     }
 
   return (

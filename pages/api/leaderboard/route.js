@@ -11,7 +11,7 @@ export default async function GET(req, res) {
     try {
         const docRef = admin.firestore().collection("profile")
         // const data = query(docRef, where("balance", ">", 100), orderBy("balance"), limit(3))
-        const data = (docRef.where("balance", ">=", 100).orderBy("balance").limit(50))
+        const data = (docRef.where("balance", ">=", 1).orderBy("balance").limit(50))
         const leaderboardList = []
         const leaderboard = await data.get().then(querySnapshot => {
             let docs = querySnapshot.docs;

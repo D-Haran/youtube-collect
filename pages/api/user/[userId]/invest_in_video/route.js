@@ -10,11 +10,20 @@ export default async  function POST(req, res) {
     try {
         const docRef = admin.firestore().collection("profile").doc(userId)
         var docRefData = (await docRef.get()).data()
+        const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
+        const isPremium = q.get().then(querySnapshot => {
+            console.log(querySnapshot)
+            if (querySnapshot.docs.length === 0) {
+                  return false
+                } else {
+                  return true
+                }
+          })
         const cooldown_from_firestore = docRefData.cooldown
         const daily_trades_left = docRefData.daily_trades_left
-        const holding_limit = docRefData.premium ? 8 : 3
+        const holding_limit = isPremium ? 8 : 3
         const percent_of_balance_limit = 11
-        const percent_of_balance_investment_limit = docRefData.premium ? 75 : 65
+        const percent_of_balance_investment_limit = isPremium ? 75 : 65
         const num_investments = docRefData.investments.length
         if (investment.initial_ratio <= 0) {
             investment.initial_ratio = 0.134

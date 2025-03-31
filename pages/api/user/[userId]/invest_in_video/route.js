@@ -20,7 +20,7 @@ export default async  function POST(req, res) {
           })
         const cooldown_from_firestore = docRefData.cooldown
         const daily_trades_left = docRefData.daily_trades_left
-        const holding_limit = isPremium ? 8 : 3
+        const holding_limit = isPremium ? 5 : 3
         const percent_of_balance_limit = 11
         const percent_of_balance_investment_limit = isPremium ? 75 : 65
         const num_investments = docRefData.investments.length

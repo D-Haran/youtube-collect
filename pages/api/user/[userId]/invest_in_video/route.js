@@ -28,7 +28,13 @@ export default async  function POST(req, res) {
             investment.initial_ratio = 0.134
         }
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now(): true
-        if ((cooldown_from_firestore == null || !on_cooldown || percent_of_balance <= percent_of_balance_limit) && daily_trades_left > 0 && num_investments < holding_limit && percent_of_balance <= percent_of_balance_investment_limit) {
+        if ((cooldown_from_firestore == null || 
+            !on_cooldown || 
+            percent_of_balance <= percent_of_balance_limit) 
+            && daily_trades_left > 0 
+            && num_investments < holding_limit 
+            && percent_of_balance <= percent_of_balance_investment_limit
+            ) {
             if (percent_of_balance <= percent_of_balance_limit) {
                 if (cooldown_from_firestore != null) {
                     var cooldown = (new Date(cooldown_from_firestore.seconds*1000 + 120000))

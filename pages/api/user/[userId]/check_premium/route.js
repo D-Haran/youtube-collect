@@ -16,11 +16,15 @@ export default async function POST(req, res) {
       if (querySnapshot.docs.length === 0) {
             res.json({ success: true, data: {premium: false}});
           } else {
-                if (curr_premium == false) {
+            res.json({ success: true, data: {premium: true}});
+            try {
+              if (curr_premium == false) {
                   const docRef = admin.firestore().collection("profile").doc(userId)
                   docRef.update({premium: true})
-              }
-            res.json({ success: true, data: {premium: true}});
+                }
+            } catch {
+
+            }
           }
     })
 

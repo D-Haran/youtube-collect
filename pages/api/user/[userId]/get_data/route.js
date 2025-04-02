@@ -9,9 +9,9 @@ export default async function GET(req, res) {
     const userId = req.query.userId;
     try {
         if (admin.apps.length === 0) {
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
-  }
+            admin.initializeApp({
+            credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
+        }
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()
         if (profileData.exists) {
@@ -28,7 +28,7 @@ export default async function GET(req, res) {
         const currentDate = getUTCDateString(now);
         if (lastDate !== currentDate) {
             docRef.update({lastRefreshed: new Date().toISOString(),
-            daily_trades_left: profileData.premium ? 12 : 5})
+            daily_trades_left: data.premium ? 12 : 5})
         }
         res.json({ success: true, data });
         } else {

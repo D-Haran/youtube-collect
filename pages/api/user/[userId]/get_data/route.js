@@ -27,8 +27,9 @@ export default async function GET(req, res) {
         const lastDate = getUTCDateString(new Date(data.lastRefreshed));
         const currentDate = getUTCDateString(now);
         if (lastDate !== currentDate) {
-            docRef.update({lastRefreshed: new Date().toISOString(),
+            await docRef.update({lastRefreshed: new Date().toISOString(),
             daily_trades_left: data.premium ? 12 : 5})
+            data.daily_trades_left = data.premium ? 12 : 5
         }
         res.json({ success: true, data });
         } else {

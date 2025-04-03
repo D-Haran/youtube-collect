@@ -54,7 +54,8 @@ export default async  function POST(req, res) {
                     investments: admin.firestore.FieldValue.arrayUnion(investment),
                     daily_trades_left: admin.firestore.FieldValue.increment(-1),
                     cooldown: cooldown,
-                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment)
+                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
+                    percent_of_balance: percent_of_balance
                 }, {merge: true});
             } else {
                 var historyInvestment = investment
@@ -63,7 +64,8 @@ export default async  function POST(req, res) {
                     investments: admin.firestore.FieldValue.arrayUnion(investment),
                     daily_trades_left: admin.firestore.FieldValue.increment(-1),
                     cooldown: cooldown,
-                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment)
+                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
+                    percent_of_balance: percent_of_balance
                 }, {merge: true});
             }
             res.json({ success: true, data: cooldown });

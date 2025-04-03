@@ -6,11 +6,12 @@ import { NextResponse } from "next/server";
 export default async function POST(req, res) {
     // const { userId } = req.params;
     const { investment_id, userId, profited, viewsAtSell } = req.body;
-    function getSellCooldownHours(roiMult) {
-        if (roiMult <= 1.5) return 0; // no cooldown until 50%+ ROI
+    function getSellCooldownHours(roiMult, percent_of_balance) {
+        if (roiMult <= 1.5 || percent_of_balance <= 0.1) return 0;
+        const adjustedMult = roiMult * percent_of_balance; // scale ROI by significance
         const maxCooldown = 12;
-        const scaled = Math.log2(roiMult - 0.5); // shift the curve
-        const cooldown = Math.min(maxCooldown, scaled * 2); // reduce scale
+        const scaled = Math.log2(adjustedMult - 0.5);
+        const cooldown = Math.min(maxCooldown, scaled * 2);
         return Math.ceil(cooldown);
       }
 
@@ -38,7 +39,8 @@ export default async function POST(req, res) {
         const roiMult = 1 + (profited / sellingInvestment.investment_total)
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : false
         if (!on_cooldown) {
-            const cooldownHours = getSellCooldownHours(roiMult);
+            percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
+            const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;
             var cooldown = new Date(Date.now() + cooldownMs);
         await admin.firestore().collection("profile").doc(userId).set({

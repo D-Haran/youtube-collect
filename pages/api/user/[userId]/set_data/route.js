@@ -17,7 +17,8 @@ export default async  function POST(req, res) {
             userName: userName,
             bestPick: {profit: 0},
             premium: false,
-            investmentHistory: []
+            investmentHistory: [],
+            sell_cooldown: null
         }, {merge: true});
         res.json({ success: true });
     } catch (error) {

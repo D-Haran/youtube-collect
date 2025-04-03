@@ -49,7 +49,7 @@ const VideoInvestment = ({video}) => {
                   video.crashed ?
                   <b><p>{video.crashed && "Crashed at "+video.crashAt+"% returns 💥"}</p></b>
                   :
-                  <b><p>{video.lastMilestone > 0 && "Dodged a meltdown at "+((Number(video.lastMilestone) / 100+1))+"x returns 🔥"}</p></b>
+                  <b><p>{video.lastMilestone > 0 && "Dodged a meltdown at "+((Number(video.lastMilestone) / 100))+"x returns 🔥"}</p></b>
                 }
                 {
                  (nextMilestoneRange >= 70) 

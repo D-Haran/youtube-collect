@@ -43,7 +43,7 @@ export default async function GET(req, res) {
         if (pnl >= 400) return 0.25; 
         if (pnl >= 300) return 0.12; 
         if (pnl >= 200) return 0.09; 
-        if (pnl >= 100) return 0.04; 
+        if (pnl >= 100) return 0.07; 
         return 0;
       }
     try {
@@ -75,8 +75,8 @@ export default async function GET(req, res) {
                           console.log(`💥 CRASH! Investment crashed at ${milestone}% return!`);
                     
                           // Apply the crash (e.g., halve the current ratio)
-                          if (data.investments[i].investment_total * 0.25 > 0) {
-                            data.investments[i].investment_total *= 0.25
+                          if (data.investments[i].investment_total * 0.15 > 0) {
+                            data.investments[i].investment_total *= 0.15
                           } else {
                             data.investments[i].investment_total = 1
                           }

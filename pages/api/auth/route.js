@@ -1,13 +1,13 @@
 import * as admin from "firebase-admin";
 import { getApps, initializeApp } from "firebase-admin";
-if (admin.apps.length === 0) {
-  const firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
-}
+
 
 export default async  function POST(req, res) {
   const { token } = req.body;
-  res.status
+  if (admin.apps.length === 0) {
+  const firebaseApp = admin.initializeApp({
+    credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
+}
   try {
       // Verify token using Firebase Authentication
       // const decoded = await admin.auth().verifyIdToken(token);

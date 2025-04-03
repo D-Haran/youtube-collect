@@ -39,7 +39,7 @@ export default async function POST(req, res) {
         const roiMult = 1 + (profited / sellingInvestment.investment_total)
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : false
         if (!on_cooldown) {
-            percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
+            const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;
             var cooldown = new Date(Date.now() + cooldownMs);

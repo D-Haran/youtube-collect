@@ -47,6 +47,7 @@ export default async  function POST(req, res) {
             if (cooldown_from_firestore == null || !on_cooldown) {
                 investment.crashed = false
                 investment.lastMilestone = 0
+                investment.percent_of_balance = percent_of_balance
                 var historyInvestment = investment
                 historyInvestment.dateOfActivity = new Date(Date.now())
                 historyInvestment.investmentType = "BUY"
@@ -54,18 +55,17 @@ export default async  function POST(req, res) {
                     investments: admin.firestore.FieldValue.arrayUnion(investment),
                     daily_trades_left: admin.firestore.FieldValue.increment(-1),
                     cooldown: cooldown,
-                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
-                    percent_of_balance: percent_of_balance
+                    investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment)
                 }, {merge: true});
             } else {
                 var historyInvestment = investment
                 historyInvestment.investmentType = "BUY"
+                investment.percent_of_balance = percent_of_balance
                 var arrUnion = docRef.set({
                     investments: admin.firestore.FieldValue.arrayUnion(investment),
                     daily_trades_left: admin.firestore.FieldValue.increment(-1),
                     cooldown: cooldown,
                     investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
-                    percent_of_balance: percent_of_balance
                 }, {merge: true});
             }
             res.json({ success: true, data: cooldown });

@@ -196,7 +196,7 @@ useEffect(() => {
         </div>
         <div className={styles.investmentsOptionsContainer}>
           <h2 className={styles.investmentsOptionsHeader} style={holdingHistoryOpen ? {color: "rgba(240, 248, 255, 0.328)"} : {color: "white"}} onClick={() => {setCurrentHoldingsOpen(true); setHoldingHistoryOpen(false)}}>Current Holdings</h2>
-          <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {currentHoldingsOpen && "(30)"}</h2>
+          <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {holdingHistoryOpen && "(30)"}</h2>
         </div>
           
           {

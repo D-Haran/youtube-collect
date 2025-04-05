@@ -8,6 +8,20 @@ export default async  function POST(req, res) {
     const { investment, userId, percent_of_balance } = req.body;
 
     try {
+        const get_collect_ratio_video = async (video_id) => {
+            try {
+              var res = 0
+            await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
+              .then(res => {return res.json()})
+              .then(json => {res = (json)});
+            return res
+            }catch (error) {
+              console.log(error.message)
+              res.status(500).json({ success: false, error: error.message });
+          }
+            
+          }
+
         const docRef = admin.firestore().collection("profile").doc(userId)
         var docRefData = (await docRef.get()).data()
         const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
@@ -18,6 +32,9 @@ export default async  function POST(req, res) {
                   return true
                 }
           })
+        const new_collect_ratio = await get_collect_ratio_video(investment?.video_metadata?.id)
+        investment.video_metadata.statistics.viewCount = new_collect_ratio[0]
+        investment.initial_ratio = new_collect_ratio[2]
         const all_investments = docRefData.investments
         let already_invested = false
         for (let i = 0; i < all_investments.length; i++) {

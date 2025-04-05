@@ -21,7 +21,7 @@ export default async function POST(req, res) {
         const cooldown_from_firestore = docRef.sell_cooldown || null
         const all_investments = docRef.investments
         const new_investments = []
-        var sellingInvestment = {}
+        var sellingInvestment = null
         for (let i = 0; i < all_investments.length; i++) {
             const inv = all_investments[i]
             if (inv.id != investment_id) {
@@ -38,7 +38,7 @@ export default async function POST(req, res) {
         historyInvestment.dateOfActivity = new Date(Date.now())
         const roiMult = 1 + (profited / sellingInvestment.investment_total)
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : false
-        if (!on_cooldown || roiMult <= 1.25) {
+        if (sellingInvestment && (!on_cooldown || roiMult <= 1.25)) {
             const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;
@@ -58,7 +58,7 @@ export default async function POST(req, res) {
          res.json({ success: true, data: cooldown });
         } else {
             console.log("You are on a sell cooldown! please wait for the cooldown to finish before selling.")
-            res.status(480).json({ success: false, error: "On Sell Cooldown" });
+            res.status(sellingInvestment ? 480 : 500).json({ success: false, error: "On Sell Cooldown" });
         }
         
         

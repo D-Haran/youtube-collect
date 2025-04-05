@@ -61,12 +61,12 @@ export default async function GET(req, res) {
                                 console.log(`💥 CRASH! Investment crashed at ${s*100}% return!`);
                           
                                 // Apply the crash (e.g., halve the current ratio)
-                                if (data.investments[i].investment_total * 0.15 > 0) {
-                                  data.investments[i].investment_total *= 0.15
+                                if (data.investments[i].investment_total * 0.10 > 0) {
+                                  data.investments[i].investment_total *= 0.10
                                 } else {
                                   data.investments[i].investment_total = 1
                                 }
-                                ; // or 0.25 for more severe
+                                ;
                           
                                 // Optionally flag that it happened
                                 data.investments[i].crashed = true;

@@ -9,6 +9,7 @@ export default async function GET(req, res) {
     const userId = req.query.userId;
     try {
         if (admin.apps.length === 0) {
+            console.log("FIREBASE REFRESHING")
             admin.initializeApp({
             credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
         }

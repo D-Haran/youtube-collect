@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export default async function GET(req, res) {
     
     // const { userId } = req.params;
-    const userId = req.query.userId;
+    const userId = await req.query.userId;
     try {
         if (admin.apps.length === 0) {
             console.log("FIREBASE REFRESHING")

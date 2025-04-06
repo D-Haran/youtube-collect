@@ -12,8 +12,9 @@ export default async function GET(req, res) {
         const docRef = admin.firestore().collection("leaderboard").doc("top_100")
         const leaderboardList = []
         var docRefData = (await docRef.get()).data()
-        console.log(docRefData)
-        for (let user of docRefData.data) {
+        const users = docRefData.data
+        users.reverse()
+        for (let user of users) {
                 leaderboardList.push(user)
             }
         leaderboardList.reverse()

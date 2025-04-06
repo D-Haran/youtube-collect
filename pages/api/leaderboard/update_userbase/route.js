@@ -9,7 +9,7 @@ export default async function GET(req, res) {
       try {
         const allUsers = await admin.firestore().collection("profile")
     .where("balance", ">", 0)
-    .orderBy("balance")
+    .orderBy("balance", "desc")
     .get();
 
     const batch = admin.firestore().batch();

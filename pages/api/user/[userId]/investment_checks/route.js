@@ -76,6 +76,10 @@ export default async function GET(req, res) {
                               }
                             }
                             
+                          }
+                    await docRef.set({ 
+                                investments: data.investments
+                            }, {merge: true});
                     }
                     const openingChance = Math.random()
                     if (openingChance < 0.9) {
@@ -98,7 +102,6 @@ export default async function GET(req, res) {
                     await docRef.set({ 
                                 investments: data.investments
                             }, {merge: true});
-                        }
                 }
               }
             data.investments.reverse()

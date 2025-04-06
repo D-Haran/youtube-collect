@@ -4,6 +4,11 @@ import { NextResponse } from "next/server";
 
 
 export default async function POST(req, res) {
+    if (admin.apps.length === 0) {
+        console.log("FIREBASE REFRESHING")
+        admin.initializeApp({
+        credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
+    }
     // const { userId } = req.params;
     const { investment_id, userId, profited, viewsAtSell } = req.body;
     function getSellCooldownHours(roiMult, percent_of_balance) {

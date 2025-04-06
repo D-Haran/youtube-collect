@@ -1,7 +1,7 @@
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useUser, signOutWithGoogle, signInWithGoogle } from "../context/userContext";
 import styles from '../styles/home.module.css'
 import Navbar from "../components/navbar/navbar";
@@ -10,6 +10,7 @@ import VideoInvestment from "../components/videoInvestment/videoInvestment";
 import NumberFlow from '@number-flow/react'
 import HistoryInvestment from "../components/historyInvestment/historyInvestment";
 import ClipLoader from "react-spinners/HashLoader";
+import { numify } from "numify";
 
 export default function Home() {
   // Our custom hook to get context values
@@ -77,7 +78,7 @@ async function firestoreCheckUserInvestments(userId) {
         method: "GET"
     })
     .then(res => {console.log(res); return res.json();})
-    .then(data => {console.log("DATA: ", data); new_investments = data.data.investments});
+    .then(data => {console.log("DATA: ", data); new_investments = data?.data?.investments});
     return new_investments
   }
 
@@ -194,6 +195,14 @@ useEffect(() => {
           <NumberFlow value={(Number(balance.toFixed(2)))} />  
             </h1>
         </div>
+        <h2 className={styles.rank}>
+          {firestoreUserData?.rank &&
+          <>
+          You are rank: <p className={styles.rankNumber}>#{numify(firestoreUserData?.rank)}</p> 
+          </>
+          }
+          
+        </h2>
         <div className={styles.investmentsOptionsContainer}>
           <h2 className={styles.investmentsOptionsHeader} style={holdingHistoryOpen ? {color: "rgba(240, 248, 255, 0.328)"} : {color: "white"}} onClick={() => {setCurrentHoldingsOpen(true); setHoldingHistoryOpen(false)}}>Current Holdings</h2>
           <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {holdingHistoryOpen && "(30)"}</h2>

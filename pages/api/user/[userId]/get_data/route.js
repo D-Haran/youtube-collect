@@ -25,7 +25,7 @@ export default async function GET(req, res) {
             return d.toISOString().split("T")[0];
           }
         const now = new Date(Date.now());
-        const lastDate = getUTCDateString(new Date(data.lastRefreshed));
+        const lastDate = getUTCDateString(new Date(data?.lastRefreshed.seconds*1000) || new Date(data?.lastRefreshed));
         const currentDate = getUTCDateString(now);
 
         if (lastDate !== currentDate) {

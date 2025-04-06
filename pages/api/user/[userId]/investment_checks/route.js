@@ -96,7 +96,7 @@ export default async function GET(req, res) {
                 
                       // Optionally flag that it happened
                       data.investments[i].crashed = true;
-                      data.investments[i].crashAt = profits.toFixed(0);
+                      data.investments[i].crashAt = Number(profits).toFixed(0) || profits;
                       data.investments[i].lastMilestone = milestone;
                       await docRef.set({ 
                                 investments: data.investments

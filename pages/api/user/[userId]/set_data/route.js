@@ -10,7 +10,7 @@ export default async  function POST(req, res) {
     try {
         await admin.firestore().collection("profile").doc(userId).set({ 
             balance: balance, 
-            investments: investments, 
+            investments: [], 
             daily_trades_left: 5, 
             trade_cooldown: null,
             lastRefreshed: new Date(Date.now()),
@@ -18,7 +18,8 @@ export default async  function POST(req, res) {
             bestPick: {profit: 0},
             premium: false,
             investmentHistory: [],
-            sell_cooldown: null
+            sell_cooldown: null,
+            rank: null
         }, {merge: true});
         res.json({ success: true });
     } catch (error) {

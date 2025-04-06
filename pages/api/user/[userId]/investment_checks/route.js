@@ -43,7 +43,8 @@ export default async function GET(req, res) {
                 const inv = newInvestments[i]
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
                 if (new_collect_ratio) {
-                    const PnL = Math.ceil(((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100 || 1)
+                  const profits = (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
+                    const PnL = Math.ceil(profits)
                     console.log(PnL)
                     const milestone = Math.floor(PnL / 100) * 100;
                     data.investments[i].curr_ratio = new_collect_ratio[2]
@@ -53,7 +54,6 @@ export default async function GET(req, res) {
                         for (let s = 0; s < (milestones_passed/100); s++) {
                           if (milestone >= 100) {
                               data.investments[i].lastMilestone = milestone; // store to prevent re-crashing at the same level
-                          
                               const crashChance = getCrashChanceForMilestone(s*100);
                               const whatAreTheChances = Math.random()
                               console.log(whatAreTheChances)
@@ -75,6 +75,25 @@ export default async function GET(req, res) {
                                 
                               }
                             }
+                            
+                    }
+                    const openingChance = Math.random()
+                    if (openingChance < 0.05) {
+                      console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
+                
+                      // Apply the crash (e.g., halve the current ratio)
+                      if (data.investments[i].investment_total * 0.50 > 0) {
+                        data.investments[i].investment_total *= 0.50
+                      } else {
+                        data.investments[i].investment_total = 1
+                      }
+                      ;
+                
+                      // Optionally flag that it happened
+                      data.investments[i].crashed = true;
+                      data.investments[i].crashAt = profits;
+                      data.investments[i].lastMilestone = milestone;
+                      
                     }
                     await docRef.set({ 
                                 investments: data.investments

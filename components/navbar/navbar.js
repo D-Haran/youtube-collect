@@ -34,6 +34,11 @@ const Navbar = ({userDisplayName}) => {
         </Link>
                 
             </div>
+            <div className={styles.navBarItem}>
+
+          <a style={{textDecoration: "none", color: "grey"}}>Collect Shop (Coming Soon!)</a>
+                
+            </div>
         </div>
         <div className={styles.right}>
             <Link href={`/premium/`} passHref legacyBehavior>

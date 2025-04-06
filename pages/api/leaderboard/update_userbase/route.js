@@ -9,7 +9,7 @@ export default async function GET(req, res) {
       try {
         const allUsers = await admin.firestore().collection("profile")
     .where("balance", ">", 0)
-    .orderBy("balance", "desc")
+    .orderBy("balance")
     .get();
 
     const batch = admin.firestore().batch();
@@ -21,15 +21,17 @@ export default async function GET(req, res) {
 
     // Also store top 100 in one doc
     const top100 = allUsers.docs.slice(0, 100).map((doc, i) => ({
-    username: doc.data().userName || "Anonymous",
+    userName: doc.data().userName || "Anonymous",
+    id: doc.id,
     balance: doc.data().balance || 0,
     bestPick: doc.data().bestPick || null,
+    premium: doc.data().premium || false,
     rank: i + 1,
     }));
 
     await admin.firestore().collection("leaderboard").doc("top_100").set({ data: top100 });
     await admin.firestore().collection("leaderboard").doc("meta").set({ total: allUsers.size });
-    res.status(200).json({ success: false, data: "YES!" });
+    res.status(200).json({ success: true, data: "YES!" });
       }catch (error) {
         console.log(error.message)
         res.status(500).json({ success: false, error: error.message });

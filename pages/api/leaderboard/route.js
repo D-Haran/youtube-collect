@@ -9,18 +9,13 @@ export default async function GET(req, res) {
           credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
       }
     try {
-        const docRef = admin.firestore().collection("profile")
-        // const data = query(docRef, where("balance", ">", 100), orderBy("balance"), limit(3))
-        const data = (docRef.where("balance", ">=", 1).orderBy("balance").limit(50))
+        const docRef = admin.firestore().collection("leaderboard").doc("top_100")
         const leaderboardList = []
-        const leaderboard = await data.get().then(querySnapshot => {
-            let docs = querySnapshot.docs;
-            for (let doc of docs) {
-              const profile = doc.data()
-              profile.id = doc.id
-                leaderboardList.push(profile)
+        var docRefData = (await docRef.get()).data()
+        console.log(docRefData)
+        for (let user of docRefData.data) {
+                leaderboardList.push(user)
             }
-          });
         leaderboardList.reverse()
         res.json({ success: true, data: leaderboardList });
     } catch (error) {

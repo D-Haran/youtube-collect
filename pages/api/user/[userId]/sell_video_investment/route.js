@@ -10,7 +10,7 @@ export default async function POST(req, res) {
         if (roiMult <= 1.25 || percent_of_balance <= 0.1) return 0;
         const adjustedMult = roiMult * percent_of_balance; // scale ROI by significance
         const maxCooldown = 12;
-        const scaled = Math.log2(adjustedMult - 0.5);
+        const scaled = Math.log2(adjustedMult - 0.25);
         const cooldown = Math.min(maxCooldown, scaled * 2);
         return Math.ceil(cooldown);
       }

@@ -81,7 +81,8 @@ export default async function GET(req, res) {
                                 investments: data.investments
                             }, {merge: true});
                     }
-                    const openingChance = Math.random()
+                    if (data.premium == false || !data.premium) {
+                      const openingChance = Math.random()
                     if (openingChance < 0.05) {
                       console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
                 
@@ -101,6 +102,8 @@ export default async function GET(req, res) {
                                 investments: data.investments
                             }, {merge: true});
                     }
+                    }
+                    
                     
                 }
               }

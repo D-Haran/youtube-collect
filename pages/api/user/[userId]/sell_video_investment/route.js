@@ -14,6 +14,19 @@ export default async function POST(req, res) {
         const cooldown = Math.min(maxCooldown, scaled * 2);
         return Math.ceil(cooldown);
       }
+      const get_collect_ratio_video = async (video_id) => {
+        try {
+          var res = 0
+        await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
+          .then(res => {return res.json()})
+          .then(json => {res = (json)});
+        return res
+        }catch (error) {
+          console.log(error.message)
+          res.status(500).json({ success: false, error: error.message });
+      }
+        
+      }
 
     try {
         const docRef = await (await admin.firestore().collection("profile").doc(userId).get()).data()
@@ -28,17 +41,25 @@ export default async function POST(req, res) {
                 new_investments.push(inv)
             } else {
                 sellingInvestment = inv
-                sellingInvestment.profit = profited
             }
         }
-        const newBalance = docRef.balance + profited
+        if (sellingInvestment) {
+            const new_collect_ratio = await get_collect_ratio_video(sellingInvestment?.video_metadata?.id)
+            const initialRatio = sellingInvestment.initial_ratio || 1;
+            const currentRatio = new_collect_ratio[2];
+
+            const roiMultiplier = currentRatio / initialRatio;
+            const profit_from_investment = sellingInvestment.investment_total * (roiMultiplier - 1);
+
+            sellingInvestment.profit = profit_from_investment
+            const newBalance = docRef.balance + profit_from_investment
         var historyInvestment = sellingInvestment
         historyInvestment.investmentType = "SELL"
         historyInvestment.viewsAtSell = viewsAtSell
         historyInvestment.dateOfActivity = new Date(Date.now())
-        const roiMult = 1 + (profited / sellingInvestment.investment_total)
+        const roiMult = 1 + (profit_from_investment / sellingInvestment.investment_total)
         var on_cooldown = cooldown_from_firestore ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : false
-        if (sellingInvestment && (!on_cooldown || roiMult <= 1.25)) {
+        if ((!on_cooldown || roiMult <= 1.25)) {
             const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;
@@ -50,7 +71,7 @@ export default async function POST(req, res) {
             sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown)
          }, {merge: true});
 
-         if (profited > bestPick.profit) {
+         if (profit_from_investment > bestPick.profit) {
             await admin.firestore().collection("profile").doc(userId).update({ 
                 bestPick: sellingInvestment
              }, {merge: true});
@@ -60,6 +81,10 @@ export default async function POST(req, res) {
             console.log("You are on a sell cooldown! please wait for the cooldown to finish before selling.")
             res.status(sellingInvestment ? 480 : 500).json({ success: false, error: "On Sell Cooldown" });
         }
+        } else {
+            res.status(500).json({ success: false, error: "Investment Not Found" });
+        }
+        
         
         
     } catch (error) {

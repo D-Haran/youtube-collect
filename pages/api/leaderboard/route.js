@@ -13,11 +13,9 @@ export default async function GET(req, res) {
         const leaderboardList = []
         var docRefData = (await docRef.get()).data()
         const users = docRefData.data
-        users.reverse()
         for (let user of users) {
                 leaderboardList.push(user)
             }
-        leaderboardList.reverse()
         res.json({ success: true, data: leaderboardList });
     } catch (error) {
         console.log(error.message)

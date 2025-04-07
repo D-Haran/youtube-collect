@@ -18,7 +18,7 @@ export default async  function POST(req, res) {
             bestPick: {profit: 0},
             premium: false,
             investmentHistory: [],
-            sell_cooldown: null,
+            sell_cooldown: new Date(Date.now()),
             rank: null
         }, {merge: true});
         res.json({ success: true });

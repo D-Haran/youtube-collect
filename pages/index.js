@@ -284,7 +284,7 @@ useEffect(() => {
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
           <div className={styles.buttonContainer}>
               <button className={styles.signinButton} disabled={user ? true : false || signInLoading} onClick={user ? handleSignout : () => {setSignInLoading(true); signInWithGoogle().then(data => setSignInLoading(false))}}>
-            Sign {user ? "Out" : "In"}
+            Sign {user ? "Out" : "In With Google"}
           </button>
           </div>
               <footer className={styles.footer}>

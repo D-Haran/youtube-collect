@@ -62,8 +62,9 @@ export default async function GET(req, res) {
                           
                                 // Apply the crash (e.g., halve the current ratio)
                                 if (data.investments[i].investment_total * 0.10 > 0) {
+                                  const investment_total = Number(data.investments[i].investment_total)
                                   data.investments[i].investment_total *= 0.10
-                                  data.balance -= 0.9*inv.investment_total
+                                  data.balance -= 0.9*investment_total
                                 } else {
                                   data.investments[i].investment_total = 1
                                   data.balance -= inv.investment_total + 1
@@ -85,7 +86,7 @@ export default async function GET(req, res) {
                     }
                     if (data.premium == false || !data.premium) {
                       const openingChance = Math.random()
-                    if (openingChance < 1) {
+                    if (openingChance < 0.05) {
                       console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
                 
                       // Apply the crash (e.g., halve the current ratio)

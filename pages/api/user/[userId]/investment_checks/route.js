@@ -111,6 +111,10 @@ export default async function GET(req, res) {
                                 investments: data.investments,
                                 last_check: admin.firestore.Timestamp.fromDate(new Date(Date.now()))
                             }, {merge: true});
+                    } else if (minutes >= 10) {
+                      await docRef.set({
+                        last_check: admin.firestore.Timestamp.fromDate(new Date(Date.now()))
+                    }, {merge: true});
                     }
                     }
                     

@@ -128,7 +128,7 @@ const Navbar = ({userDisplayName}) => {
       >
         <h2>Username: {userDisplayName}</h2>
         <form >
-          Change Username: <input placeholder={userDisplayName} onChange={(e) => {setNewUserName(e.target.value)}}/>
+          Change Username: <input maxLength={15} placeholder={userDisplayName} onChange={(e) => {setNewUserName(e.target.value)}}/>
           <button disabled={changeLoading} type='submit' onClick={(e) => {e.preventDefault(); handleChangeUserName(newUserName)}}>Submit</button>
         </form>
         

@@ -168,7 +168,7 @@ useEffect(() => {
 
       <main>
         {(user) &&
-          <Navbar userDisplayName={user.displayName}/>
+          <Navbar userDisplayName={firestoreUserData?.userName ? firestoreUserData.userName : user.displayName}/>
         
         }
         

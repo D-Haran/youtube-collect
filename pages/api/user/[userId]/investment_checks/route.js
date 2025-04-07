@@ -75,6 +75,7 @@ export default async function GET(req, res) {
                                 data.investments[i].crashed = true;
                                 data.investments[i].crashAt = milestone;
                                 data.investments[i].lastMilestone = milestone;
+                                data.investments[i].crashType = "milestone";
                               }
                             }
                             
@@ -106,6 +107,7 @@ export default async function GET(req, res) {
                       data.investments[i].crashed = true;
                       data.investments[i].crashAt = Number(profits).toFixed(0) || profits;
                       data.investments[i].lastMilestone = milestone;
+                      data.investments[i].crashType = "check";
                       await docRef.set({ 
                                 balance: data.balance,
                                 investments: data.investments,

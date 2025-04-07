@@ -30,8 +30,8 @@ export default async function GET(req, res) {
 
         if (lastDate !== currentDate) {
             await docRef.update({lastRefreshed: new Date().toISOString(),
-            daily_trades_left: data.premium ? 12 : 5})
-            data.daily_trades_left = data.premium ? 12 : 5
+            daily_trades_left: data.premium ? 8 : 5})
+            data.daily_trades_left = data.premium ? 8 : 5
         }
         res.json({ success: true, data });
         } else {

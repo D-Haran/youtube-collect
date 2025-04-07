@@ -44,7 +44,7 @@ const Navbar = ({userDisplayName}) => {
             <Link href={`/premium/`} passHref legacyBehavior>
             <div className={styles.getPremium}>
                 
-                    {isPremium ? "Manage" : "Get"} Premium
+                    {isPremium ? "" : "Get Premium"} 
                     <Image 
                     src="/premiumLogo.png"
                     width={30}

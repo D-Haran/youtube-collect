@@ -91,7 +91,7 @@ export default async function GET(req, res) {
                       // Apply the crash (e.g., halve the current ratio)
                       if (data.investments[i].investment_total * 0.50 > 0) {
                         data.investments[i].investment_total *= 0.50
-                        data.balance -= inv.investment_total*0.5
+                        data.balance -= inv.investment_total
                       } else {
                         data.investments[i].investment_total = 1
                         data.balance -= inv.investment_total + 1

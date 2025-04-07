@@ -27,6 +27,7 @@ export default function Home() {
   const [videoInvestmentHistory, setVideoInvestmentHistory] = useState([])
   const [investmentsLoaded, setInvestmentsLoaded] = useState(false)
   const [currentUser, setCurrentUser] = useState(user)
+  const [signInLoading, setSignInLoading] = useState(false)
 
   const override = {
     display: "block",
@@ -282,7 +283,7 @@ useEffect(() => {
               <h1 className={styles.title}>Welcome to Youtube Collect</h1>
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
           <div className={styles.buttonContainer}>
-              <button className={styles.signinButton} disabled={user ? true : false} onClick={user ? handleSignout : signInWithGoogle}>
+              <button className={styles.signinButton} disabled={user ? true : false || signInLoading} onClick={user ? handleSignout : () => {setSignInLoading(true); signInWithGoogle().then(data => setSignInLoading(false))}}>
             Sign {user ? "Out" : "In"}
           </button>
           </div>

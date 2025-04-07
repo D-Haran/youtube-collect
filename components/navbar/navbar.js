@@ -127,6 +127,7 @@ const Navbar = ({userDisplayName}) => {
         contentLabel="Profile Modal"
       >
         <h2>Username: {userDisplayName}</h2>
+        <p>You can change your name <b>once</b> every <b>30</b> days.</p>
         <form >
           Change Username: <input maxLength={15} placeholder={userDisplayName} onChange={(e) => {setNewUserName(e.target.value)}}/>
           <button disabled={changeLoading} type='submit' onClick={(e) => {e.preventDefault(); handleChangeUserName(newUserName)}}>Submit</button>

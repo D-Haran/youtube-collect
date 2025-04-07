@@ -63,8 +63,10 @@ export default async function GET(req, res) {
                                 // Apply the crash (e.g., halve the current ratio)
                                 if (data.investments[i].investment_total * 0.10 > 0) {
                                   data.investments[i].investment_total *= 0.10
+                                  data.balance -= 0.9*inv.investment_total
                                 } else {
                                   data.investments[i].investment_total = 1
+                                  data.balance -= inv.investment_total + 1
                                 }
                                 ;
                           
@@ -72,12 +74,12 @@ export default async function GET(req, res) {
                                 data.investments[i].crashed = true;
                                 data.investments[i].crashAt = milestone;
                                 data.investments[i].lastMilestone = milestone;
-                                
                               }
                             }
                             
                           }
                     await docRef.set({ 
+                                balance: data.balance,
                                 investments: data.investments
                             }, {merge: true});
                     }
@@ -89,8 +91,10 @@ export default async function GET(req, res) {
                       // Apply the crash (e.g., halve the current ratio)
                       if (data.investments[i].investment_total * 0.50 > 0) {
                         data.investments[i].investment_total *= 0.50
+                        data.balance -= inv.investment_total*-0.5
                       } else {
                         data.investments[i].investment_total = 1
+                        data.balance -= inv.investment_total + 1
                       }
                       ;
                 
@@ -99,6 +103,7 @@ export default async function GET(req, res) {
                       data.investments[i].crashAt = Number(profits).toFixed(0) || profits;
                       data.investments[i].lastMilestone = milestone;
                       await docRef.set({ 
+                                balance: data.balance,
                                 investments: data.investments
                             }, {merge: true});
                     }

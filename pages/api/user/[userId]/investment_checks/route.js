@@ -85,8 +85,11 @@ export default async function GET(req, res) {
                             }, {merge: true});
                     }
                     if (data.premium == false || !data.premium) {
+                      var diff = Math.abs(new Date(data.last_check ? data.last_check : Date.now() - 11*60000) - new Date(Date.now()));
+                      var minutes = Math.floor((diff/1000)/60);
+                      console.log("minutes: ", minutes)
                       const openingChance = Math.random()
-                    if (openingChance < 0.05) {
+                    if (openingChance < 0.05 && minutes >= 10) {
                       console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
                 
                       // Apply the crash (e.g., halve the current ratio)
@@ -105,7 +108,8 @@ export default async function GET(req, res) {
                       data.investments[i].lastMilestone = milestone;
                       await docRef.set({ 
                                 balance: data.balance,
-                                investments: data.investments
+                                investments: data.investments,
+                                last_check: admin.firestore.Timestamp.fromDate(new Date(Date.now()))
                             }, {merge: true});
                     }
                     }

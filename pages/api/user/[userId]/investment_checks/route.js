@@ -85,7 +85,7 @@ export default async function GET(req, res) {
                             }, {merge: true});
                     }
                     if (data.premium == false || !data.premium) {
-                      var diff = Math.abs(new Date(data.last_check ? data.last_check : Date.now() - 11*60000) - new Date(Date.now()));
+                      var diff = Math.abs(new Date(data.last_check ? data.last_check.seconds*1000 : Date.now() - 11*60000) - new Date(Date.now()));
                       var minutes = Math.floor((diff/1000)/60);
                       console.log("minutes: ", minutes)
                       const openingChance = Math.random()

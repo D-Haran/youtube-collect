@@ -85,7 +85,7 @@ export default async function GET(req, res) {
                     }
                     if (data.premium == false || !data.premium) {
                       const openingChance = Math.random()
-                    if (openingChance < 0.05) {
+                    if (openingChance < 1) {
                       console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
                 
                       // Apply the crash (e.g., halve the current ratio)

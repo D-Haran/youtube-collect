@@ -178,6 +178,8 @@ color: white;
 
 .ratioStat {
     text-align: right;
+    height: min-content;
+    padding-right: 10px;
 }
 
 .ratioStatProfitContainer {
@@ -192,4 +194,9 @@ justify-content: right;
     height: 70px;
     width: 70px;
     padding-right: 5px;
+}
+
+.typeContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

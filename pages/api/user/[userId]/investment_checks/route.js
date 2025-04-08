@@ -51,7 +51,7 @@ export default async function GET(req, res) {
                     data.investments[i].video_metadata.statistics.viewCount = new_collect_ratio[0]
                     const milestones_passed = milestone - inv.lastMilestone || 0
                     if (milestones_passed>0) {
-                        for (let s = 0; s < (milestones_passed/100); s++) {
+                        for (let s = ((inv.lastMilestone/100)+1); s <= ((milestone/100)); s++) {
                           if (milestone >= 100) {
                               data.investments[i].lastMilestone = milestone; // store to prevent re-crashing at the same level
                               const crashChance = getCrashChanceForMilestone(s*100);

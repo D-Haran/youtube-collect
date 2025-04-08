@@ -199,7 +199,7 @@ useEffect(() => {
         <h2 className={styles.rank}>
           {firestoreUserData?.rank &&
           <>
-          You are rank: <p className={styles.rankNumber}>#{numify(firestoreUserData?.rank)}</p> 
+          Ranked <p className={styles.rankNumber}>#{numify(firestoreUserData?.rank)}</p> Globally
           </>
           }
           

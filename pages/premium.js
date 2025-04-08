@@ -65,7 +65,7 @@ const Premium = () => {
         <li><b>3</b> active investments at a time</li>
         <li><b>10</b> minute Investment cooldown</li>
         <li><b>65%</b> limit of available balance to invest in one video</li>
-        <li><b>5%</b> chance of an investment crash on every open of the app</li>
+        <li><b>1%</b> chance of an investment crash on every open of the app</li>
       </ul>
       <button className={styles.button} disabled={isPremium ? false : true}>{isPremium ? "Basic Plan" : "Current Plan"}</button>
     </div>
@@ -88,7 +88,7 @@ const Premium = () => {
         <li><b>5</b> active investments at a time</li>
         <li><b>6</b> minute Investment cooldown</li>
         <li><b>75%</b> limit of available balance to invest in one video</li>
-        <li>No 5% chance of crashing when opening</li>
+        <li>No 1% chance of crashing when opening</li>
       </ul>
       <button disabled={loading ? true : (isPremium ? true : false)} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
         </div>

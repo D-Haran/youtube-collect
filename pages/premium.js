@@ -13,6 +13,7 @@ const Premium = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     const [isPremium, setIsPremium] = useState(false)
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -29,13 +30,14 @@ const Premium = () => {
     }, [firebaseApp, user]);
     
     const handleUpgradeToPremium = async () => {
+      setLoading(true)
       const priceId = "price_1R8CmlHaSp5G9lrwqnZJvr15"
       const checkoutUrl = await getCheckoutUrl(firebaseApp, priceId)
-        await fetch(`${api_domain}/api/user/${user.uid}/check_premium/route`, {
+        await fetch(`/api/user/${user.uid}/check_premium/route`, {
             method: "GET"
         })
-        .then(res => {router.push(checkoutUrl)})
-      
+        .then(res => {router.push(checkoutUrl); setLoading(false)})
+        setLoading(false)
     }
 
   return (
@@ -88,7 +90,7 @@ const Premium = () => {
         <li><b>75%</b> limit of available balance to invest in one video</li>
         <li>No 5% chance of crashing when opening</li>
       </ul>
-      <button disabled={isPremium ? true : false} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
+      <button disabled={loading ? true : (isPremium ? true : false)} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
         </div>
     </div>
         </div>

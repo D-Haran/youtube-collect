@@ -42,7 +42,6 @@ export default function Home() {
         body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: user.displayName })
     })
     .then(res => res.json())
-    .then(data => console.log("Balance updated:", data));
   }
 
 const handleSignout = () => {
@@ -57,14 +56,13 @@ async function firestoreGetUserData(userId) {
       method: "GET"
   })
   .then(res => {if (res.status == 450) {
-    console.log(res);
     firestoreUpdateUserData(userId).then(data => {
       firestoreGetUserData(userId); 
     })
     return {success: false}} 
     else 
     {return res.json();} })
-  .then(data => {console.log("DATAAA", data); if (data.success) {
+  .then(data => {if (data.success) {
     setFirestoreUserData(data?.data); 
     if (data.data?.investmentHistory?.length > 0)
     {data.data?.investmentHistory?.reverse(); 
@@ -78,8 +76,8 @@ async function firestoreCheckUserInvestments(userId) {
     await fetch(`/api/user/${userId}/investment_checks/route`, {
         method: "GET"
     })
-    .then(res => {console.log(res); return res.json();})
-    .then(data => {console.log("DATA: ", data); new_investments = data?.data?.investments});
+    .then(res => {return res.json();})
+    .then(data => {new_investments = data?.data?.investments});
     return new_investments
   }
 
@@ -93,7 +91,6 @@ async function firestoreCheckUserInvestments(userId) {
       if (video_investments.length >= 1 && balanceUpdated == false) {
         for (let i = 0; i < video_investments.length; i++) {
         const inv = video_investments[i]
-        console.log(inv)
         invested = invested + inv.investment_total
         newBalance = newBalance + (((inv.curr_ratio / (inv.initial_ratio)) || 1)*inv.investment_total - inv.investment_total)
         valueOfHoldings = valueOfHoldings + ((inv.curr_ratio / (inv.initial_ratio)) || 1)*inv.investment_total
@@ -127,9 +124,6 @@ useEffect(() => {
   }
 }, [firestoreUserData, videoInvestments, user])
 
-useEffect(() => {
-  console.log(videoInvestments)
-}, [videoInvestments])
 
 
   useEffect(() => {
@@ -138,7 +132,6 @@ useEffect(() => {
         await firestoreGetUserData(user.uid)
         await get_video_investments()
         setLoggedIn(true)
-        console.log("INVESTMENTS:", videoInvestments)
       } else {
         setLoggedIn(false)
       }
@@ -149,7 +142,6 @@ useEffect(() => {
 
   useEffect(() => {
     if (firestoreUserData) {
-      console.log(firestoreUserData.investments)
     }
     
   }, [firestoreUserData])
@@ -216,7 +208,6 @@ useEffect(() => {
               <>
                 {videoInvestments.length > 0 ?
                   videoInvestments.map((video) => {
-                  console.log(video)
                   return (
                     <div>
                       <VideoInvestment key={video.id} video={video} />
@@ -250,7 +241,6 @@ useEffect(() => {
               {(videoInvestmentHistory)?
               <div className={styles.videoInvestmentHistoryContainer}>
                   {videoInvestmentHistory.map((video) => {
-                  console.log(video)
                   return (
                     <div>
                       <HistoryInvestment key={video.id} video={video} />

@@ -12,7 +12,6 @@ export default async  function POST(req, res) {
             balance: balance, 
             investments: [], 
             daily_trades_left: 5, 
-            trade_cooldown: null,
             lastRefreshed: new Date(Date.now()),
             userName: userName,
             bestPick: {profit: 0},

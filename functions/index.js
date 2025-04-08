@@ -43,3 +43,25 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
   }
   return console.log("Successful Timer Update");
 });
+
+exports.refresh_daily_trades = onSchedule("0 0 * * *", async (event) => {
+  try {
+    const allUsers = await admin
+        .firestore()
+        .collection("profile")
+        .get();
+
+    const batch = admin.firestore().batch();
+    allUsers.docs.forEach((doc, index) => {
+      batch.update(doc.ref, {
+        lastRefreshed: new Date().toISOString(),
+        daily_trades_left: doc.data().premium ? 8 : 5,
+      });
+    });
+
+    await batch.commit();
+  } catch (error) {
+    console.log(error.message);
+  }
+  return console.log("Successful User Update");
+});

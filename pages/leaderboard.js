@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Query } from 'firebase/firestore'
 import LeaderboardUser from '../components/leaderBoardUser/leaderboardUser'
 import styles from '../styles/leaderboard.module.css'
+import Head from "next/head";
 import Navbar from '../components/navbar/navbar'
 import { useUser, signOutWithGoogle, signInWithGoogle } from "../context/userContext";
 import ClipLoader from "react-spinners/HashLoader";

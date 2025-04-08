@@ -42,6 +42,10 @@ const Premium = () => {
 
   return (
     <div className={styles.someCSSMoludesClass}>
+      <Head>
+        <title>Youtube Collect || Premium</title>
+        <link rel="icon" href="/youCoinsLogo.png" />
+      </Head>
         <Navbar userDisplayName={user?.displayName} />
         <div className={styles.container}>
         <h1 className={styles.title}>Youtube Collect Premium</h1>

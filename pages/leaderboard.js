@@ -34,6 +34,10 @@ const Leaderboard = () => {
 
   return (
     <div className={styles.someCSSMoludesClass}>
+      <Head>
+        <title>Youtube Collect || Leaderboard</title>
+        <link rel="icon" href="/youCoinsLogo.png" />
+      </Head>
         <Navbar userDisplayName={user?.displayName} />
         <div className={styles.container}>
             <div className={styles.header}>

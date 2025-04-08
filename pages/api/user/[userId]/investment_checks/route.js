@@ -49,6 +49,7 @@ export default async function GET(req, res) {
                     const milestone = Math.floor(PnL / 100) * 100;
                     data.investments[i].curr_ratio = new_collect_ratio[2]
                     data.investments[i].video_metadata.statistics.viewCount = new_collect_ratio[0]
+                    data.investments[i].video_metadata.snippet.hoursSinceUpload = new_collect_ratio[3] || 1
                     const milestones_passed = milestone - inv.lastMilestone || 0
                     if (milestones_passed>0) {
                         for (let s = ((inv.lastMilestone/100)+1); s <= ((milestone/100)); s++) {

@@ -29,7 +29,13 @@
     color: black;
     padding: 5px;
 }
-
+.bestPickCheck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+  }
 .left {
     text-align: left;
     width: 100%;

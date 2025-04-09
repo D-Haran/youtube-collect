@@ -26,6 +26,7 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
       bestPick: doc.data().bestPick || null,
       premium: doc.data().premium || false,
       rank: i + 1,
+      showBestPick: doc.data().showBestPick || false
     }));
 
     await admin

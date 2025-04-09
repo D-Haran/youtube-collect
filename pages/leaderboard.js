@@ -36,15 +36,19 @@ const Leaderboard = () => {
   return (
     <div className={styles.someCSSMoludesClass}>
       <Head>
-        <title>Youtube Collect || Leaderboard</title>
+        <title>Leaderboard || Youtube Collect</title>
         <link rel="icon" href="/youCoinsLogo.png" />
       </Head>
         <Navbar userDisplayName={user?.displayName} />
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Youtube Collect Leaderboard</h1>
+                
             </div>
-            
+            <div className={styles.bestPickCheck}>
+          <input type="checkbox" id="my-toggle"/>
+        <label for="my-toggle">Show Best Pick on Leaderboard</label>
+        </div>
         <div className={styles.leaderboardContainer}>
           {
             !loading ?

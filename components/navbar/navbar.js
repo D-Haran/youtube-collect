@@ -7,7 +7,7 @@ import { useUser, signOutWithGoogle } from "../../context/userContext";
 import firebaseApp from '../../firebase/clientApp'
 import Modal from 'react-modal';
 
-const Navbar = ({userDisplayName}) => {
+const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
   const [isPremium, setIsPremium] = useState(false)
   const [profileReveal, setProfileReveal] = useState(false)
   const [newUserName, setNewUserName] = useState("Test User")
@@ -15,6 +15,14 @@ const Navbar = ({userDisplayName}) => {
   const user = useUser()
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  async function changeShowBestPick(showBestPick) {
+    await fetch(`/api/user/${user?.user?.uid}/best_pick_show/route`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId: user?.user?.uid, show: showBestPick})
+    })
+  }
 
   function openModal() {
     setIsOpen(true);
@@ -132,6 +140,12 @@ const Navbar = ({userDisplayName}) => {
           Change Username: <input maxLength={15} placeholder={userDisplayName} onChange={(e) => {setNewUserName(e.target.value)}}/>
           <button disabled={changeLoading} type='submit' onClick={(e) => {e.preventDefault(); handleChangeUserName(newUserName)}}>Submit</button>
         </form>
+        { (showBestPick == true || showBestPick == false) &&
+          <div className={styles.bestPickCheck}>
+          <input type="checkbox" id="my-toggle" checked={showBestPick}  onClick={() => {changeShowBestPick(!showBestPick); setShowBestPick(!showBestPick)}} />
+        <label for="my-toggle">Show Best Pick on Leaderboard</label>
+        </div>
+        }
         
       </Modal>
     </>

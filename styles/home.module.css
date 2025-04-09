@@ -2,9 +2,9 @@
     min-height: 100vh;
     min-width: 100vw;
     padding: 0 0.5rem;
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
-    padding-top: 90px;
     justify-content: center;
     align-items: center;
     background: rgb(0, 0, 0);
@@ -25,20 +25,37 @@
     color: white;
   }
 
-  .rank {
-    color: white;
+  .rankSection {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 12px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
-
+  
+  .rankWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 16px;
+    border: 2px solid rgb(94, 0, 0);
+    box-shadow: 0 0px 12px rgba(255, 255, 255, 0.6);
+    min-width: 160px;
+  }
+  
+  .rankLabel {
+    color: #e3e3e3;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  
   .rankNumber {
-    margin: 10px;
-    background-color: #4d4d4d;
-    padding: 10px;
-    border-radius: 12px;
-    color: gold;
+    font-size: 1.9rem;
+    font-weight: bold;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .description {
@@ -98,7 +115,10 @@
   width: 90vw;
   padding-top: 20px;
   padding-bottom: 20px;
+  min-height: 200px;
+  max-height: 500px;
   grid-gap: 10px;
+  align-items: center;
   justify-content: safe center;
   border: solid 1px black;
   border-radius: 12px;
@@ -125,6 +145,8 @@
   gap: 15px;
   padding-top: 20px;
   padding-bottom: 20px;
+  min-height: 200px;
+  max-height: 500px;
   align-items: center;
   border: solid 1px black;
   border-radius: 12px;

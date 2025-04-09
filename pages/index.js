@@ -28,6 +28,7 @@ export default function Home() {
   const [investmentsLoaded, setInvestmentsLoaded] = useState(false)
   const [currentUser, setCurrentUser] = useState(user)
   const [signInLoading, setSignInLoading] = useState(false)
+  const [showBestPick, setShowBestPick] = useState(false)
 
   const override = {
     display: "block",
@@ -64,6 +65,7 @@ async function firestoreGetUserData(userId) {
     {return res.json();} })
   .then(data => {if (data.success) {
     setFirestoreUserData(data?.data); 
+    setShowBestPick(data.data.showBestPick)
     if (data.data?.investmentHistory?.length > 0)
     {data.data?.investmentHistory?.reverse(); 
       setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30))};
@@ -154,16 +156,30 @@ useEffect(() => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Youtube Collect</title>
+        <title>Home || Youtube Collect</title>
         <link rel="icon" href="/youCoinsLogo.png" />
         <meta name="google-site-verification" content="odCTNV3mrGrvM2JpHbiMllYzHWTEldh95mlprg9skOA" />
       </Head>
 
       <main>
         {(user) &&
-          <Navbar userDisplayName={firestoreUserData?.userName ? firestoreUserData.userName : user.displayName}/>
+          <Navbar userDisplayName={firestoreUserData?.userName ? firestoreUserData.userName : user.displayName} showBestPick={showBestPick} setShowBestPick={setShowBestPick}/>
         
         }
+  {(firestoreUserData?.rank && user) && (
+  <div className={styles.rankSection} style={firestoreUserData.rank <= 3 ? {backgroundImage: "linear-gradient(135deg, #540d0d, #000000)", borderRadius: "16px"}: {background: "black", borderRadius: "16px"}}>
+    <div className={styles.rankWrapper}>
+      <span className={styles.rankLabel}>Global Rank</span>
+      <span className={styles.rankNumber} style={firestoreUserData.rank <= 3 ? {backgroundImage: "linear-gradient(to right, #ffd700, #ffa500)",
+    color: "transparent",
+    backgroundClip: "text"} : 
+    {backgroundImage: "linear-gradient(to right, #ffffff, #a3a3a3)",
+    color: "transparent",
+    backgroundClip: "text"}
+    }>#{numify(firestoreUserData.rank)}</span>
+    </div>
+  </div>
+)}
         
         {(firestoreUserData && user && !loadingUser) ?
         <div>
@@ -188,14 +204,7 @@ useEffect(() => {
           <NumberFlow value={(Number(balance.toFixed(2)))} />  
             </h1>
         </div>
-        <h2 className={styles.rank}>
-          {firestoreUserData?.rank &&
-          <>
-          Ranked <p className={styles.rankNumber}>#{numify(firestoreUserData?.rank)}</p> Globally
-          </>
-          }
-          
-        </h2>
+        
         <div className={styles.investmentsOptionsContainer}>
           <h2 className={styles.investmentsOptionsHeader} style={holdingHistoryOpen ? {color: "rgba(240, 248, 255, 0.328)"} : {color: "white"}} onClick={() => {setCurrentHoldingsOpen(true); setHoldingHistoryOpen(false)}}>Current Holdings</h2>
           <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {holdingHistoryOpen && "(30)"}</h2>
@@ -239,7 +248,9 @@ useEffect(() => {
             holdingHistoryOpen &&
             <>
               {(videoInvestmentHistory)?
-              <div className={styles.videoInvestmentHistoryContainer}>
+              <div className={styles.videoInvestmentHistoryContainer}> 
+              {videoInvestmentHistory.length > 0 ? 
+              <>
                   {videoInvestmentHistory.map((video) => {
                   return (
                     <div>
@@ -247,7 +258,13 @@ useEffect(() => {
                     </div>
                   )
                 })}
+              </>
+              :
+              <h2 style={{color: "white"}}>No Previous Holdings</h2>
+            }
+              
               </div>
+              
               
               :
               <>
@@ -303,7 +320,7 @@ useEffect(() => {
 
       <style jsx>{`
         main {
-          padding: 5rem 0;
+          padding: 1rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;

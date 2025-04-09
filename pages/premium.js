@@ -93,7 +93,6 @@ const Premium = () => {
         <li><b>5</b> active investments at a time</li>
         <li><b>6</b> minute Investment cooldown</li>
         <li><b>75%</b> limit of available balance to invest in one video</li>
-        <li>No 1% chance of crashing when opening</li>
       </ul>
       <button disabled={loading ? true : (isPremium ? true : false)} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
         </div>

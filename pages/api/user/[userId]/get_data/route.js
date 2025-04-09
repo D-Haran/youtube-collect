@@ -17,10 +17,15 @@ export default async function GET(req, res) {
         const profileData = await docRef.get()
         if (profileData.exists) {
             const data = profileData.data()
-        if (data.investments && data.investments.length > 1) {
+            if (!(data.balance && data.investments)) {
+                res.status(450).json({ success: false, error: "User Does Not Exist!" });
+            } else {
+                if (data.investments && data.investments.length > 1) {
             data.investments.reverse()
         }
         res.json({ success: true, data });
+            }
+        
         } else {
             res.status(450).json({ success: false, error: "User Does Not Exist!" });
         }

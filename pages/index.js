@@ -117,9 +117,10 @@ async function firestoreCheckUserInvestments(userId) {
 const get_video_investments = async() => {
   const firestoreInvestmentCheck = await firestoreCheckUserInvestments(user.uid)
     if (firestoreInvestmentCheck) {
+      setInvestmentsLoaded(true)
       setVideoInvestments(firestoreInvestmentCheck)
     }
-    setInvestmentsLoaded(true)
+    
 }
 
 useEffect(() => {

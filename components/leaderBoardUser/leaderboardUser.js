@@ -37,7 +37,15 @@ const LeaderboardUser = ({user, index, me}) => {
         <div className={styles.right}>
             <h2 className={styles.bestPickHeader} onClick={() => {setExpanded(!expanded)}}>
                 <p style={{textAlign:'left'}}>Best Pick: </p>
-                <p style={{color: "green"}}>+{Number(Number(user.bestPick.profit).toFixed(2)).toLocaleString()}</p></h2>
+                {
+                  user.bestPick.profit > 0 ?
+                  <p style={{color: "green"}}>+{Number(Number(user.bestPick.profit).toFixed(2)).toLocaleString()}</p>
+                  :
+                  <>
+                  <p className={styles.nothing}>nothing</p>
+                  </>
+                }
+                </h2>
             {
                 expanded &&
                 <Fragment>

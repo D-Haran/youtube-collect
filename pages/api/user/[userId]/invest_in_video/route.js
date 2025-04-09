@@ -34,6 +34,7 @@ export default async  function POST(req, res) {
             const new_collect_ratio = await get_collect_ratio_video(investment?.video_metadata?.id)
             investment.initial_view_count = new_collect_ratio[0]
             investment.initial_ratio = new_collect_ratio[2]
+            investment.investment_total_before_crash = investment.investment_total
             const all_investments = docRefData.investments
             let already_invested = false
             for (let i = 0; i < all_investments.length; i++) {

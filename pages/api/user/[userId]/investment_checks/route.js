@@ -37,19 +37,27 @@ export default async function GET(req, res) {
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()
         const data = profileData.data()
+        let totalHoldingValue;
         if (data.investments && data.investments.length >= 1) {
             const newInvestments = data.investments
             for (let i = 0; i < newInvestments.length; i++) {
                 const inv = newInvestments[i]
+                let holdingProfit;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
                 if (new_collect_ratio) {
                   const profits = (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
                     const PnL = Math.ceil(profits)
-                    console.log(PnL)
                     const milestone = Math.floor(PnL / 100) * 100;
                     data.investments[i].curr_ratio = new_collect_ratio[2]
                     data.investments[i].video_metadata.statistics.viewCount = new_collect_ratio[0]
                     data.investments[i].video_metadata.snippet.hoursSinceUpload = new_collect_ratio[3] || 1
+                    const currentValue = inv.investment_total + ((profits/100) * inv.investment_total);
+                    if (!data.investments[i].investment_total_before_crash) {
+                      holdingProfit = currentValue - inv.investment_total;
+                    } else {
+                      holdingProfit = currentValue - inv.investment_total_before_crash;
+                    }
+                    const invested = inv.investment_total
                     const milestones_passed = milestone - inv.lastMilestone || 0
                     if (milestones_passed>0) {
                         for (let s = ((inv.lastMilestone/100)+1); s <= ((milestone/100)); s++) {
@@ -66,9 +74,17 @@ export default async function GET(req, res) {
                                   const investment_total = Number(data.investments[i].investment_total)
                                   data.investments[i].investment_total *= 0.10
                                   data.balance -= 0.9*investment_total
+                                  const newInvestmentTotal = Number(data.investments[i].investment_total) * 0.10
+                                  const currentValue = newInvestmentTotal + ((profits/100) * newInvestmentTotal);
+                                  if (!data.investments[i].investment_total_before_crash) {
+                                    data.investments[i].investment_total_before_crash = investment_total
+                                    holdingProfit = currentValue - newInvestmentTotal;
+                                  } else {
+                                    holdingProfit = currentValue - inv.investment_total_before_crash;
+                                  }
                                 } else {
                                   data.investments[i].investment_total = 1
-                                  data.balance -= inv.investment_total + 1
+                                  holdingProfit = -inv.investment_total_before_crash || 0
                                 }
                                 ;
                           
@@ -82,7 +98,6 @@ export default async function GET(req, res) {
                             
                           }
                     await docRef.set({ 
-                                balance: data.balance,
                                 investments: data.investments
                             }, {merge: true});
                     }
@@ -96,11 +111,19 @@ export default async function GET(req, res) {
                 
                       // Apply the crash (e.g., halve the current ratio)
                       if (data.investments[i].investment_total * 0.50 > 0) {
+                        const investment_total = Number(data.investments[i].investment_total)
                         data.investments[i].investment_total *= 0.50
-                        data.balance -= inv.investment_total
+                        const newInvestmentTotal = Number(data.investments[i].investment_total) * 0.50
+                        const currentValue = newInvestmentTotal + ((profits/100) * newInvestmentTotal);
+                        if (!data.investments[i].investment_total_before_crash) {
+                          data.investments[i].investment_total_before_crash = investment_total
+                          holdingProfit = currentValue - newInvestmentTotal;
+                        } else {
+                          holdingProfit = currentValue - inv.investment_total_before_crash;
+                        }
                       } else {
                         data.investments[i].investment_total = 1
-                        data.balance -= inv.investment_total + 1
+                        holdingProfit = -inv.investment_total_before_crash || 0
                       }
                       ;
                 
@@ -108,9 +131,11 @@ export default async function GET(req, res) {
                       data.investments[i].crashed = true;
                       data.investments[i].crashAt = Number(profits).toFixed(0) || profits;
                       data.investments[i].lastMilestone = milestone;
+                      if (!data.investments[i].investment_total_before_crash) {
+                        data.investments[i].investment_total_before_crash = invested;
+                      }
                       data.investments[i].crashType = "check";
                       await docRef.set({ 
-                                balance: data.balance,
                                 investments: data.investments,
                                 last_check: admin.firestore.Timestamp.fromDate(new Date(Date.now()))
                             }, {merge: true});
@@ -123,6 +148,15 @@ export default async function GET(req, res) {
                     
                     
                 }
+                data.investments[i].holdingProfit = holdingProfit
+                let pNL_percent;
+                if (!data.investments[i].investment_total_before_crash) {
+                  pNL_percent = (holdingProfit / inv.investment_total) || 0
+                  
+                } else {
+                  pNL_percent = (holdingProfit / data.investments[i].investment_total_before_crash)
+                }
+                data.investments[i].profit_percent = pNL_percent || 0
               }
             data.investments.reverse()
         }

@@ -8,6 +8,7 @@ const VideoInvestment = ({video}) => {
   const [loadingSell, setLoadingSell] = useState(false)
             const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
             const nextMilestoneRange = (((video.curr_ratio - video.initial_ratio)/video.initial_ratio)*100 - video.lastMilestone)
+            console.log(video)
             return(
               <LoadingOverlay
               active={loadingSell}
@@ -24,7 +25,7 @@ const VideoInvestment = ({video}) => {
                   <div className={styles.ratioStatProfitContainer} >
                     {video.curr_ratio && 
                     <Fragment>
-                      <PriceWithDiff value={(Number((((video.curr_ratio / video.initial_ratio)*video.investment_total) -  video.investment_total).toFixed(2)))} diff={(Number((((video.curr_ratio - video.initial_ratio)/video.initial_ratio) || 1).toFixed(2)))}/>
+                      <PriceWithDiff value={((video.holdingProfit.toFixed(2) || 0.00))} diff={((video.profit_percent.toFixed(2) || 0.00))}/>
                     </Fragment>
                     }
                     </div>

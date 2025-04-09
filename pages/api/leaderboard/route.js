@@ -14,6 +14,9 @@ export default async function GET(req, res) {
         var docRefData = (await docRef.get()).data()
         const users = docRefData.data
         for (let user of users) {
+            if (!user.showBestPick) {
+                user.bestPick = {profit: 0}
+            }
                 leaderboardList.push(user)
             }
         res.json({ success: true, data: leaderboardList });

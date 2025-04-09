@@ -45,10 +45,6 @@ const Leaderboard = () => {
                 <h1 className={styles.title}>Youtube Collect Leaderboard</h1>
                 
             </div>
-            <div className={styles.bestPickCheck}>
-          <input type="checkbox" id="my-toggle"/>
-        <label for="my-toggle">Show Best Pick on Leaderboard</label>
-        </div>
         <div className={styles.leaderboardContainer}>
           {
             !loading ?

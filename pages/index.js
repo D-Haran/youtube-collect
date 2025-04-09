@@ -88,18 +88,18 @@ async function firestoreCheckUserInvestments(userId) {
     const video_investments = videoInvestments
     var newBalance = balanceData
     if (balanceData) {
-      var invested = 0
+      var unrealized = 0
       var valueOfHoldings = 0
       if (video_investments.length >= 1 && balanceUpdated == false) {
         for (let i = 0; i < video_investments.length; i++) {
         const inv = video_investments[i]
-        invested = invested + inv.investment_total
-        newBalance = newBalance + (((inv.curr_ratio / (inv.initial_ratio)) || 1)*inv.investment_total - inv.investment_total)
-        valueOfHoldings = valueOfHoldings + ((inv.curr_ratio / (inv.initial_ratio)) || 1)*inv.investment_total
+        unrealized = unrealized + inv.holdingProfit
+        newBalance = newBalance + inv.holdingProfit
+        valueOfHoldings = valueOfHoldings + ((inv.investment_total_before_crash || inv.investment_total) + inv.holdingProfit)
       }
       setBalanceUpdated(false)
       setBalance(newBalance)
-      setUnrealizedGains(valueOfHoldings - invested)
+      setUnrealizedGains(unrealized)
       setAvailableBalance(newBalance - valueOfHoldings)
       
       } else {

@@ -69,7 +69,6 @@ async function firestoreGetUserData(userId) {
     if (data.data?.investmentHistory?.length > 0)
     {data.data?.investmentHistory?.reverse(); 
       setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30));
-      setVideoInvestments([])
     };
     }});
 }
@@ -117,10 +116,9 @@ async function firestoreCheckUserInvestments(userId) {
 const get_video_investments = async() => {
   const firestoreInvestmentCheck = await firestoreCheckUserInvestments(user.uid)
     if (firestoreInvestmentCheck) {
-      setInvestmentsLoaded(true)
       setVideoInvestments(firestoreInvestmentCheck)
+      setInvestmentsLoaded(true)
     }
-    
 }
 
 useEffect(() => {

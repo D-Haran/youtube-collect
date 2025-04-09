@@ -45,18 +45,20 @@ export default async function GET(req, res) {
                 let holdingProfit;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
                 if (new_collect_ratio) {
-                  const profits = inv.holdingProfits || (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
-                    const PnL = Math.ceil(profits)
-                    const milestone = Math.floor(PnL / 100) * 100;
-                    data.investments[i].curr_ratio = new_collect_ratio[2]
+                  data.investments[i].curr_ratio = new_collect_ratio[2]
                     data.investments[i].video_metadata.statistics.viewCount = new_collect_ratio[0]
                     data.investments[i].video_metadata.snippet.hoursSinceUpload = new_collect_ratio[3] || 1
-                    const currentValue = inv.investment_total + ((profits/100) * inv.investment_total);
+                    const temp_profits = (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
+                    const currentValue = inv.investment_total + ((temp_profits/100) * inv.investment_total);
                     if (!data.investments[i].investment_total_before_crash) {
                       holdingProfit = currentValue - inv.investment_total;
                     } else {
                       holdingProfit = currentValue - inv.investment_total_before_crash;
                     }
+                  const profits = inv.holdingProfits || (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
+                    const PnL = Math.ceil(profits)
+                    const milestone = Math.floor(PnL / 100) * 100;
+                    
                     const invested = inv.investment_total
                     const milestones_passed = milestone - inv.lastMilestone || 0
                     if (milestones_passed>0) {

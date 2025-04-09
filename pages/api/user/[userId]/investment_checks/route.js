@@ -112,8 +112,8 @@ export default async function GET(req, res) {
                       // Apply the crash (e.g., halve the current ratio)
                       if (data.investments[i].investment_total * 0.50 > 0) {
                         const investment_total = Number(data.investments[i].investment_total)
-                        data.investments[i].investment_total *= 0.50
                         const newInvestmentTotal = Number(data.investments[i].investment_total) * 0.50
+                        data.investments[i].investment_total *= 0.50
                         const currentValue = newInvestmentTotal + ((profits/100) * newInvestmentTotal);
                         if (!data.investments[i].investment_total_before_crash) {
                           data.investments[i].investment_total_before_crash = investment_total

@@ -140,7 +140,7 @@ useEffect(() => {
       }
       myAsyncFunction()
     // You also have your firebase app initialized
-  }, [loadingUser, user?.uid]);
+  }, [user?.uid]);
 
   useEffect(() => {
     if (firestoreUserData) {

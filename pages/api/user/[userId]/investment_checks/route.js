@@ -74,7 +74,6 @@ export default async function GET(req, res) {
                                   const investment_total = Number(data.investments[i].investment_total)
                                   const newInvestmentTotal = Number(data.investments[i].investment_total) * 0.10
                                   data.investments[i].investment_total *= 0.10
-                                  data.balance -= 0.9*investment_total
                                   const currentValue = newInvestmentTotal + ((profits/100) * newInvestmentTotal);
                                   if (!data.investments[i].investment_total_before_crash) {
                                     data.investments[i].investment_total_before_crash = investment_total

@@ -9,7 +9,7 @@ const HistoryInvestment = ({video}) => {
         <h3 className={styles.investmentType} style={video.investmentType == "BUY" ? {color: 'green'}: {color: 'red'}}>{video?.investmentType}</h3>
       {
           video.profit &&
-          <div className={styles.ratioStat} style={video?.profit >= 0 ? {color: 'green'} : {color: 'red'}}>
+          <div className={styles.ratioStat} style={video?.profit >= 0 ? {color: '#107800'} : {color: '#cd0000'}}>
           <h3>{video?.profit >= 0 ? "+" : "-"}{video?.profit ? (numify(Number(video.profit.toFixed(2))) || "<0.00001") || "N/A" : "..."}</h3>
         </div>
         }

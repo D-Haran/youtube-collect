@@ -125,7 +125,7 @@ border-radius: 10px;
     display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-    max-height: min-content;
+    height: 3rem;
     padding-top: 5px;
     margin: 0;
 }

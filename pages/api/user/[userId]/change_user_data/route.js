@@ -8,6 +8,11 @@ export default async  function POST(req, res) {
     const { userId, userName } = req.body;
 
     try {
+        if (admin.apps.length === 0) {
+            console.log("FIREBASE REFRESHING")
+            admin.initializeApp({
+            credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
+        }
         var numDaysBetween = function(d1, d2) {
             var diff = Math.abs(d1.getTime() - d2.getTime());
             return diff / (1000 * 60 * 60 * 24);

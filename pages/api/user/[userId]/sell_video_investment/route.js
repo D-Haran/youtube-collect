@@ -54,7 +54,7 @@ export default async function POST(req, res) {
             const currentRatio = new_collect_ratio[2];
 
             const roiMultiplier = currentRatio / initialRatio;
-            const profit_from_investment = sellingInvestment.investment_total * (roiMultiplier - 1);
+            const profit_from_investment = (sellingInvestment.investment_total * roiMultiplier) - (sellingInvestment.investment_total_before_crash || sellingInvestment.investment_total);
 
             sellingInvestment.profit = profit_from_investment
             const newBalance = docRef.balance + profit_from_investment

@@ -45,7 +45,7 @@ export default async function GET(req, res) {
                 let holdingProfit;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
                 if (new_collect_ratio) {
-                  const profits = (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
+                  const profits = inv.holdingProfits || (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
                     const PnL = Math.ceil(profits)
                     const milestone = Math.floor(PnL / 100) * 100;
                     data.investments[i].curr_ratio = new_collect_ratio[2]

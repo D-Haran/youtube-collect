@@ -26,23 +26,12 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
       q,
       (snapshot) => {
         // In this implementation we only expect one active or trialing subscription to exist.
-        var res = false;
-        
-        if (snapshot.docs.length === 1) {
-              snapshot.docs.forEach((doc, index) => {
-          const docData = doc.data()
-          if (docData.trial_expires && (new Date(docData.trial_expires.seconds*1000 || docData.trial_expires || Date.now()) > new Date(Date.now()))) {
-            res = true
-          }
-        })
-            } 
-        else if (snapshot.docs.length == 0){
-              res = false
-        }
+        if (snapshot.docs.length === 0) {
+            resolve(false)
+        } 
         else {
-              res = true;
-            }
-        resolve(res)
+          resolve(true)
+        }
         unsubscribe();
       },
       reject

@@ -66,3 +66,25 @@ exports.refresh_daily_trades = onSchedule("0 0 * * *", async (event) => {
   }
   return console.log("Successful User Update");
 });
+
+// exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
+//   const allUsers = await admin
+//         .firestore()
+//         .collection("profile")
+//         .collection("payments")
+//         .get();
+
+//     const batch = admin.firestore().batch();
+//     allUsers.docs.forEach((doc, index) => {
+//       if ((doc.data().trial_expires || null) && new Date(is_trial.data().trial_expires.seconds*1000 || Date.now()) < new Date(Date.now())) {
+//         const userId = doc.ref.path.split("/")[1]  
+//         const docRef = await (admin.firestore().collection("profile").doc(userId)).get();
+//         if (docRef.data().premium == true) {
+//           docRef.update({premium: false});
+//         }
+//       }
+//     });
+
+//     await batch.commit();
+      
+// });

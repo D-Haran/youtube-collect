@@ -21,6 +21,14 @@ export default async  function POST(req, res) {
             rank: null,
             showBestPick: true,
         }, {merge: true});
+
+        const today = new Date();
+        await admin.firestore().collection("profile").doc(userId).collection("payments").doc("trial").set({
+            status: "succeeded",
+            trail_started: new Date(Date.now()),
+            trial_expires: new Date(today.setDate(today.getDate() + 3))
+        })
+
         res.json({ success: true });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });

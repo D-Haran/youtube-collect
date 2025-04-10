@@ -43,6 +43,7 @@ export default async function GET(req, res) {
             for (let i = 0; i < newInvestments.length; i++) {
                 const inv = newInvestments[i]
                 let holdingProfit;
+                let pNL_percent;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
                 if (new_collect_ratio) {
                   data.investments[i].curr_ratio = new_collect_ratio[2]
@@ -152,7 +153,7 @@ export default async function GET(req, res) {
                     
                 }
                 data.investments[i].holdingProfit = holdingProfit
-                let pNL_percent;
+                
                 if (!data.investments[i].investment_total_before_crash) {
                   pNL_percent = (holdingProfit / inv.investment_total) || 0
                   

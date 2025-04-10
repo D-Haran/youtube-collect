@@ -21,18 +21,36 @@ export const getPremiumStatus = async (app: FirebaseApp) => {
   );
 
   return new Promise<boolean>((resolve, reject) => {
-    const unsubscribe = onSnapshot(
+    try {
+      const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
         // In this implementation we only expect one active or trialing subscription to exist.
-        if (snapshot.docs.length === 0) {
-          resolve(false);
-        } else {
-          resolve(true);
+        var res = false;
+        
+        if (snapshot.docs.length === 1) {
+              snapshot.docs.forEach((doc, index) => {
+          const docData = doc.data()
+          if (docData.trial_expires && (new Date(docData.trial_expires.seconds*1000 || docData.trial_expires || Date.now()) > new Date(Date.now()))) {
+            res = true
+          }
+        })
+            } 
+        else if (snapshot.docs.length == 0){
+              res = false
         }
+        else {
+              res = true;
+            }
+        resolve(res)
         unsubscribe();
       },
       reject
     );
+    } catch (error) {
+      console.log(error.message)
+      resolve(false)
+    }
+    
   });
 };

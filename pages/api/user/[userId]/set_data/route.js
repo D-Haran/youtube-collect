@@ -20,6 +20,8 @@ export default async  function POST(req, res) {
             sell_cooldown: new Date(Date.now()),
             rank: null,
             showBestPick: true,
+            trial: true,
+            trial_expires: new Date(today.setDate(today.getDate() + 3)),
         }, {merge: true});
 
         const today = new Date();

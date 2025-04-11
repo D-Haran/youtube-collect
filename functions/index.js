@@ -67,24 +67,31 @@ exports.refresh_daily_trades = onSchedule("0 0 * * *", async (event) => {
   return console.log("Successful User Update");
 });
 
-// exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
-//   const allUsers = await admin
-//         .firestore()
-//         .collection("profile")
-//         .collection("payments")
-//         .get();
+exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
+  const allUsers = await admin
+      .firestore()
+      .collection("profile")
+      .collection("payments")
+      .get();
 
-//     const batch = admin.firestore().batch();
-//     allUsers.docs.forEach((doc, index) => {
-//       if ((doc.data().trial_expires || null) && new Date(is_trial.data().trial_expires.seconds*1000 || Date.now()) < new Date(Date.now())) {
-//         const userId = doc.ref.path.split("/")[1]  
-//         const docRef = await (admin.firestore().collection("profile").doc(userId)).get();
-//         if (docRef.data().premium == true) {
-//           docRef.update({premium: false});
-//         }
-//       }
-//     });
-
-//     await batch.commit();
-      
-// });
+  allUsers.docs.forEach((doc) => {
+    if (doc.data().trial == true &&
+    new Date(doc.data().trial_expires.seconds*1000 ||
+    Date.now()) <
+      new Date(Date.now())) {
+      const userId = doc.ref.path.split("/")[1];
+      admin
+          .firestore()
+          .collection("profile")
+          .doc(userId)
+          .collection("payments")
+          .doc("trial")
+          .get().then((data) => {
+            if (data.data().premium == true) {
+              data.update({status: "expired"});
+            }
+            doc.update({trial: false});
+          });
+    }
+  });
+});

@@ -286,7 +286,7 @@ useEffect(() => {
         :
         <div>
           {
-            !loadingUser ?
+            (!loadingUser && !user) ?
             <div>
               <h1 className={styles.title}>Welcome to Youtube Collect</h1>
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>

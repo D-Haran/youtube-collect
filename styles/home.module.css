@@ -152,3 +152,31 @@
   border-radius: 12px;
   overflow-x: scroll;
 }
+
+.trialExpiresIn {
+  position: absolute;
+  top: 120px;
+  right: 80px;
+  background-color: #000;
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.time {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+}

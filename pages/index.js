@@ -29,6 +29,8 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(user)
   const [signInLoading, setSignInLoading] = useState(false)
   const [showBestPick, setShowBestPick] = useState(false)
+  // const [inTrial, setInTrial] = useState(false)
+  // const [trialExpires, setTrialExpires] = useState([])
 
   const override = {
     display: "block",
@@ -59,7 +61,6 @@ async function firestoreGetUserData(userId, retry) {
   .then(res => {if (res.status == 450) {
     if (retry <= 1) {
       firestoreUpdateUserData(userId).then(data => {
-        user.isPremium = true
       firestoreGetUserData(userId, retry+1); 
     })
     }
@@ -70,6 +71,15 @@ async function firestoreGetUserData(userId, retry) {
   .then(data => {if (data.success) {
     setFirestoreUserData(data?.data); 
     setShowBestPick(data.data.showBestPick)
+    // setInTrial(data?.data?.trial)
+    // if (data?.data?.trial == true) {
+    //   console.log(data.data.trial_expires)
+    //   const diffMs = Math.abs(new Date(data.data.trial_expires._seconds*1000) - new Date(Date.now()));
+    //   const totalHours = Math.floor(diffMs / (1000 * 60 * 60)); // Total whole hours
+    //   const days = Math.floor(totalHours / 24); // Whole days
+    //   const hours = totalHours % 24; 
+    //   setTrialExpires([days, hours])
+    // }
     if (data.data?.investmentHistory?.length > 0)
     {data.data?.investmentHistory?.reverse(); 
       setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30));
@@ -188,6 +198,16 @@ useEffect(() => {
         
         {(firestoreUserData && user && !loadingUser) ?
         <div>
+          {/* {inTrial && (
+  <div className={styles.trialExpiresIn}>
+    <div>
+      <h3 className={styles.heading}>Premium Trial Expires In</h3>
+      <p className={styles.time}>
+        <b>{trialExpires[0]}</b> Days and <b>{trialExpires[1]}</b> hours
+      </p>
+    </div>
+  </div>
+)} */}
           <div className={styles.balanceContainer}>
             {user.isPremium ?
             <Image 

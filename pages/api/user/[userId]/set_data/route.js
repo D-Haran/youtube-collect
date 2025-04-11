@@ -16,24 +16,24 @@ export default async  function POST(req, res) {
         await admin.firestore().collection("profile").doc(userId).set({ 
             balance: balance, 
             investments: [], 
-            daily_trades_left: 8, 
+            daily_trades_left: 5, 
             lastRefreshed: new Date(Date.now()),
             userName: userName,
             bestPick: {profit: 0},
-            premium: true,
+            premium: false,
             investmentHistory: [],
             sell_cooldown: new Date(Date.now()),
             rank: null,
             showBestPick: true,
-            trial: true,
-            trial_expires: new Date(today.setDate(today.getDate() + 3)),
+            // trial: true,
+            // trial_expires: new Date(today.setDate(today.getDate() + 3)),
         }, {merge: true});
 
-        await admin.firestore().collection("profile").doc(userId).collection("payments").doc("trial").set({
-            status: "succeeded",
-            trail_started: new Date(Date.now()),
-            trial_expires: new Date(today)
-        })
+        // await admin.firestore().collection("profile").doc(userId).collection("payments").doc("trial").set({
+        //     status: "succeeded",
+        //     trail_started: new Date(Date.now()),
+        //     trial_expires: new Date(today)
+        // })
 
         res.json({ success: true });
     } catch (error) {

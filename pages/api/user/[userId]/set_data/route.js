@@ -6,7 +6,11 @@ import { NextResponse } from "next/server";
 export default async  function POST(req, res) {
     // const { userId } = req.params;
     const { balance, userId, investments, userName } = req.body;
-
+    if (admin.apps.length === 0) {
+        console.log("FIREBASE REFRESHING")
+        admin.initializeApp({
+        credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
+    }
     try {
         const today = new Date();
         await admin.firestore().collection("profile").doc(userId).set({ 

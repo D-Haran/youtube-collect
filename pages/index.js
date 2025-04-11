@@ -52,14 +52,18 @@ const handleSignout = () => {
   setVideoInvestmentHistory([])
 }
 
-async function firestoreGetUserData(userId) {
+async function firestoreGetUserData(userId, retry) {
   await fetch(`/api/user/${userId}/get_data/route`, {
       method: "GET"
   })
   .then(res => {if (res.status == 450) {
-    firestoreUpdateUserData(userId).then(data => {
-      firestoreGetUserData(userId); 
+    if (retry <= 1) {
+      firestoreUpdateUserData(userId).then(data => {
+        user.isPremium = true
+      firestoreGetUserData(userId, retry+1); 
     })
+    }
+    
     return {success: false}} 
     else 
     {return res.json();} })
@@ -132,7 +136,7 @@ useEffect(() => {
   useEffect(() => {
       const myAsyncFunction = async() => {
         if (user) {
-        await firestoreGetUserData(user.uid)
+        await firestoreGetUserData(user.uid, 0)
         await get_video_investments()
         setLoggedIn(true)
       } else {

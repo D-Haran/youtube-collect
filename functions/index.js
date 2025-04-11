@@ -71,27 +71,27 @@ exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
   const allUsers = await admin
       .firestore()
       .collection("profile")
-      .collection("payments")
       .get();
-
   allUsers.docs.forEach((doc) => {
+    console.log("top");
     if (doc.data().trial == true &&
-    new Date(doc.data().trial_expires.seconds*1000 ||
-    Date.now()) <
+    new Date(doc.data().trial_expires.seconds*1000) <
       new Date(Date.now())) {
       const userId = doc.ref.path.split("/")[1];
-      admin
-          .firestore()
-          .collection("profile")
-          .doc(userId)
-          .collection("payments")
-          .doc("trial")
-          .get().then((data) => {
-            if (data.data().premium == true) {
-              data.update({status: "expired"});
-            }
-            doc.update({trial: false});
-          });
+      console.log(userId);
+      if (doc.data().premium == true) {
+        admin
+            .firestore()
+            .collection("profile")
+            .doc(userId)
+            .collection("payments")
+            .doc("trial")
+            .update({status: "expired"});
+
+        admin.firestore()
+            .collection("profile")
+            .doc(userId).update({trial: false, premium: false});
+      }
     }
   });
 });

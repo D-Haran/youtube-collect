@@ -3,6 +3,7 @@ import styles from './historyInvestment.module.css'
 import {numify} from "numify"
 
 const HistoryInvestment = ({video}) => {
+  video?.profit = video?.profit || 0
   return (
     <div className={styles.investmentContainer}>
       <div className={styles.typeContainer}>

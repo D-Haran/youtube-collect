@@ -154,7 +154,6 @@ useEffect(() => {
       }
       }
       myAsyncFunction()
-    // You also have your firebase app initialized
   }, [user?.uid]);
 
   useEffect(() => {

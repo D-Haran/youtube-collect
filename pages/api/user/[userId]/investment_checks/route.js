@@ -7,6 +7,7 @@ export default async function GET(req, res) {
     // const { userId } = req.params;
     const userId = req.query.userId;
     if (admin.apps.length === 0) {
+      console.log("INITIALIZING APP")
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
   }

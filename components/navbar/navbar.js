@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './navbar.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useUser, signOutWithGoogle } from "../../context/userContext";
 import firebaseApp from '../../firebase/clientApp'
 import Modal from 'react-modal';
@@ -57,6 +57,10 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
   
   
   const router = useRouter()
+  const pathname = usePathname()
+  useEffect(() => {
+    console.log(pathname)
+  }, [])
 
   const handleChangeUserName = async (userName) => {
     setChangeLoading(true)

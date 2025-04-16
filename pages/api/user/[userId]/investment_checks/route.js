@@ -2,21 +2,26 @@ import * as admin from "firebase-admin";
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from "next/server";
 
-
-export default async function GET(req, res) {
-    // const { userId } = req.params;
-    const userId = req.query.userId;
-    if (admin.apps.length === 0) {
+if (admin.apps.length === 0) {
       console.log("INITIALIZING APP")
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
   }
+  
+export default async function GET(req, res) {
+    // const { userId } = req.params;
+    const userId = req.query.userId;
+    
       const get_collect_ratio_video = async (video_id) => {
         try {
+          const t0 = performance.now();
           var res = 0
+          console.log(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
         await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
           .then(res => {return res.json()})
-          .then(json => {res = (json)});
+          .then(json => {res = (json)})
+          .then(data => {console.log(`Call to get_collect_ratio_video took ${performance.now() - t0} milliseconds.`);})
+          
         return res
         }catch (error) {
           console.log(error.message)
@@ -35,6 +40,7 @@ export default async function GET(req, res) {
         return 0;
       }
     try {
+      const t0 = performance.now();
         const docRef = admin.firestore().collection("profile").doc(userId)
         const profileData = await docRef.get()
         const data = profileData.data()
@@ -165,6 +171,8 @@ export default async function GET(req, res) {
               }
             data.investments.reverse()
         }
+        const t1 = performance.now();
+        console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
         res.json({ success: true, data });
     } catch (error) {
         console.error(error.message)

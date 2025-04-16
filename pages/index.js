@@ -11,6 +11,7 @@ import NumberFlow from '@number-flow/react'
 import HistoryInvestment from "../components/historyInvestment/historyInvestment";
 import ClipLoader from "react-spinners/HashLoader";
 import { numify } from "numify";
+import { generateFromEmail, generateUsername } from "unique-username-generator";
 
 export default function Home() {
   // Our custom hook to get context values
@@ -42,7 +43,7 @@ export default function Home() {
     await fetch(`/api/user/${userId}/set_data/route`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: user.displayName })
+        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: generateUsername() })
     })
     .then(res => res.json())
   }

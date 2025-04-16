@@ -18,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-loading-overlay-ts": "^2.0.2",
     "react-modal": "^3.16.3",
-    "react-spinners": "^0.15.0"
+    "react-spinners": "^0.15.0",
+    "unique-username-generator": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "19.0.12",

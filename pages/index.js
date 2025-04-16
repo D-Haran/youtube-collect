@@ -43,7 +43,7 @@ export default function Home() {
     await fetch(`/api/user/${userId}/set_data/route`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: generateUsername() })
+        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: generateUsername("", 2, 15) })
     })
     .then(res => res.json())
   }

@@ -10,7 +10,7 @@ const LeaderboardUser = ({user, index, me}) => {
             <h2><b>{index+1}.</b></h2>
         </div>
         
-        <div className={styles.userContainer}>
+        <div className={styles.userContainer} style={me ? {backgroundImage: "linear-gradient(135deg, #edd862, #540d0d)"}: {}}>
             <div className={styles.left}>
         <h3 className={styles.userName}>
             <b>{user.userName}{me? " (me)" : ""}</b>
@@ -32,7 +32,7 @@ const LeaderboardUser = ({user, index, me}) => {
         height={40}
         alt="Picture of the author"
         />
-            <h3 className={styles.userBalance}>{Number(Number(user.balance).toFixed(2)).toLocaleString()} </h3>
+            <h3 className={styles.userBalance} style={me ? {fontWeight: "600"}: {}}>{Number(Number(user.balance).toFixed(2)).toLocaleString()} </h3>
         </div>
         <div className={styles.right}>
             <h2 className={styles.bestPickHeader} onClick={() => {setExpanded(!expanded)}}>
@@ -42,7 +42,7 @@ const LeaderboardUser = ({user, index, me}) => {
                   <p style={{color: "green"}}>+{Number(Number(user.bestPick.profit).toFixed(2)).toLocaleString()}</p>
                   :
                   <>
-                  <p className={styles.nothing}>nothing</p>
+                  <p className={styles.nothing} style={me ? {color: "black"}: {}}>nothing</p>
                   </>
                 }
                 </h2>
@@ -59,7 +59,7 @@ const LeaderboardUser = ({user, index, me}) => {
                 </div> 
                 
                 :
-                <p className={styles.nothing}>nothing</p>
+                <p className={styles.nothing} style={me ? {color: "black"}: {}}>nothing</p>
             }  
                 </Fragment>
                 

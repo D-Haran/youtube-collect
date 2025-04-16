@@ -11,8 +11,7 @@ import NumberFlow from '@number-flow/react'
 import HistoryInvestment from "../components/historyInvestment/historyInvestment";
 import ClipLoader from "react-spinners/HashLoader";
 import { numify } from "numify";
-import { generateFromEmail, generateUsername } from "unique-username-generator";
-import { v4 as uuidv4 } from 'uuid';
+import { generateUsername } from "unique-username-generator";
 
 export default function Home() {
   // Our custom hook to get context values
@@ -63,8 +62,7 @@ async function firestoreGetUserData(userId, retry) {
   .then(res => {if (res.status == 450) {
     if (retry <= 1) {
       firestoreUpdateUserData(userId).then(data => {
-      firestoreGetUserData(userId, retry+1); 
-    })
+      firestoreGetUserData(userId, retry+1)})
     }
     
     return {success: false}} 

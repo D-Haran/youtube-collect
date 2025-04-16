@@ -12,6 +12,7 @@ import HistoryInvestment from "../components/historyInvestment/historyInvestment
 import ClipLoader from "react-spinners/HashLoader";
 import { numify } from "numify";
 import { generateFromEmail, generateUsername } from "unique-username-generator";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Home() {
   // Our custom hook to get context values

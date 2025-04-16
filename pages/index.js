@@ -182,10 +182,10 @@ useEffect(() => {
         
         }
   {(firestoreUserData?.rank && user) && (
-  <div className={styles.rankSection} style={firestoreUserData.rank <= 10 ? {backgroundImage: "linear-gradient(135deg, #540d0d, #000000)", borderRadius: "16px"}: {background: "black", borderRadius: "16px"}}>
+  <div className={styles.rankSection} style={firestoreUserData.rank <= 3 ? {backgroundImage: "linear-gradient(135deg, #540d0d, #000000)", borderRadius: "16px"}: {background: "black", borderRadius: "16px"}}>
     <div className={styles.rankWrapper}>
       <span className={styles.rankLabel}>Global Rank</span>
-      <span className={styles.rankNumber} style={firestoreUserData.rank <= 100 ? {backgroundImage: "linear-gradient(to right, #ffd700, #ffa500)",
+      <span className={styles.rankNumber} style={firestoreUserData.rank <= 10 ? {backgroundImage: "linear-gradient(to right, #ffd700, #ffa500)",
     color: "transparent",
     backgroundClip: "text"} : 
     {backgroundImage: "linear-gradient(to right, #ffffff, #a3a3a3)",

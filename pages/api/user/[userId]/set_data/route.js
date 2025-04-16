@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from "next/server";
+import { v4 as uuidv4 } from 'uuid';
 
 
 export default async  function POST(req, res) {
@@ -13,6 +14,7 @@ export default async  function POST(req, res) {
     }
     try {
         const today = new Date();
+        const leaderboardId = uuidv4();
         await admin.firestore().collection("profile").doc(userId).set({ 
             balance: balance, 
             investments: [], 
@@ -25,6 +27,7 @@ export default async  function POST(req, res) {
             sell_cooldown: new Date(Date.now()),
             rank: null,
             showBestPick: true,
+            leaderboardId: leaderboardId,
             // trial: true,
             // trial_expires: new Date(today.setDate(today.getDate() + 3)),
         }, {merge: true});

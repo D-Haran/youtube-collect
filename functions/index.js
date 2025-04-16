@@ -21,7 +21,7 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
     // Also store top 100 in one doc
     const top100 = allUsers.docs.slice(0, 100).map((doc, i) => ({
       userName: doc.data().userName || "Anonymous",
-      id: doc.id,
+      id: doc.data().leaderboardId || doc.id || "ewfoiubensukhjb231ewfw",
       balance: doc.data().balance || 0,
       bestPick: doc.data().bestPick || null,
       premium: doc.data().premium || false,

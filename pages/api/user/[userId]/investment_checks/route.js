@@ -7,12 +7,7 @@ if (admin.apps.length === 0) {
     admin.initializeApp({
       credential: admin.credential.cert(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY))})
   }
-  
-export default async function GET(req, res) {
-    // const { userId } = req.params;
-    const userId = req.query.userId;
-    
-      const get_collect_ratio_video = async (video_id) => {
+  const get_collect_ratio_video = async (video_id) => {
         try {
           const t0 = performance.now();
           var res = 0
@@ -29,7 +24,7 @@ export default async function GET(req, res) {
       }
         
       }
-    function getCrashChanceForMilestone(pnl) {
+      function getCrashChanceForMilestone(pnl) {
         if (pnl >= 2000) return 0.70;
         if (pnl >= 1000) return 0.60;
         if (pnl >= 500) return 0.45; 
@@ -39,6 +34,12 @@ export default async function GET(req, res) {
         if (pnl >= 100) return 0.17; 
         return 0;
       }
+export default async function GET(req, res) {
+    // const { userId } = req.params;
+    const userId = req.query.userId;
+    
+      
+    
     try {
       const t0 = performance.now();
         const docRef = admin.firestore().collection("profile").doc(userId)

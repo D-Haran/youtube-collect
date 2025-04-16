@@ -12,6 +12,7 @@ const Leaderboard = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [leaderboardId, setLeaderboardId] = useState("")
     const nextRefreshDate = getNextLeaderboardRefresh();
 
     const override = {
@@ -20,6 +21,10 @@ const Leaderboard = () => {
       borderColor: "red",
     };
 
+    useEffect(() => {
+      const curr_id = localStorage.getItem("leaderboardId") || "efsdiuy"
+      setLeaderboardId(curr_id)
+    }, [])
 
     async function firestoreGetLeaderboard() {
     await fetch(`/api/leaderboard/route`, {
@@ -81,7 +86,7 @@ const Leaderboard = () => {
               leaderboard.map((profile, index) => {
                   return(
                       <div className={styles.leaderboardUserContainer}>
-                          <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={user?.uid == profile.id ? true : false} />
+                          <LeaderboardUser className={styles.leaderBoardUser} user={profile} index={index} me={leaderboardId == profile.id ? true : false} />
                       </div>
                   )
               })

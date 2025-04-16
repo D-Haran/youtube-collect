@@ -92,3 +92,10 @@
   padding-left: 0;
   color: white;
 }
+
+.refreshLeaderboardTimer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

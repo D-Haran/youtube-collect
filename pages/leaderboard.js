@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Query } from 'firebase/firestore'
 import LeaderboardUser from '../components/leaderBoardUser/leaderboardUser'
 import styles from '../styles/leaderboard.module.css'
@@ -6,11 +6,13 @@ import Head from "next/head";
 import Navbar from '../components/navbar/navbar'
 import { useUser, signOutWithGoogle, signInWithGoogle } from "../context/userContext";
 import ClipLoader from "react-spinners/HashLoader";
+import Countdown from 'react-countdown';
 
 const Leaderboard = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     const [loading, setLoading] = useState(true)
+    const nextRefreshDate = getNextLeaderboardRefresh();
 
     const override = {
       display: "block",
@@ -33,6 +35,24 @@ const Leaderboard = () => {
         firestoreGetLeaderboard()
     }, [])
 
+    function getNextLeaderboardRefresh() {
+      const now = new Date();
+      const minutes = now.getMinutes();
+    
+      const next = new Date(now);
+      next.setSeconds(0);
+      next.setMilliseconds(0);
+    
+      if (minutes < 30) {
+        next.setMinutes(30);
+      } else {
+        next.setMinutes(0);
+        next.setHours(now.getHours() + 1);
+      }
+    
+      return next;
+    }
+
   return (
     <div className={styles.someCSSMoludesClass}>
       <Head>
@@ -43,7 +63,9 @@ const Leaderboard = () => {
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Youtube Collect Leaderboard</h1>
-                
+                <p className={styles.refreshLeaderboardTimer}>
+                  <b>Leaderboard Refresh: </b> {" "} <Countdown date={nextRefreshDate}><Fragment>Reload to Refresh!</Fragment></Countdown>
+                </p>
             </div>
         <div className={styles.leaderboardContainer}>
           {

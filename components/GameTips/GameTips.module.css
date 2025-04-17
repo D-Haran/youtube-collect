@@ -1,0 +1,60 @@
+
+.tipsSection {
+    background-color: #000;
+    padding: 4rem 1rem;
+  }
+  
+  .tipsContainer {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  
+  .tipsTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .tipsGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+  
+  .tipCard {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 33, 33, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+  
+  .tipContent {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .tipIcon {
+    background: rgba(255, 0, 0, 0.2);
+    padding: 0.75rem;
+    color: red;
+    border-radius: 9999px;
+  }
+  
+  .tipTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tipDescription {
+    color: #a0a0a0;
+  }
+  
+  @media (min-width: 768px) {
+    .tipsGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  

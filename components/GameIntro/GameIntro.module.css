@@ -1,0 +1,62 @@
+.introSection {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+  }
+  
+  .introTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .introDescription {
+    font-size: 1.25rem;
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 3rem;
+  }
+  
+  .featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+  
+  .featureCard {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 33, 33, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  
+  .featureIconWrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .featureIconBg {
+    background: rgba(255, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 9999px;
+    color: red;
+  }
+  
+  .featureTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .featureDescription {
+    color: #a0a0a0;
+  }
+  
+  @media (min-width: 768px) {
+    .featuresGrid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

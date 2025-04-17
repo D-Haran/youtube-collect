@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    height: 90px;
+    padding: 20px;
+    color: white;
+    top: 0;
+    background-color: black;
+    width: 100%;
+    margin-bottom: 30px;
+    box-shadow: 0 0 5em rgba(85,0,0,1);
+    z-index: 99;
+}
+
+.signOutButton {
+    color: white;
+    cursor: pointer;
+}
+
+.profileName {
+    position: absolute;
+    top: 60px;
+    right: 50px;
+    transition: ease-in-out;
+    transition-duration: 100ms;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+}
+.bestPickCheck {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+  }
+.left {
+    text-align: left;
+    width: 100%;
+}
+.middle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.right {
+    width: 100%;
+    display: flex;
+    text-align: right;
+    align-items: center;
+    justify-content: right;
+}
+
+.navBarItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+}
+
+.getPremium {
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    max-height: min-content;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.modalContent {
+    background-color: rgba(0, 0, 0, 0.344);
+  }

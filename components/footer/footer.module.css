@@ -1,0 +1,58 @@
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 0;
+    margin-top: 3rem;
+  }
+  
+  .container {
+    max-width: 96rem; /* same as max-w-6xl */
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+  
+    /* responsive */
+  }
+  
+  @media (min-width: 768px) {
+    .content {
+      flex-direction: row;
+    }
+  }
+  
+  .logoGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .link {
+    color: #9ca3af; /* gray-400 */
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    color: white;
+  }
+  
+  .copyright {
+    color: #9ca3af; /* gray-400 */
+  }
+  

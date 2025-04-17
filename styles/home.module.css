@@ -7,8 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgb(4, 4, 4) 0%, rgba(73,44,44,1) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+    background: linear-gradient(180deg, rgb(100, 10, 10) 0%, rgba(69, 0, 0, 0.526) 100%);
   }
 
   .balance {
@@ -188,3 +187,4 @@
   align-items: center;
   color: gray;
 }
+

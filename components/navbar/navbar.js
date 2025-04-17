@@ -5,6 +5,9 @@ import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import { useUser, signOutWithGoogle } from "../../context/userContext";
 import firebaseApp from '../../firebase/clientApp'
+import {
+  CircleHelpIcon
+} from "lucide-react";
 import Modal from 'react-modal';
 
 const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
@@ -122,6 +125,13 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
                   
               </div>
               </Link>
+              <div style={{cursor: "pointer"}}>
+                <Link href={`/about/`} passHref legacyBehavior >
+                <CircleHelpIcon style={{cursor: "pointer"}} />
+              </Link>
+              </div>
+              
+              
               <div className={styles.navBarItem}>
                 <Image 
                   onMouseEnter={() => setProfileReveal(true)}

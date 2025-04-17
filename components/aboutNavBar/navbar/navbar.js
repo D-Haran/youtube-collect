@@ -4,6 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import Modal from 'react-modal';
+import {
+  MessageCircleQuestionIcon
+} from "lucide-react";
 
 const AboutNavbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
   const [isPremium, setIsPremium] = useState(false)

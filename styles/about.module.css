@@ -7,9 +7,9 @@
   
   .heroSection {
     padding: 4rem 0;
-    background: linear-gradient(135deg, #252525 0%, #6c0000 100%);
+    background: linear-gradient(135deg, #881a1a 0%, #1d0000 100%);
     text-align: center;
-    height: 70vh;
+    height: 80vh;
     z-index: -1;
     display: flex;
     justify-content: center;

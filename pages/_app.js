@@ -8,6 +8,7 @@ export default function App({ Component, pageProps }) {
   return (
     <UserProvider>
       <SpeedInsights/>
+      <Analytics/>
       <Component {...pageProps} />
     </UserProvider>
   );

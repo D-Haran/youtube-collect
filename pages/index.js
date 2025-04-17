@@ -74,6 +74,7 @@ async function firestoreGetUserData(userId, retry) {
     setFirestoreUserData(data?.data); 
     setShowBestPick(data.data.showBestPick)
     localStorage.setItem("leaderboardId", data.data?.leaderboardId || "ewefsghdyri")
+    localStorage.setItem("userName", data.data?.userName || "shrek")
     // setInTrial(data?.data?.trial)
     // if (data?.data?.trial == true) {
     //   console.log(data.data.trial_expires)

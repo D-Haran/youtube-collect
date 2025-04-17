@@ -12,6 +12,7 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
   const [profileReveal, setProfileReveal] = useState(false)
   const [newUserName, setNewUserName] = useState("Test User")
   const [changeLoading, setChangeLoading] = useState(false)
+  const [currUserName, setCurrUserName] = useState(userDisplayName)
   const user = useUser()
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -37,6 +38,10 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
     setIsPremium(user?.user?.isPremium)
   }
   }, [user])
+  useEffect(() => {
+    const userName_localStorage = localStorage.getItem("userName")
+    setCurrUserName(userName_localStorage)
+  }, [user, userDisplayName])
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.744)"
@@ -70,7 +75,15 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
       body: JSON.stringify({ userId: user.user.uid, userName: userName })
   })
   .then(res => res.json())
-  .then(data => {if (data.success) {console.log("Username Updated:", data); router.refresh()} else {alert("Cannot Change Name: \nThe last time you changed your username was within 30 days ago"); setChangeLoading(false)}});
+  .then(data => {if (data.success) {console.log("Username Updated:", data); router.refresh()} else {
+    console.log(data)
+    if (data.diffDays != null) {
+      alert("Cannot Change Name: \n"+`You can change your username in ${Math.abs(data.diffDays - 30)} days`);
+    } else {
+      alert("Cannot Change Name: \n"+`The last time you changed your username was within 30 days ago`);
+    }
+    setChangeLoading(false)
+  }});
   }
   return (
     <>
@@ -113,14 +126,14 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
                 <Image 
                   onMouseEnter={() => setProfileReveal(true)}
                   onMouseLeave={() => setProfileReveal(false)} 
-                  onClick={openModal}
+                  onClick={pathname == "/" ? openModal : () => {}}
                   className={styles.profileLogo}
                       src="/Profile.png"
                       width={30}
                       height={30}
                       alt="Profile"
                       /> 
-                  {profileReveal && <p className={styles.profileName}>{userDisplayName}</p>}
+                  {profileReveal && <p className={styles.profileName}>{currUserName}</p>}
                   <p className={styles.signOutButton}  onClick={() => {signOutWithGoogle(); router.push('/');}}>
                   <Image 
                       src="/SignOut.png"

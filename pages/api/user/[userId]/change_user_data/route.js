@@ -23,14 +23,16 @@ export default async  function POST(req, res) {
                 if (profileData.exists) {
                     const data = profileData.data()
                     if (data.userNameChangeDate) {
-                        if (numDaysBetween(new Date(Date.now()), new Date(data.userNameChangeDate)) >= 30) {
+                        const diffDays = numDaysBetween(new Date(Date.now()), new Date(data.userNameChangeDate.seconds ? data.userNameChangeDate.seconds*1000 : data.userNameChangeDate))
+                        console.log(diffDays, new Date(Date.now()), new Date(data.userNameChangeDate))
+                        if (diffDays >= 30) {
                             await admin.firestore().collection("profile").doc(userId).set({
                             userName: userName,
                             userNameChangeDate: admin.firestore.Timestamp.fromDate(new Date(Date.now()))
                         }, {merge: true});
                         res.status(200).json({ success: true });
                         } else {
-                            res.status(200).json({ success: false, error: "30 Days" });
+                            res.status(200).json({ success: false, error: "30 Days", diffDays: (Math.floor(Number(diffDays)) || 30) });
                             console.log('30 Days')
                         }
                         

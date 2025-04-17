@@ -3,13 +3,12 @@ import styles from './historyInvestment.module.css'
 import {numify} from "numify"
 
 const HistoryInvestment = ({video}) => {
-  video.profit = video?.profit || 0
   return (
     <div className={styles.investmentContainer}>
       <div className={styles.typeContainer}>
         <h3 className={styles.investmentType} style={video.investmentType == "BUY" ? {color: 'green'}: {color: 'red'}}>{video?.investmentType}</h3>
       {
-          video.profit &&
+          (video.profit && video.investmentType == "SELL") &&
           <div className={styles.ratioStat} style={video?.profit >= 0 ? {color: '#107800'} : {color: '#cd0000'}}>
           <h3>{video?.profit >= 0 ? "+" : "-"}{video?.profit ? (numify(Number(video.profit.toFixed(2))) || "<0.00001") || "N/A" : "..."}</h3>
         </div>

@@ -144,7 +144,7 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
                       alt="Profile"
                       /> 
                   {profileReveal && <p className={styles.profileName}>{currUserName}</p>}
-                  <p className={styles.signOutButton}  onClick={() => {signOutWithGoogle(); router.push('/');}}>
+                  <p className={styles.signOutButton}  onClick={() => {signOutWithGoogle(); router.push('/about/');}}>
                   <Image 
                       src="/SignOut.png"
                       width={30}

@@ -11,7 +11,7 @@ import Link from 'next/link'
 import Head from 'next/head';
 
 const Index = () => {
-    const [totalUsers, setTotalUsers] = useState(0)
+    const [totalUsers, setTotalUsers] = useState(null)
     async function firestoreGetTotalUsers() {
         await fetch(`/api/leaderboard/total_users/route`, {
             method: "GET"

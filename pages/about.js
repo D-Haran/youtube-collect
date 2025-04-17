@@ -53,16 +53,16 @@ const Index = () => {
       </Head>
       <main className={styles.main}>
       
-        <p className={styles.alreadyAPlayer}>
+        
+        <div className={styles.heroSection} style={{zIndex:100}}>
+           <p className={styles.alreadyAPlayer}>
             Already a player?
             <Link href={`/`} passHref legacyBehavior>
             <button className={styles.dashboardButton}>
                 Go To Dashboard
             </button>
             </Link>
-        </p>
-        <div className={styles.heroSection} style={{zIndex:100}}>
-            
+        </p> 
           <div className={styles.heroContent}>
             
           <Image 

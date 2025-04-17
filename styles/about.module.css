@@ -60,8 +60,8 @@
     margin: 10px;
     padding: 1rem 1rem;
     font-weight: bold;
-    background: linear-gradient(to right, #720101, #000000);
-    border-radius: 0.375rem;
+    background: linear-gradient(to right, #720101, #5b0c0c);
+    border-radius: 0.575rem;
     color: rgb(221, 221, 221);
     cursor: pointer;
     transition: opacity 0.2s;

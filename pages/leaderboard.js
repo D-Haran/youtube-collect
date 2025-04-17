@@ -58,6 +58,14 @@ const Leaderboard = () => {
       return next;
     }
 
+    const renderer = ({ minutes, seconds, completed }) => {
+      if (completed) {
+      } else {
+        // Render a countdown
+        return <span>{" "+minutes} minutes and {seconds} seconds</span>;
+      }
+    };
+
   return (
     <div className={styles.someCSSMoludesClass}>
       <Head>
@@ -69,7 +77,7 @@ const Leaderboard = () => {
             <div className={styles.header}>
                 <h1 className={styles.title}>Youtube Collect Leaderboard</h1>
                 <p className={styles.refreshLeaderboardTimer}>
-                  <b>Leaderboard Refresh: </b> {" "} <Countdown date={nextRefreshDate}><Fragment>Reload to Refresh!</Fragment></Countdown>
+                  <b>Leaderboard Refresh: </b> &nbsp; <Countdown renderer={renderer} date={nextRefreshDate}><Fragment>Reload to Refresh!</Fragment></Countdown>
                 </p>
             </div>
         <div className={styles.leaderboardContainer}>

@@ -8,6 +8,7 @@ import Footer from '../components/footer/footer';
 import Image from 'next/image';
 import { numify } from 'numify';
 import Link from 'next/link'
+import Head from 'next/head';
 
 const Index = () => {
     const [totalUsers, setTotalUsers] = useState(0)
@@ -28,6 +29,11 @@ const Index = () => {
         }, [])
   return (
     <div className={styles.landingContainer}>
+        <Head>
+        <title>About || Youtube Collect</title>
+        <link rel="icon" href="/youCoinsLogo.png" />
+        <meta name="google-site-verification" content="odCTNV3mrGrvM2JpHbiMllYzHWTEldh95mlprg9skOA" />
+      </Head>
       <main className={styles.main}>
         <div className={styles.heroSection}>
           <div className={styles.heroContent}>

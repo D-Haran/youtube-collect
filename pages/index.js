@@ -30,6 +30,8 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(user)
   const [signInLoading, setSignInLoading] = useState(false)
   const [showBestPick, setShowBestPick] = useState(false)
+  const [totalUsers, setTotalUsers] = useState(null)
+  const [historyRecieved, setHistoryRecieved] = useState(false)
   // const [inTrial, setInTrial] = useState(false)
   // const [trialExpires, setTrialExpires] = useState([])
 
@@ -81,10 +83,6 @@ async function firestoreGetUserData(userId, retry) {
     //   const hours = totalHours % 24; 
     //   setTrialExpires([days, hours])
     // }
-    if (data.data?.investmentHistory?.length > 0)
-    {data.data?.investmentHistory?.reverse(); 
-      setVideoInvestmentHistory(data.data?.investmentHistory?.splice(0, 30));
-    };
     }});
 }
 
@@ -167,6 +165,36 @@ useEffect(() => {
     setHoldingHistoryOpen(!currentHoldingsOpen)
   }, [currentHoldingsOpen, holdingHistoryOpen])
 
+  async function firestoreGetTotalUsers() {
+    await fetch(`/api/leaderboard/total_users/route`, {
+        method: "GET"
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data) {
+        setTotalUsers(data.total)
+      }
+    });
+    }
+
+    useEffect(() => {
+      firestoreGetTotalUsers()
+    }, [])
+
+    const handleHistoryOpen = async() => {
+      if (!historyRecieved) {
+          await fetch(`/api/user/${user?.uid}/get_history/route`, {
+          method: "GET"
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          setVideoInvestmentHistory(data.data);
+          setHistoryRecieved(true)
+        }
+      });
+      }
+    }
 
   return (
     <div className={styles.container}>
@@ -232,7 +260,7 @@ useEffect(() => {
         
         <div className={styles.investmentsOptionsContainer}>
           <h2 className={styles.investmentsOptionsHeader} style={holdingHistoryOpen ? {color: "rgba(240, 248, 255, 0.328)"} : {color: "white"}} onClick={() => {setCurrentHoldingsOpen(true); setHoldingHistoryOpen(false)}}>Current Holdings</h2>
-          <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {holdingHistoryOpen && "(30)"}</h2>
+          <h2 className={styles.investmentsOptionsHeader} style={currentHoldingsOpen ? {color: "rgba(240, 248, 255, 0.328)"}: {color: 'white'}} onClick={() => {handleHistoryOpen(); setHoldingHistoryOpen(true); setCurrentHoldingsOpen(false)}}>Investment History {holdingHistoryOpen && "(30)"}</h2>
         </div>
           
           {
@@ -314,7 +342,14 @@ useEffect(() => {
             <div>
               <h1 className={styles.title}>Welcome to Youtube Collect</h1>
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
-          <div className={styles.buttonContainer}>
+          {totalUsers &&
+          <div className={styles.totalUsersContainer}>
+              <h3>{numify(totalUsers)} Total Current Players</h3>
+            </div>
+          }
+          
+            <div className={styles.buttonContainer}>
+            
               <button className={styles.signinButton} disabled={user ? true : false || signInLoading} onClick={user ? handleSignout : () => {setSignInLoading(true); signInWithGoogle().then(data => setSignInLoading(false))}}>
             Sign {user ? "Out" : "In With Google"}
           </button>

@@ -22,6 +22,7 @@ export default async  function POST(req, res) {
                 }
             }
             const docRef = admin.firestore().collection("profile").doc(userId)
+            const historyInvestmentsRef = admin.firestore().collection("profile").doc(userId).collection("investmentHistory")
             var docRefData = (await docRef.get()).data()
             const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
             const isPremium = await q.get().then(querySnapshot => {
@@ -82,8 +83,10 @@ export default async  function POST(req, res) {
                             investments: admin.firestore.FieldValue.arrayUnion(investment),
                             daily_trades_left: admin.firestore.FieldValue.increment(-1),
                             cooldown: cooldown,
-                            investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment)
                         }, {merge: true});
+                        await historyInvestmentsRef.add({
+                            ...historyInvestment
+                        });
                     } else {
                         var historyInvestment = investment
                         historyInvestment.investmentType = "BUY"
@@ -92,8 +95,10 @@ export default async  function POST(req, res) {
                             investments: admin.firestore.FieldValue.arrayUnion(investment),
                             daily_trades_left: admin.firestore.FieldValue.increment(-1),
                             cooldown: cooldown,
-                            investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
                         }, {merge: true});
+                        await historyInvestmentsRef.add({
+                            ...historyInvestment
+                        });
                     }
                     res.json({ success: true, data: cooldown });
                 } 

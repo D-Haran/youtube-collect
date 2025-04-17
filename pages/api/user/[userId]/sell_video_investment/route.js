@@ -35,6 +35,7 @@ export default async function POST(req, res) {
 
     try {
         const docRef = await (await admin.firestore().collection("profile").doc(userId).get()).data()
+        const historyInvestmentsRef = admin.firestore().collection("profile").doc(userId).collection("investmentHistory")
         const bestPick = docRef.bestPick
         const cooldown_from_firestore = docRef.sell_cooldown || null
         const all_investments = docRef.investments
@@ -73,9 +74,11 @@ export default async function POST(req, res) {
         await admin.firestore().collection("profile").doc(userId).set({
             balance: Number(newBalance),
             investments: new_investments,
-            investmentHistory: admin.firestore.FieldValue?.arrayUnion(historyInvestment),
             sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown)
          }, {merge: true});
+         await historyInvestmentsRef.add({
+            ...historyInvestment
+        });
 
          if (profit_from_investment > bestPick.profit) {
             await admin.firestore().collection("profile").doc(userId).update({ 

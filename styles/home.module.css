@@ -180,3 +180,11 @@
   font-weight: 500;
   color: white;
 }
+
+
+.totalUsersContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+}

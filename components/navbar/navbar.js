@@ -115,7 +115,7 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
               </div>
               <div className={styles.navBarItem}>
 
-            <a style={{textDecoration: "none", color: "grey"}} style={{cursor: "pointer"}}>Collect Shop (Coming Soon!)</a>
+            <a style={{textDecoration: "none", color: "grey", cursor: "pointer"}}>Collect Shop (Coming Soon!)</a>
                   
               </div>
           </div>

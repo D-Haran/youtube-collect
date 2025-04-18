@@ -9,13 +9,80 @@ import firebaseApp from '../firebase/clientApp'
 import {getCheckoutUrl} from '../stripe/stripePayment'
 import {getPremiumStatus} from '../stripe/getPremiumStatus'
 
+import { useCallback } from "react";
+import Particles from "react-particles";
+//import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
+import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
+
 
 const Premium = () => {
     const { loadingUser, user } = useUser();
     const [leaderboard, setLeaderboard] = useState(null)
     const [isPremium, setIsPremium] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [referrals, setreferrals] = useState(0)
+    const [referralId, setreferralId] = useState('')
+    const [copied, setCopied] = useState(false)
+    const [referralTrialExpires, setReferralTrialExpires] = useState(new Date())
+    const [onReferralTrial, setOnReferralTrial] = useState(false)
+    const [recieved, setRecieved] = useState(false)
+
     const router = useRouter()
+
+    const particlesInit = useCallback(async engine => {
+      console.log(engine);
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      //await loadFull(engine);
+      await loadSlim(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async container => {
+      await console.log(container);
+  }, []);
+
+    async function firestoreGetUserData(userId, retry) {
+      await fetch(`/api/user/${userId}/get_data/route`, {
+          method: "GET"
+      })
+      .then(res => {if (res.status == 450) {
+        return {success: false}} 
+        else 
+        {return res.json();} })
+      .then(data => {if (data.success) {
+        setreferralId(data?.data.leaderboardId)
+        console.log(data.data)
+        setreferrals(data.data.referrals ? data.data.referrals.length : 0)
+        if (data.data.referral_trial_expires && new Date(data.data.referral_trial_expires._seconds*1000) > new Date()) {
+          setReferralTrialExpires(new Date(data.data.referral_trial_expires._seconds*1000))
+          console.log(new Date(data.data.referral_trial_expires))
+          setOnReferralTrial(true)
+          setRecieved(true)
+        }
+        // }
+        }});
+    }
+
+    const handleClaimReferralPremium = async(userId) => {
+      await fetch(`/api/user/${userId}/claim_referral_premium/route`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId })
+      })
+      .then(res => {if (res.status == 308) {
+        alert("Error: Not Enough Referrals!")
+        return {success: false}} 
+        else if (res.status != 200) {
+          return {success: false} 
+        }
+        else 
+        {return res.json();} })
+      .then(data => {if (data.success) {
+        console.log("Success!!!")
+        router.push("/")
+        }});
+    }
 
     useEffect(() => {
       const checkPremium = async () => {
@@ -26,8 +93,12 @@ const Premium = () => {
         setIsPremium(newPremiumStatus);
       };
         }
-        
+      
       checkPremium();
+      if (user && !recieved) {
+        firestoreGetUserData(user.uid)
+      }
+      
     }, [firebaseApp, user]);
     
     const handleUpgradeToPremium = async () => {
@@ -40,6 +111,10 @@ const Premium = () => {
         .then(res => {router.push(checkoutUrl); setLoading(false)})
         setLoading(false)
     }
+    var numDaysBetween = function(d1, d2) {
+      var diff = Math.abs(d1.getTime() - d2.getTime());
+      return diff / (1000 * 60 * 60 * 24);
+    };
 
   return (
     <div className={styles.someCSSMoludesClass}>
@@ -49,9 +124,75 @@ const Premium = () => {
       </Head>
         <Navbar userDisplayName={user?.displayName} />
         <div className={styles.container}>
-        <h1 className={styles.title}>Youtube Collect Premium</h1>
-
-  <div className={styles.plans}>
+        <h1 className={styles.title} style={{zIndex:10, position: "sticky"}}>Youtube Collect Premium</h1>
+        <Particles
+            init={particlesInit}
+            loaded={particlesLoaded}
+            className={styles.particles}
+            height={'100%'}
+            options={{
+                background: {
+                },
+                fpsLimit: 120,
+                interactivity: {
+                    events: {
+                        
+                        resize: true,
+                    },
+                    modes: {
+                        push: {
+                            quantity: 4,
+                        },
+                        repulse: {
+                            distance: 200,
+                            duration: 0.4,
+                        },
+                    },
+                },
+                particles: {
+                    color: {
+                        value: "#c10000",
+                    },
+                    links: {
+                        color: "#000000",
+                        distance: 150,
+                        enable: true,
+                        opacity: 0.5,
+                        width: 2,
+                    },
+                    move: {
+                        direction: "none",
+                        enable: true,
+                        outModes: {
+                            default: "bounce",
+                        },
+                        random: false,
+                        speed: 0.2,
+                        straight: false,
+                    },
+                    number: {
+                        density: {
+                            enable: true,
+                            area: 800,
+                        },
+                        value: 80,
+                    },
+                    opacity: {
+                        value: 0.5,
+                    },
+                    shape: {
+                        type: "circle",
+                    },
+                    size: {
+                        value: { min: 5, max: 5 },
+                    },
+                },
+                detectRetina: true,
+            }}
+        />
+  <div style={{zIndex:10, position: "sticky"}}>
+<div className={styles.plans}>
+    
     {/* Basic Plan Card */}
     <div className={styles.card}>
       <h2>
@@ -95,9 +236,64 @@ const Premium = () => {
         <li><b>75%</b> limit of available balance to invest in one video</li>
       </ul>
       <button disabled={loading ? true : (isPremium ? true : false)} className={styles.button} onClick={handleUpgradeToPremium}>{isPremium ? "Current Plan" : "Upgrade"}</button>
+        {onReferralTrial &&
+        <div className={styles.referralBox}>
+        <h2>Premium Trial Ends In</h2>
+        <div>
+          {Math.floor(numDaysBetween(new Date(), new Date(referralTrialExpires)))} 
+          
         </div>
+        <p>Days</p>
+      </div>}
+      </div>
+    
     </div>
-        </div>
+    {!isPremium &&
+    <div className={styles.premiumForFree}>
+  <div className={styles.referralCard}>
+    <h2 className={styles.header}>Want Premium For Free?</h2>
+    <p className={styles.description}>
+      Refer <strong>5 friends</strong> this month to unlock <span className={styles.highlight}>premium benefits</span>.
+    </p>
+
+    <div className={styles.linkBox}>
+      <p className={styles.instructions}>
+      Send this referral link to new players to create an account:
+      </p>
+      <input disabled value={`https://youtube-collect.vercel.app?referral=${referralId}`} style={{width: "50%"}}/>
+      <button className={styles.copyButton} style={copied ? {background: "rgb(22, 109, 5)"} : {}} onClick={() => {navigator.clipboard.writeText(`https://youtube-collect.vercel.app?referral=${referralId}`); setCopied(true)}}>
+        {!copied ?
+        <>Copy Referral Link</>
+        :
+        <>Copied!</>
+        }
+        </button>
+    </div>
+
+    <p className={styles.progress}>
+      {referrals} / 5 Successfully Referred
+    </p>
+      <div className={styles.claimButtonContainer}>
+        <button className={(referrals >= 5) ? styles.claimButton : styles.claimButtonDisabled} disabled={(referrals >= 5) ? false : true} onClick={() => {handleClaimReferralPremium(user.uid)}}>
+    <Image 
+        src="/premiumLogo.png"
+        width={50}
+        height={50}
+        alt="Picture of the author"
+        /> 
+      Claim Premium For A Month!
+    </button>
+      </div>
+    
+  </div>
+    </div>
+    }
+
+  </div>
+  
+    
+  </div>
+    
 
     <style jsx>{`
         main {

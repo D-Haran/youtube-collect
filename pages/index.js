@@ -1,3 +1,4 @@
+'use client'
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import Head from "next/head";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import HistoryInvestment from "../components/historyInvestment/historyInvestment
 import ClipLoader from "react-spinners/HashLoader";
 import { numify } from "numify";
 import { generateUsername } from "unique-username-generator";
+import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
   // Our custom hook to get context values
@@ -30,10 +32,20 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(user)
   const [signInLoading, setSignInLoading] = useState(false)
   const [showBestPick, setShowBestPick] = useState(false)
-  const [totalUsers, setTotalUsers] = useState(null)
+  const [totalUsers, setTotalUsers] = useState(null) 
   const [historyRecieved, setHistoryRecieved] = useState(false)
-  // const [inTrial, setInTrial] = useState(false)
-  // const [trialExpires, setTrialExpires] = useState([])
+  const searchParams = useSearchParams()
+  const [referralCode, setReferralCode] = useState('')
+
+  useEffect(() => {
+    const code = searchParams.get('referral')
+    if (code) {
+      console.log("Referral code detected:", code)
+      setReferralCode(code)
+    } else {
+      console.log("No referral code found")
+    }
+  }, [searchParams])
 
   const override = {
     display: "block",
@@ -41,11 +53,12 @@ export default function Home() {
     borderColor: "red",
   };
 
-  async function firestoreUpdateUserData(userId) {
+
+  async function firestoreUpdateUserData(userId, referralCode) {
     await fetch(`/api/user/${userId}/set_data/route`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: generateUsername("", 2, 15) })
+        body: JSON.stringify({ balance: 100, userId: userId, investments: videoInvestments, userName: generateUsername("", 2, 15), referralCode })
     })
     .then(res => res.json())
   }
@@ -63,8 +76,11 @@ async function firestoreGetUserData(userId, retry) {
   })
   .then(res => {if (res.status == 450) {
     if (retry <= 1) {
-      firestoreUpdateUserData(userId).then(data => {
-      firestoreGetUserData(userId, retry+1)})
+      firestoreUpdateUserData(userId, referralCode).then(data => {
+      firestoreGetUserData(userId, retry+1);
+        setInvestmentsLoaded(true)
+    }
+      )
     }
     
     return {success: false}} 
@@ -177,7 +193,6 @@ useEffect(() => {
       }
     });
     }
-
     useEffect(() => {
       firestoreGetTotalUsers()
     }, [])

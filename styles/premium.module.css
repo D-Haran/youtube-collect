@@ -4,7 +4,8 @@
     padding-top: 90px;
     padding-bottom: 80px;
     background: rgb(117,0,0);
-    background: linear-gradient(180deg, rgb(48, 16, 16) 0%, rgb(155, 47, 47) 100%, rgba(85,0,0,1) 100%, rgba(105,99,99,1) 100%);
+    background: linear-gradient(180deg, rgb(10, 0, 0) 0%, rgba(85,0,0,1) 100%);
+    /* background: black; */
   }
 
   .title {
@@ -88,5 +89,135 @@
   
   .premium {
     border: 2px solid gold;
+  }
+  
+  .premiumForFree {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .referralCard {
+    background: white;
+    color: #222;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .header {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .highlight {
+    color: #d97706; /* amber-600 */
+    font-weight: 600;
+  }
+  
+  .linkBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  .instructions {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .copyButton {
+    background-color: #2563eb; /* blue-600 */
+    color: white;
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .copyButton:hover {
+    background-color: #1d4ed8; /* darker blue */
+  }
+  
+  .progress {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .claimButtonContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .claimButton {
+    background: linear-gradient(130deg, rgb(107, 6, 6) 0%, rgb(155, 150, 47) 100%, rgb(85, 82, 0) 300%, rgba(105,99,99,1) 100%);
+    color: #ffffff; /* gray-400 */
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .claimButton :hover {
+    opacity: 0.5;
+  }
+
+  .claimButtonDisabled {
+    background: gray;
+    color: #4e4e4e; /* gray-400 */
+    padding: 0.75rem 1.5rem;
+    cursor: not-allowed;
+    border: none;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  .referralBox {
+    background-color: #f0f0f0;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .referralBox h2 {
+    margin: 0;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .referralBox div {
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    padding-bottom: 0;
+    color: rgb(152, 130, 1);
+  }
+  .referralBox p {
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
   }
   

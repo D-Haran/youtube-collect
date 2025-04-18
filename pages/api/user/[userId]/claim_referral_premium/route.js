@@ -20,9 +20,9 @@ export default async  function POST(req, res) {
             if (data.referrals && data.referrals.length >= 5 || data.referrals >= 5) {
                 const now = new Date();
                 const oneMonthFromNow = new Date(now);
-                const formattedDate = now.toISOString().split('T')[0]; // "2025-04-18"
+                // const formattedDate = now.toISOString().split('T')[0]; // "2025-04-18"
                 oneMonthFromNow.setMonth(now.getMonth() + 1);
-                await admin.firestore().collection("profile").doc(userId).collection("payments").doc(`monthly_referral_premium_${formattedDate}`).set({
+                await admin.firestore().collection("profile").doc(userId).collection("payments").doc(`monthly_referral_premium`).set({
                     status: "succeeded",
                     trail_started: now,
                     trial_expires: oneMonthFromNow

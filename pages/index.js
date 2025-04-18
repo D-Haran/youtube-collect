@@ -14,6 +14,7 @@ import ClipLoader from "react-spinners/HashLoader";
 import { numify } from "numify";
 import { generateUsername } from "unique-username-generator";
 import { useSearchParams } from 'next/navigation'
+import ReferralAlert from "../components/referralAlert/referralAlert";
 
 export default function Home() {
   // Our custom hook to get context values
@@ -34,6 +35,7 @@ export default function Home() {
   const [showBestPick, setShowBestPick] = useState(false)
   const [totalUsers, setTotalUsers] = useState(null) 
   const [historyRecieved, setHistoryRecieved] = useState(false)
+  const [referralCodeFound, setReferralCodeFound] = useState(false)
   const searchParams = useSearchParams()
   const [referralCode, setReferralCode] = useState('')
 
@@ -42,6 +44,7 @@ export default function Home() {
     if (code) {
       console.log("Referral code detected:", code)
       setReferralCode(code)
+      setReferralCodeFound(true)
     } else {
       console.log("No referral code found")
     }
@@ -356,6 +359,32 @@ useEffect(() => {
           {
             (!loadingUser && !user) ?
             <div>
+              {referralCodeFound &&
+              <>
+              <div style={{
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      backgroundColor: '#d4edda',
+      color: '#155724',
+      padding: '12px 20px',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: "center",
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+      zIndex: 9999
+    }}>
+      <div>
+        <span style={{fontSize: '20px', marginRight: '10px' }}>✅</span>
+      <span>Referral Code Detected!<br /><p style={{display: "flex",fontSize:"10px", justifyContent: "center"}}>Double check if it is the correct code</p></span>
+      </div>
+      
+      
+    </div>
+              </>
+              
+              }
               <h1 className={styles.title}>Welcome to Youtube Collect</h1>
           <p className={styles.description}>Invest in YouTube videos like stocks. Predict trends. Earn YouCoins. Climb the leaderboard.</p>
           {totalUsers &&

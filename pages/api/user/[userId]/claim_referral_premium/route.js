@@ -30,6 +30,7 @@ export default async  function POST(req, res) {
                 await admin.firestore().collection("profile").doc(userId).update({
                     premium: true,
                     referral_trial_expires: oneMonthFromNow,
+                    daily_trades_left: 12,
                     referrals: []
                 }, {merge: true})
             }

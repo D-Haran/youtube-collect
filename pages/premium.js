@@ -230,7 +230,7 @@ const Premium = () => {
     </h2>
       <p className={styles.price}>$9 one time fee</p>
       <ul className={styles.featureList}>
-        <li><b>8</b> trades per day</li>
+        <li><b>12</b> trades per day</li>
         <li><b>5</b> active investments at a time</li>
         <li><b>6</b> minute Investment cooldown</li>
         <li><b>75%</b> limit of available balance to invest in one video</li>

@@ -56,7 +56,7 @@ exports.refresh_daily_trades = onSchedule("0 0 * * *", async (event) => {
     allUsers.docs.forEach((doc, index) => {
       batch.update(doc.ref, {
         lastRefreshed: new Date().toISOString(),
-        daily_trades_left: doc.data().premium ? 8 : 5,
+        daily_trades_left: doc.data().premium ? 12 : 5,
       });
     });
 

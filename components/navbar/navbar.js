@@ -92,28 +92,36 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
     <>
       <div className={styles.container}>
           <div className={styles.left}>
-            <Link href={`/`} passHref legacyBehavior>
-            <a style={{textDecoration: "none", color: "white"}}>Youtube Collect</a>
+            <Link href={`/`} passHref legacyBehavior style={{cursor: "pointer"}}>
+            <a style={{textDecoration: "none", color: "white", display: "flex", alignItems: "center"}}>
+            <Image 
+                      src="/youCoinsLogo.png"
+                      width={35}
+                      height={35}
+                      alt="Sign Out"
+                      /> 
+              Youtube Collect
+            </a>
           </Link>
               
           </div>
           <div className={styles.middle}>
               <div className={styles.navBarItem}>
 
-            <Link href={`/leaderboard/`} passHref legacyBehavior>
+            <Link href={`/leaderboard/`} passHref legacyBehavior style={{cursor: "pointer"}}>
             <a style={{textDecoration: "none", color: "white"}}>Global Leaderboard</a>
           </Link>
                   
               </div>
               <div className={styles.navBarItem}>
 
-            <a style={{textDecoration: "none", color: "grey"}}>Collect Shop (Coming Soon!)</a>
+            <a style={{textDecoration: "none", color: "grey"}} style={{cursor: "pointer"}}>Collect Shop (Coming Soon!)</a>
                   
               </div>
           </div>
           <div className={styles.right}>
               <Link href={`/premium/`} passHref legacyBehavior>
-              <div className={styles.getPremium}>
+              <div className={styles.getPremium} style={{cursor: "pointer"}}>
                   
                       {isPremium ? "" : "Get Premium"} 
                       <Image 

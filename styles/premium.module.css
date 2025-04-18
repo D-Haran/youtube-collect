@@ -174,11 +174,12 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: opacity 0.2s;
+    opacity: 1;
+    transition: all 0.2s;
   }
 
-  .claimButton :hover {
-    opacity: 0.5;
+  .claimButton:hover {
+    opacity: 0.9; /* darker blue */
   }
 
   .claimButtonDisabled {

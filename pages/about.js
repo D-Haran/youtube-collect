@@ -80,9 +80,22 @@ const Index = () => {
               <h3>{numify(totalUsers)} Total Current Players</h3>
             </div>
           }
+          <div className={styles.ctaButtonContainer}>
+
             <Link href={`https://chromewebstore.google.com/detail/cffeplhkppfdbameoggalnjjjklekffp?utm_source=item-share-cb`} passHref legacyBehavior>
-            <button className={styles.ctaButton}>Install Chrome Extension</button>
+            <button className={styles.ctaButton}>
+            <Image 
+          src="/extension_store_logo.svg"
+        width={30}
+        height={30}
+        alt="Picture of the author"
+        style={{marginRight: "5px"}}
+        />
+                Install Chrome Extension
+                </button>
             </Link>
+          </div>
+            
           </div>
           
         </div>

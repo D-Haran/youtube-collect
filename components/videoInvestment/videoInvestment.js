@@ -37,7 +37,7 @@ const VideoInvestment = ({video}) => {
                     <h2 className={styles.videoMetricNumber}>{Number(video.video_metadata.statistics.viewCount).toLocaleString()}</h2> <p>Current Views</p>
                   </div>
                   <div className={styles.videoMetric}>
-                    <h2 className={styles.videoMetricNumber}>{video.crashed? "💥" : ""}{numify(Number(video.investment_total.toFixed(2)))}</h2> <p>Initially Invested</p>
+                    <h2 className={styles.videoMetricNumber}>{video.crashed? "💥" : ""}{numify(Number(video.investment_total_before_crash.toFixed(2)))}</h2> <p>Initially Invested</p>
                   </div>
                   <div className={styles.videoMetric}>
                     <h2 className={styles.videoMetricNumber}>{Number(video.initial_view_count).toLocaleString()}</h2> <p>Views at Investment</p>

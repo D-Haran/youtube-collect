@@ -118,7 +118,7 @@ export default async function GET(req, res) {
                       var minutes = Math.floor((diff/1000)/60);
                       console.log("minutes: ", minutes)
                       const openingChance = Math.random()
-                    if (openingChance < 0.01 && minutes >= 10 && data.balance >= 200) {
+                    if (openingChance < 0.01 && minutes >= 10 && data.balance >= 900) {
                       console.log(`💥 CRASH! Investment crashed at ${profits}% return!`);
                 
                       // Apply the crash (e.g., halve the current ratio)

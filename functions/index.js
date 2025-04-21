@@ -93,5 +93,7 @@ exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
             .doc(userId).update({referral_trial_expires: null, premium: false});
       }
     }
-  });
+    
+  }
+  );
 });

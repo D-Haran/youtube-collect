@@ -92,6 +92,7 @@ async function firestoreGetUserData(userId, retry) {
   .then(data => {if (data.success) {
     setFirestoreUserData(data?.data); 
     setShowBestPick(data.data.showBestPick)
+    stripeCheckUserPremium(user.uid, data.data.premium)
     localStorage.setItem("leaderboardId", data.data?.leaderboardId || "ewefsghdyri")
     localStorage.setItem("userName", data.data?.userName || "shrek")
     // setInTrial(data?.data?.trial)
@@ -115,6 +116,15 @@ async function firestoreCheckUserInvestments(userId) {
     .then(res => {return res.json();})
     .then(data => {new_investments = data?.data?.investments});
     return new_investments
+  }
+
+  async function stripeCheckUserPremium(userId, currPremium) {
+    await fetch(`/api/user/${userId}/check_premium/route`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ curr_premium: currPremium })
+    })
+    .then(res => {return res.json()})
   }
 
   const getCurrentBalance = async() => {

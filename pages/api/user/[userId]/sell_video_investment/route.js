@@ -65,7 +65,7 @@ export default async function POST(req, res) {
         historyInvestment.viewsAtSell = new_collect_ratio[0]
         historyInvestment.dateOfActivity = new Date(Date.now())
         const roiMult = 1 + (profit_from_investment / sellingInvestment.investment_total)
-        var on_cooldown = cooldown_from_firestore.seconds ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : false
+        var on_cooldown = cooldown_from_firestore.seconds ? (new Date(cooldown_from_firestore.seconds*1000)) > Date.now() : (cooldown_from_firestore ? (new Date(cooldown_from_firestore)) > Date.now() : false) 
         if ((!on_cooldown || roiMult <= 1.25)) {
             const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);

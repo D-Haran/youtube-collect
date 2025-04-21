@@ -64,18 +64,31 @@ export default async function POST(req, res) {
         historyInvestment.investmentType = "SELL"
         historyInvestment.viewsAtSell = new_collect_ratio[0]
         historyInvestment.dateOfActivity = new Date(Date.now())
-        const roiMult = 1 + (profit_from_investment / sellingInvestment.investment_total)
-        console.log(cooldown_from_firestore)
-        var on_cooldown = cooldown_from_firestore._seconds ? (new Date(cooldown_from_firestore._seconds*1000)) > Date.now() : (cooldown_from_firestore ? (new Date(cooldown_from_firestore)) > Date.now() : false) 
+        const roiMult = 1 + (profit_from_investment / sellingInvestment.investment_total_before_crash)
+        let on_cooldown = false;
+
+        if (cooldown_from_firestore) {
+            console.log(typeof cooldown_from_firestore.seconds)
+          try {
+            const cooldown_date = cooldown_from_firestore.toDate(); // Converts Timestamp to JS Date
+            console.log(cooldown_date)
+            on_cooldown = cooldown_date > new Date();
+          } catch (e) {
+            console.error("Failed to parse Firestore timestamp:", e);
+          }
+        }
+        console.log(on_cooldown)
+        
         if ((!on_cooldown || roiMult <= 1.25)) {
             const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;
             var cooldown = new Date(Date.now() + cooldownMs);
+            console.log(cooldown)
         await admin.firestore().collection("profile").doc(userId).set({
             balance: Number(newBalance),
             investments: new_investments,
-            sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown)
+            sell_cooldown: admin.firestore.Timestamp.fromDate(new Date(cooldown))
          }, {merge: true});
          await historyInvestmentsRef.add({
             ...historyInvestment

@@ -21,17 +21,23 @@ export default async function POST(req, res) {
       }
       const get_collect_ratio_video = async (video_id) => {
         try {
-          var res = 0
-        await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
-          .then(res => {return res.json()})
-          .then(json => {res = (json)});
-        return res
-        }catch (error) {
-          console.log(error.message)
-          res.status(500).json({ success: false, error: error.message });
-      }
-        
-      }
+          const t0 = performance.now();
+          const response = await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`);
+          const json = await response.json();
+          console.log(`Call to get_collect_ratio_video took ${performance.now() - t0} milliseconds.`);
+      
+          if (json.error === "Not Found") {
+            console.warn(`Video ${video_id} was removed.`);
+            return null;
+          }
+      
+          return json;
+        } catch (error) {
+          console.log(error.message);
+          return null;
+        }
+      };
+      
 
     try {
         const docRef = await (await admin.firestore().collection("profile").doc(userId).get()).data()
@@ -51,7 +57,8 @@ export default async function POST(req, res) {
         }
         if (sellingInvestment) {
             const new_collect_ratio = await get_collect_ratio_video(sellingInvestment?.video_metadata?.id)
-            const initialRatio = sellingInvestment.initial_ratio || 1;
+            if (new_collect_ratio) {
+                const initialRatio = sellingInvestment.initial_ratio || 1;
             const currentRatio = new_collect_ratio[2];
 
             const roiMultiplier = currentRatio / initialRatio;
@@ -104,6 +111,47 @@ export default async function POST(req, res) {
             console.log("You are on a sell cooldown! please wait for the cooldown to finish before selling.")
             res.status(sellingInvestment ? 480 : 500).json({ success: false, error: "On Sell Cooldown" });
         }
+            }else {
+                // Treat removed video as total loss
+    const initialRatio = sellingInvestment.initial_ratio || 1;
+    const currentRatio = 0;
+    const roiMultiplier = currentRatio / initialRatio;
+    const profit_from_investment = -1 * (sellingInvestment.investment_total_before_crash || sellingInvestment.investment_total);
+    
+    sellingInvestment.profit = profit_from_investment;
+    const newBalance = docRef.balance + profit_from_investment;
+    console.log("💀 Video removed. New balance:", newBalance);
+
+    var historyInvestment = sellingInvestment;
+    historyInvestment.investmentType = "SELL";
+    historyInvestment.viewsAtSell = 0;
+    historyInvestment.dateOfActivity = new Date(Date.now());
+    historyInvestment.crashType = "removed";
+    historyInvestment.video_metadata?.snippet?.thumbnails?.default?.url = "https://i.ytimg.com/vi/jaLkGh2CqO4/default.jpg"
+
+    const roiMult = 1 + (profit_from_investment / (sellingInvestment.investment_total_before_crash || sellingInvestment.investment_total));
+    const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05;
+    const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
+    const cooldownMs = cooldownHours * 60 * 60 * 1000;
+    const cooldown = new Date(Date.now() + cooldownMs);
+
+    await admin.firestore().collection("profile").doc(userId).set({
+        balance: Number(newBalance),
+        investments: new_investments,
+        sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown)
+    }, { merge: true });
+
+    await historyInvestmentsRef.add({ ...historyInvestment });
+
+    if (profit_from_investment > bestPick.profit) {
+        await admin.firestore().collection("profile").doc(userId).update({
+            bestPick: sellingInvestment
+        }, { merge: true });
+    }
+
+    res.json({ success: true, data: cooldown });
+            }
+            
         } else {
             res.status(500).json({ success: false, error: "Investment Not Found" });
         }

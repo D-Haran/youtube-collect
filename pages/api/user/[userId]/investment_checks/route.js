@@ -14,7 +14,13 @@ if (admin.apps.length === 0) {
           console.log(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
         await fetch(`https://youtube-collect-api.vercel.app/collect_ratio/${video_id}`)
           .then(res => {return res.json()})
-          .then(json => {res = (json)})
+          .then(json => {
+            if (json.error === "Not Found") {
+              console.warn(`Video ${video_id} was removed.`);
+              return null; // ⬅️ key change
+            }
+            res = (json)
+          })
           .then(data => {console.log(`Call to get_collect_ratio_video took ${performance.now() - t0} milliseconds.`);})
           
         return res
@@ -53,6 +59,13 @@ export default async function GET(req, res) {
                 let holdingProfit;
                 let pNL_percent;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
+                if (!new_collect_ratio) {
+                  data.investments[i].error = "Video Removed";
+                  data.investments[i].curr_ratio = 0;
+                  data.investments[i].profit_percent = -1;
+                  data.investments[i].video_metadata.snippet.thumbnails.default.url = "https://i.ytimg.com/vi/jaLkGh2CqO4/default.jpg"
+                  continue;
+                }
                 if (new_collect_ratio) {
                   data.investments[i].curr_ratio = new_collect_ratio[2]
                     data.investments[i].video_metadata.statistics.viewCount = new_collect_ratio[0]

@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const {onSchedule} = require("firebase-functions/v2/scheduler");
 admin.initializeApp();
-// npx eslint --fix index.js 
+// npx eslint --fix index.js
 
 exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
   try {
@@ -14,7 +14,10 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
 
     const batch = admin.firestore().batch();
     allUsers.docs.forEach((doc, index) => {
-      batch.update(doc.ref, {rank: index + 1});
+      batch.update(doc.ref, {
+        rank: index + 1,
+        leaderboardLastBalance: doc.data().balance || 0,
+      });
     });
 
     await batch.commit();
@@ -28,7 +31,9 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
       premium: doc.data().premium || false,
       rank: i + 1,
       showBestPick: doc.data().showBestPick || false,
-      profitsFromLastInvestment: doc.data().profitsFromLastInvestment || 0,
+      profitsFromLastInvestment: doc.data().balance -
+      doc.data().leaderboardLastBalance||
+      0,
     }));
 
     await admin

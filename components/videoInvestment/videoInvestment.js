@@ -71,7 +71,7 @@ const VideoInvestment = ({video, me}) => {
                   <b><p>{video.lastMilestone > 0 && "Dodged a meltdown at "+((Number(video.lastMilestone) / 100))+"x returns 🔥"}</p></b>
                 }
                 {
-                 true
+                 ((video?.profit_percent*100) > video?.lastMilestone && nextMilestoneRange >= 70) 
                 &&
                 <b><p style={video?.videoAngelInvestor && {paddingBottom: '20px'}}>
                 Your position is overheating {' '}

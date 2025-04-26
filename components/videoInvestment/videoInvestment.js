@@ -17,7 +17,7 @@ const VideoInvestment = ({video, me}) => {
     return 0;
   }
             const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
-            const nextMilestoneRange = (Math.abs((video.profit_percent - (video.lastMilestone/100)))+1)*100
+            const nextMilestoneRange = ((((Math.abs((video.profit_percent - (video.lastMilestone/100)))+1)))*100)%100
             console.log(nextMilestoneRange)
             console.log(video)
             return(
@@ -71,7 +71,7 @@ const VideoInvestment = ({video, me}) => {
                   <b><p>{video.lastMilestone > 0 && "Dodged a meltdown at "+((Number(video.lastMilestone) / 100))+"x returns 🔥"}</p></b>
                 }
                 {
-                 (nextMilestoneRange <= 70) 
+                 ((video?.profit_percent*100) > video?.lastMilestone && nextMilestoneRange >= 70) 
                 &&
                 <b><p style={video?.videoAngelInvestor && {paddingBottom: '20px'}}>
                 "Your position is overheating... there's a {`${(getCrashChanceForMilestone((Number(video.lastMilestone)+100))*100).toFixed(0)}%` || ""} chance of a meltdown at {(Number(video.lastMilestone)+100)}% returns!"

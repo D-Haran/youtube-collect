@@ -1,9 +1,14 @@
 import React, { Fragment, useState } from 'react'
 import styles from './leaderboardUser.module.css'
 import Image from 'next/image'
+import {
+  TrendingUp,
+  TrendingDown
+} from "lucide-react";
 
 const LeaderboardUser = ({user, index, me}) => {
     const [expanded, setExpanded] = useState(false)
+    console.log(user)
   return (
     <div className={styles.container}>
         <div className={styles.rank}>
@@ -32,7 +37,10 @@ const LeaderboardUser = ({user, index, me}) => {
         height={40}
         alt="Picture of the author"
         />
-            <h3 className={styles.userBalance} style={me ? {fontWeight: "600"}: {}}>{Number(Number(user.balance).toFixed(2)).toLocaleString()} </h3>
+            <h3 className={styles.userBalance} style={me ? {fontWeight: "600"}: {}}>
+              {Number(Number(user.balance).toFixed(2)).toLocaleString()} 
+              {user.profitsFromLastInvestment > 0 ? <TrendingUp style={{color: "green"}}/> : user.profitsFromLastInvestment == 0 ? "" : <TrendingDown style={{color: "red"}}/>}
+            </h3>
         </div>
         <div className={styles.right}>
             <h2 className={styles.bestPickHeader} onClick={() => {setExpanded(!expanded)}}>

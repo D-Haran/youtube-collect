@@ -97,8 +97,8 @@ export default async function POST(req, res) {
         await admin.firestore().collection("profile").doc(userId).set({
             balance: Number(newBalance),
             investments: new_investments,
+            sell_cooldown: admin.firestore.Timestamp.fromDate(new Date(cooldown)),
             lastInvestmentProfit: profit_from_investment,
-            sell_cooldown: admin.firestore.Timestamp.fromDate(new Date(cooldown))
          }, {merge: true});
          await historyInvestmentsRef.add({
             ...historyInvestment
@@ -143,9 +143,9 @@ export default async function POST(req, res) {
 
     await admin.firestore().collection("profile").doc(userId).set({
         balance: Number(newBalance),
-        lastInvestmentProfit: profit_from_investment,
         investments: new_investments,
-        sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown)
+        sell_cooldown: admin.firestore.Timestamp.fromDate(cooldown),
+        lastInvestmentProfit: profit_from_investment,
     }, { merge: true });
 
     await historyInvestmentsRef.add({ ...historyInvestment });

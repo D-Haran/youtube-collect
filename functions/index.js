@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const {onSchedule} = require("firebase-functions/v2/scheduler");
 admin.initializeApp();
+// npx eslint --fix index.js 
 
 exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
   try {
@@ -27,6 +28,7 @@ exports.update_leaderboard = onSchedule("0,30 * * * *", async (event) => {
       premium: doc.data().premium || false,
       rank: i + 1,
       showBestPick: doc.data().showBestPick || false,
+      profitsFromLastInvestment: doc.data().profitsFromLastInvestment || 0,
     }));
 
     await admin
@@ -93,7 +95,6 @@ exports.check_premium_trials = onSchedule("0 0 * * *", async (event) => {
             .doc(userId).update({referral_trial_expires: null, premium: false});
       }
     }
-    
-  }
+  },
   );
 });

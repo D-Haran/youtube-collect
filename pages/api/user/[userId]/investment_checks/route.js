@@ -176,7 +176,7 @@ export default async function GET(req, res) {
                     
                 }
                 data.investments[i].holdingProfit = holdingProfit
-                data.investments[i].videoAngelInvestor = videoData.angelInvestor.userName || null
+                data.investments[i].videoAngelInvestor = videoData?.angelInvestor?.userName || null
                 if (!data.investments[i].investment_total_before_crash) {
                   pNL_percent = (holdingProfit / inv.investment_total) || 0
                   

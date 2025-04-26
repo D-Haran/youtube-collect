@@ -42,6 +42,8 @@ export default async function POST(req, res) {
     try {
         const docRef = await (await admin.firestore().collection("profile").doc(userId).get()).data()
         const historyInvestmentsRef = admin.firestore().collection("profile").doc(userId).collection("investmentHistory")
+        // const videoDataRef = admin.firestore().collection("videos").doc(inv.video_metadata.id)
+        // const videoData = (await videoDataRef.get()).data()
         const bestPick = docRef.bestPick
         const cooldown_from_firestore = docRef.sell_cooldown || null
         const all_investments = docRef.investments
@@ -127,8 +129,11 @@ export default async function POST(req, res) {
     historyInvestment.viewsAtSell = 0;
     historyInvestment.dateOfActivity = new Date(Date.now());
     historyInvestment.crashType = "removed";
-    historyInvestment.video_metadata?.snippet?.thumbnails?.default?.url = "https://i.ytimg.com/vi/jaLkGh2CqO4/default.jpg"
+    try{
+        // historyInvestment.video_metadata?.snippet?.thumbnails?.default?.url = "https://i.ytimg.com/vi/jaLkGh2CqO4/default.jpg"
+    } catch {
 
+    }
     const roiMult = 1 + (profit_from_investment / (sellingInvestment.investment_total_before_crash || sellingInvestment.investment_total));
     const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05;
     const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);

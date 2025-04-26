@@ -153,6 +153,10 @@ border-radius: 10px;
 color: white;
 }
 
+.me {
+    border: 1px solid rgb(0, 165, 168);
+}
+
 .currentVideoDetailsContainer {
     background-color: rgba(0, 0, 0, 0.807);
     border-radius: 10px;
@@ -192,4 +196,12 @@ justify-content: right;
     height: 70px;
     width: 70px;
     padding-right: 5px;
+}
+
+.angelInvestor {
+    position: absolute;
+    font-size: 1rem;
+    text-align: left;
+    bottom: 0;
+    padding: 10px;
 }

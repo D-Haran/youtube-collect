@@ -23,6 +23,7 @@ export default async  function POST(req, res) {
             }
             const docRef = admin.firestore().collection("profile").doc(userId)
             const historyInvestmentsRef = admin.firestore().collection("profile").doc(userId).collection("investmentHistory")
+            const videoDataRef = admin.firestore().collection("videos").doc(investment.video_metadata.id)
             var docRefData = (await docRef.get()).data()
             const q = admin.firestore().collection("profile").doc(userId).collection("payments").where("status", "in", ["succeeded"])
             const isPremium = await q.get().then(querySnapshot => {
@@ -87,6 +88,15 @@ export default async  function POST(req, res) {
                         await historyInvestmentsRef.add({
                             ...historyInvestment
                         });
+                        const videoData = (await videoDataRef.get()).data()
+                        if (!videoData) {
+                            videoDataRef.set({
+                                angelInvestor: {
+                                    userName: docRefData.userName, 
+                                    investmentAmount: investment.investment_total_before_crash
+                                }
+                            }, {merge:true})
+                        }
                     } else {
                         var historyInvestment = investment
                         historyInvestment.investmentType = "BUY"
@@ -99,6 +109,15 @@ export default async  function POST(req, res) {
                         await historyInvestmentsRef.add({
                             ...historyInvestment
                         });
+                        const videoData = (await videoDataRef.get()).data()
+                        if (!videoData) {
+                            videoDataRef.set({
+                                angelInvestor: {
+                                    userName: docRefData.userName, 
+                                    investmentAmount: investment.investment_total_before_crash
+                                }
+                            }, {merge:true})
+                        }
                     }
                     res.json({ success: true, data: cooldown });
                 } 

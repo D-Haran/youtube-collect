@@ -56,6 +56,8 @@ export default async function GET(req, res) {
             const newInvestments = data.investments
             for (let i = 0; i < newInvestments.length; i++) {
                 const inv = newInvestments[i]
+                const videoDataRef = admin.firestore().collection("videos").doc(inv.video_metadata.id)
+                const videoData = (await videoDataRef.get()).data()
                 let holdingProfit;
                 let pNL_percent;
                 const new_collect_ratio = await get_collect_ratio_video(inv.video_metadata.id)
@@ -174,7 +176,7 @@ export default async function GET(req, res) {
                     
                 }
                 data.investments[i].holdingProfit = holdingProfit
-                
+                data.investments[i].videoAngelInvestor = videoData.angelInvestor.userName || null
                 if (!data.investments[i].investment_total_before_crash) {
                   pNL_percent = (holdingProfit / inv.investment_total) || 0
                   

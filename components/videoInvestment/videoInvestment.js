@@ -4,7 +4,7 @@ import LoadingOverlay from 'react-loading-overlay-ts';
 import PriceWithDiff from '../prices/PriceWithDiff';
 import { numify } from "numify";
 
-const VideoInvestment = ({video}) => {
+const VideoInvestment = ({video, me}) => {
   const [loadingSell, setLoadingSell] = useState(false)
             const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
             const nextMilestoneRange = (((video.curr_ratio - video.initial_ratio)/video.initial_ratio)*100 - video.lastMilestone)
@@ -14,7 +14,7 @@ const VideoInvestment = ({video}) => {
               active={loadingSell}
               spinner
               text='Selling..'>
-                <div className={styles.investmentContainer}>
+                <div className={me ? [ styles.investmentContainer , styles.me ].join(" ") : styles.investmentContainer}>
                 <div className={styles.topVideoStat}>
                   <div className={styles.titleAndThumbnail} onClick={() => window.open(`https://youtube.com/watch?v=${video.video_metadata.id}`)}>
                     <img src={video.video_metadata.snippet.thumbnails.default.url} className={styles.investedThumbnail}/>
@@ -45,6 +45,13 @@ const VideoInvestment = ({video}) => {
                   <div className={styles.videoMetric}>
                     <h2 className={styles.videoMetricNumber}>{numify(Number(hoursSinceUpload))}</h2> <p>Hours Since Upload</p>
                   </div>
+                  {
+                    video?.videoAngelInvestor &&
+                    <div className={styles.angelInvestor}>
+                    <b>Angel Investor</b>: <>{me ? "You" : video?.videoAngelInvestor || null}</> 
+                  </div>
+                  }
+                  
                 </div>
                 {
                   video.crashed ?

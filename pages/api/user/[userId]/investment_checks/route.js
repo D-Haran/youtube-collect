@@ -81,7 +81,7 @@ export default async function GET(req, res) {
                       holdingProfit = currentValue - inv.investment_total_before_crash;
                       pNL_percent = (holdingProfit / inv.investment_total_before_crash) || 0
                     }
-                  const profits = (inv.pNL_percent*100) || (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
+                  const profits = (pNL_percent*100) || (((new_collect_ratio[2] - inv.initial_ratio)/inv.initial_ratio)*100).toFixed(2) || 1
                     const PnL = Math.ceil(profits)
                     const milestone = Math.floor(PnL / 100) * 100;
                     

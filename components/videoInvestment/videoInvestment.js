@@ -54,7 +54,7 @@ const VideoInvestment = ({video, me}) => {
                     <h2 className={styles.videoMetricNumber}>{Number(video.initial_view_count).toLocaleString()}</h2> <p>Views at Investment</p>
                   </div>
                   <div className={styles.videoMetric}>
-                    <h2 className={styles.videoMetricNumber}>{numify(Number(hoursSinceUpload))}</h2> <p>Hours Since Upload</p>
+                    <h2 className={styles.videoMetricNumber}>{numify(Number(video.initial_ratio).toFixed(3))}</h2> <p>Initial Price</p>
                   </div>
                   {
                     video?.videoAngelInvestor &&

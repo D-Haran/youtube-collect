@@ -6,6 +6,16 @@ import { numify } from "numify";
 
 const VideoInvestment = ({video, me}) => {
   const [loadingSell, setLoadingSell] = useState(false)
+  function getCrashChanceForMilestone(pnl) {
+    if (pnl >= 2000) return 0.70;
+    if (pnl >= 1000) return 0.60;
+    if (pnl >= 500) return 0.45; 
+    if (pnl >= 400) return 0.33; 
+    if (pnl >= 300) return 0.28; 
+    if (pnl >= 200) return 0.20; 
+    if (pnl >= 100) return 0.17; 
+    return 0;
+  }
             const hoursSinceUpload = (Number(video.video_metadata.snippet.hoursSinceUpload)).toFixed(1)
             const nextMilestoneRange = (((video.curr_ratio - video.initial_ratio)/video.initial_ratio)*100 - video.lastMilestone)
             console.log(video)
@@ -63,7 +73,7 @@ const VideoInvestment = ({video, me}) => {
                  (nextMilestoneRange >= 70) 
                 &&
                 <b><p style={video?.videoAngelInvestor && {paddingBottom: '20px'}}>
-                "Your position is overheating... there's a chance of a meltdown at {(Number(video.lastMilestone)+100)}% returns!"
+                "Your position is overheating... there's a {`${getCrashChanceForMilestone((Number(video.lastMilestone)+100))*100}%` || ""} chance of a meltdown at {(Number(video.lastMilestone)+100)}% returns!"
                 </p></b>
 }
               </div>

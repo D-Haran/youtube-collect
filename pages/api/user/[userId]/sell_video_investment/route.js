@@ -104,7 +104,7 @@ export default async function POST(req, res) {
             ...historyInvestment
         });
 
-         if (profit_from_investment > bestPick.profit || bestPick.profit == 0) {
+         if ((roiMultiplier - 1) > (bestPick.profit/bestPick.investment_total_before_crash || bestPick.profit/bestPick.investment_total) || bestPick.profit == 0) {
             await admin.firestore().collection("profile").doc(userId).update({ 
                 bestPick: sellingInvestment
              }, {merge: true});

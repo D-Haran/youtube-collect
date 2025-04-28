@@ -88,7 +88,7 @@ export default async function POST(req, res) {
         }
         console.log(on_cooldown)
         
-        if ((!on_cooldown || roiMult <= 1.25)) {
+        if ((!on_cooldown)) {
             const percent_of_balance = (sellingInvestment.percent_of_balance / 100) || 0.05
             const cooldownHours = getSellCooldownHours(roiMult, percent_of_balance);
         const cooldownMs = cooldownHours * 60 * 60 * 1000;

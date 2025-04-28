@@ -117,4 +117,6 @@
     display: flex;
     align-items: center;
     justify-content: right;
+    margin-bottom: -10px;
+    padding: 0;
 }

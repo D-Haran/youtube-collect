@@ -64,11 +64,20 @@ const LeaderboardUser = ({user, index, me}) => {
                   <hr />
                   <br />
                 <span className={styles.bestPickTitle}>{(user.bestPick.video_metadata.snippet.title)}  </span>
+                <>
                 <div className={styles.investedAt}>
                   <p>Invested At: </p> 	&nbsp;
-                  <span>{(user.bestPick.initial_view_count).toLocaleString()} views</span>
+                  <span><b>{(user.bestPick.initial_view_count).toLocaleString()}</b> views</span>
                 </div>
+                {
+                  user.bestPick.viewsAtSell &&
+                  <div className={styles.investedAt}>
+                  <p>Sold At: </p> 	&nbsp;
+                  <span><b>{(user.bestPick.viewsAtSell).toLocaleString()}</b> views</span>
+                </div>
+                }
                 
+                </>
                 </div> 
                 
                 :

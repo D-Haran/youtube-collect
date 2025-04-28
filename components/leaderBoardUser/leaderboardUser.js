@@ -47,7 +47,7 @@ const LeaderboardUser = ({user, index, me}) => {
                 <p style={{textAlign:'left'}}>Best Pick: </p>
                 {
                   user.bestPick.profit ?
-                  <p style={user.bestPick.profit > 0 ? {color: "green"} : user.bestPick.profit < 0 ? {color: "red"} : {color: "black"}}>
+                  <p style={user.bestPick.profit > 0 ? {color: "green"} : user.bestPick.profit < 0 ? {color: "#8c0404ea"} : {color: "black"}}>
                     {user.bestPick.profit > 0 &&
                     "+"
                     }

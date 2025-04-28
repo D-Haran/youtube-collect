@@ -301,7 +301,7 @@ useEffect(() => {
                   videoInvestments.map((video) => {
                   return (
                     <div>
-                      <VideoInvestment key={video.id} video={video} me={video.videoAngelInvestor == firestoreUserData?.userName} />
+                      <VideoInvestment key={video.id} video={video} me={video.isAngelInvestor} />
                     </div>
                   )
                 })

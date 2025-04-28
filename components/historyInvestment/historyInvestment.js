@@ -3,8 +3,9 @@ import styles from './historyInvestment.module.css'
 import {numify} from "numify"
 
 const HistoryInvestment = ({video}) => {
+  const me = video.isAngelInvestor || false
   return (
-    <div className={styles.investmentContainer}>
+    <div className={me ? [ styles.investmentContainer , styles.me ].join(" ") : styles.investmentContainer}>
       <div className={styles.typeContainer}>
         <h3 className={styles.investmentType} style={video.investmentType == "BUY" ? {color: 'green'}: {color: 'red'}}>{video?.investmentType}</h3>
       {

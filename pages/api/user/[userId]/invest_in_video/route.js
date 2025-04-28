@@ -92,7 +92,7 @@ export default async  function POST(req, res) {
                             ...historyInvestment
                         });
                         
-                        if (videoData.exists) {
+                        if (!videoData.exists) {
                             videoDataRef.set({
                                 angelInvestor: {
                                     userName: docRefData.userName, 
@@ -116,7 +116,7 @@ export default async  function POST(req, res) {
                         await historyInvestmentsRef.add({
                             ...historyInvestment
                         });
-                        if (videoData.exists) {
+                        if (!videoData.exists) {
                             videoDataRef.set({
                                 angelInvestor: {
                                     userName: docRefData.userName, 

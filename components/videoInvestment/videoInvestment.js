@@ -57,7 +57,7 @@ const VideoInvestment = ({video, me}) => {
                     <h2 className={styles.videoMetricNumber}>{numify(Number(video.initial_ratio).toFixed(3))}</h2> <p>Initial Price</p>
                   </div>
                   {
-                    me &&
+                    video?.videoAngelInvestor &&
                     <div className={styles.angelInvestor}>
                     <b>Angel Investor</b>: <>{me ? "You" : video?.videoAngelInvestor || null}</> 
                   </div>

@@ -57,7 +57,7 @@ const VideoInvestment = ({video, me}) => {
                     <h2 className={styles.videoMetricNumber}>{numify(Number(video.initial_ratio).toFixed(3))}</h2> <p>Initial Price</p>
                   </div>
                   {
-                    video?.videoAngelInvestor &&
+                    me &&
                     <div className={styles.angelInvestor}>
                     <b>Angel Investor</b>: <>{me ? "You" : video?.videoAngelInvestor || null}</> 
                   </div>
@@ -73,7 +73,7 @@ const VideoInvestment = ({video, me}) => {
                 {
                  ((video?.profit_percent*100) > video?.lastMilestone && nextMilestoneRange >= 70) 
                 &&
-                <b><p style={video?.videoAngelInvestor && {paddingBottom: '20px'}}>
+                <b><p style={me && {paddingBottom: '20px'}}>
                 Your position is overheating {' '}
                 <img src="/warning.svg" height={"15px"} />{' '}
                 There's a {`${(getCrashChanceForMilestone((Number(video.lastMilestone)+100))*100).toFixed(0)}%` || ""} chance of a meltdown at {(Number(video.lastMilestone)+100)}% returns!

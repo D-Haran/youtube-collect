@@ -66,7 +66,7 @@ const LeaderboardUser = ({user, index, me}) => {
                 <span className={styles.bestPickTitle}>{(user.bestPick.video_metadata.snippet.title)}  </span>
                 <div className={styles.investedAt}>
                   <p>Invested At: </p> 	&nbsp;
-                  <span>{(user.bestPick.initial_view_count)} views</span>
+                  <span>{(user.bestPick.initial_view_count).toLocaleString()} views</span>
                 </div>
                 
                 </div> 

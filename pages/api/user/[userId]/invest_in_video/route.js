@@ -77,7 +77,10 @@ export default async  function POST(req, res) {
                         investment.crashed = false
                         investment.lastMilestone = 0
                         investment.percent_of_balance = percent_of_balance
+                        const videoData = (await videoDataRef.get())
                         var historyInvestment = investment
+                        historyInvestment.isAngelInvestor = videoData.exists ? false : true
+                        investment.isAngelInvestor = videoData.exists ? false : true
                         historyInvestment.dateOfActivity = new Date(Date.now())
                         historyInvestment.investmentType = "BUY"
                         var arrUnion = docRef.set({
@@ -88,8 +91,8 @@ export default async  function POST(req, res) {
                         await historyInvestmentsRef.add({
                             ...historyInvestment
                         });
-                        const videoData = (await videoDataRef.get()).data()
-                        if (!videoData) {
+                        
+                        if (videoData.exists) {
                             videoDataRef.set({
                                 angelInvestor: {
                                     userName: docRefData.userName, 
@@ -101,6 +104,10 @@ export default async  function POST(req, res) {
                         var historyInvestment = investment
                         historyInvestment.investmentType = "BUY"
                         investment.percent_of_balance = percent_of_balance
+                        const videoData = (await videoDataRef.get())
+                        console.log(videoData)
+                        historyInvestment.angelInvestor = videoData.exists ? false : true
+                        investment.angelInvestor = videoData.exists ? false : true
                         var arrUnion = docRef.set({
                             investments: admin.firestore.FieldValue.arrayUnion(investment),
                             daily_trades_left: admin.firestore.FieldValue.increment(-1),
@@ -109,8 +116,7 @@ export default async  function POST(req, res) {
                         await historyInvestmentsRef.add({
                             ...historyInvestment
                         });
-                        const videoData = (await videoDataRef.get()).data()
-                        if (!videoData) {
+                        if (videoData.exists) {
                             videoDataRef.set({
                                 angelInvestor: {
                                     userName: docRefData.userName, 

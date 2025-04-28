@@ -47,7 +47,11 @@ const LeaderboardUser = ({user, index, me}) => {
                 <p style={{textAlign:'left'}}>Best Pick: </p>
                 {
                   user.bestPick.profit ?
-                  <p style={{color: "green"}}>+{Number(Number((user.bestPick.profit/user.bestPick.investment_total_before_crash || user.bestPick.profit/user.bestPick.investment_total)*100).toFixed(2)).toLocaleString()}%</p>
+                  <p style={user.bestPick.profit > 0 ? {color: "green"} : user.bestPick.profit < 0 ? {color: "red"} : {color: "black"}}>
+                    {user.bestPick.profit > 0 &&
+                    "+"
+                    }
+                    {Number(Number((user.bestPick.profit/user.bestPick.investment_total_before_crash || user.bestPick.profit/user.bestPick.investment_total)*100).toFixed(2)).toLocaleString()}%</p>
                   :
                   <>
                   <p className={styles.nothing} style={me ? {color: "black"}: {}}>nothing</p>

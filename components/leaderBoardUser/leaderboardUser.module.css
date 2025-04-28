@@ -112,3 +112,9 @@
     align-items: right;
     justify-content: flex-end;
 }
+
+.investedAt {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}

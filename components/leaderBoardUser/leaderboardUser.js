@@ -47,7 +47,7 @@ const LeaderboardUser = ({user, index, me}) => {
                 <p style={{textAlign:'left'}}>Best Pick: </p>
                 {
                   user.bestPick.profit > 0 ?
-                  <p style={{color: "green"}}>+{Number(Number(user.bestPick.profit).toFixed(2)).toLocaleString()}</p>
+                  <p style={{color: "green"}}>+{Number(Number((user.bestPick.profit/user.bestPick.investment_total_before_crash || user.bestPick.profit/user.bestPick.investment_total)*100).toFixed(2)).toLocaleString()}%</p>
                   :
                   <>
                   <p className={styles.nothing} style={me ? {color: "black"}: {}}>nothing</p>
@@ -64,6 +64,11 @@ const LeaderboardUser = ({user, index, me}) => {
                   <hr />
                   <br />
                 <span className={styles.bestPickTitle}>{(user.bestPick.video_metadata.snippet.title)}  </span>
+                <div className={styles.investedAt}>
+                  <p>Invested At: </p> 	&nbsp;
+                  <span>{(user.bestPick.initial_view_count)} views</span>
+                </div>
+                
                 </div> 
                 
                 :

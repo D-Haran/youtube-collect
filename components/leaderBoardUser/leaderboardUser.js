@@ -46,7 +46,7 @@ const LeaderboardUser = ({user, index, me}) => {
             <h2 className={styles.bestPickHeader} onClick={() => {setExpanded(!expanded)}}>
                 <p style={{textAlign:'left'}}>Best Pick: </p>
                 {
-                  user.bestPick.profit > 0 ?
+                  user.bestPick.profit ?
                   <p style={{color: "green"}}>+{Number(Number((user.bestPick.profit/user.bestPick.investment_total_before_crash || user.bestPick.profit/user.bestPick.investment_total)*100).toFixed(2)).toLocaleString()}%</p>
                   :
                   <>

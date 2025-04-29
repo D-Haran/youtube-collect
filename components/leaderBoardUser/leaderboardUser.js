@@ -48,7 +48,10 @@ const LeaderboardUser = ({user, index, me}) => {
                 {
                   user.bestPick.profit ?
                   <p style={user.bestPick.profit > 0 ? {color: "green"} : user.bestPick.profit < 0 ? {color: "#d00000"} : {color: "black"}}>
-                    {user.bestPick.profit > 0 &&
+                    {
+                      user.bestPick.crashed &&
+                      "💥"
+                    }{user.bestPick.profit > 0 &&
                     "+"
                     }
                     {Number(Number((user.bestPick.profit/user.bestPick.investment_total_before_crash || user.bestPick.profit/user.bestPick.investment_total)*100).toFixed(2)).toLocaleString()}%</p>

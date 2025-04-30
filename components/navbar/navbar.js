@@ -191,6 +191,10 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
           <input type="checkbox" id="my-toggle" checked={showBestPick}  onClick={() => {changeShowBestPick(!showBestPick); setShowBestPick(!showBestPick)}} />
         <label for="my-toggle">Show Best Pick on Leaderboard</label>
         </div>
+        
+        </>
+          
+        }
         <div className={styles.ResetUser}>
           <button style={clicked ? {background: "red"} : {}} onClick={() => {clicked ? firestoreUpdateUserData(user?.user?.uid, "") : setClicked(true)}}>
             <label for="my-toggle">Reset Everything 
@@ -205,9 +209,6 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
           </button>
         
         </div>
-        </>
-          
-        }
         
       </Modal>
     </>

@@ -244,7 +244,7 @@ useEffect(() => {
           <Navbar userDisplayName={firestoreUserData?.userName ? firestoreUserData.userName : user.displayName} showBestPick={showBestPick} setShowBestPick={setShowBestPick}/>
         
         }
-        {(balance == 100 && !timedout) &&
+        {(balance < 100 && !timedout) &&
               <>
               <div style={{
       position: 'fixed',

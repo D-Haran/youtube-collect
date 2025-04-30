@@ -16,6 +16,7 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
   const [newUserName, setNewUserName] = useState("Test User")
   const [changeLoading, setChangeLoading] = useState(false)
   const [currUserName, setCurrUserName] = useState(userDisplayName)
+  const [clicked, setClicked] = useState(false)
   const user = useUser()
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -26,6 +27,15 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId: user?.user?.uid, show: showBestPick})
     })
+  }
+
+  async function firestoreUpdateUserData(userId, referralCode) {
+    await fetch(`/api/user/${userId}/set_data/route`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ balance: 100, userId: userId, investments: {}, userName: currUserName, referralCode })
+    })
+    .then(res => {router.refresh();return res.json()})
   }
 
   function openModal() {
@@ -176,10 +186,27 @@ const Navbar = ({userDisplayName, showBestPick, setShowBestPick}) => {
           <button disabled={changeLoading} type='submit' onClick={(e) => {e.preventDefault(); handleChangeUserName(newUserName)}}>Submit</button>
         </form>
         { (showBestPick == true || showBestPick == false) &&
-          <div className={styles.bestPickCheck}>
+        <>
+        <div className={styles.bestPickCheck}>
           <input type="checkbox" id="my-toggle" checked={showBestPick}  onClick={() => {changeShowBestPick(!showBestPick); setShowBestPick(!showBestPick)}} />
         <label for="my-toggle">Show Best Pick on Leaderboard</label>
         </div>
+        <div className={styles.ResetUser}>
+          <button style={clicked ? {background: "red"} : {}} onClick={() => {clicked ? firestoreUpdateUserData(user?.user?.uid, "") : setClicked(true)}}>
+            <label for="my-toggle">Reset Everything 
+            {clicked &&
+            <>
+            &nbsp;
+            (Are You Sure?)
+            </>
+            }
+            
+            </label>
+          </button>
+        
+        </div>
+        </>
+          
         }
         
       </Modal>

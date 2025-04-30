@@ -38,6 +38,7 @@ export default function Home() {
   const [referralCodeFound, setReferralCodeFound] = useState(false)
   const searchParams = useSearchParams()
   const [referralCode, setReferralCode] = useState('')
+  const [timedout, setTimedout] = useState(false)
 
   useEffect(() => {
     const code = searchParams.get('referral')
@@ -49,6 +50,11 @@ export default function Home() {
       console.log("No referral code found")
     }
   }, [searchParams])
+
+  useEffect(() => {
+    setTimeout(() => { setTimedout(true); }, 
+    5000)
+  }, [timedout])
 
   const override = {
     display: "block",
@@ -238,6 +244,45 @@ useEffect(() => {
           <Navbar userDisplayName={firestoreUserData?.userName ? firestoreUserData.userName : user.displayName} showBestPick={showBestPick} setShowBestPick={setShowBestPick}/>
         
         }
+        {(balance == 100 && !timedout) &&
+              <>
+              <div style={{
+      position: 'fixed',
+      top: '130px',
+      right: '20px',
+      backgroundColor: '#860606',
+      color: 'white',
+      padding: '12px 20px',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: "center",
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+      zIndex: 9999
+    }}>
+      <div>
+        <span style={{fontSize: '20px', marginRight: '10px' }}>⚠️</span>
+        
+      <span style={{display: "flex"}}>
+        Current Balance Under
+        <div style={{display: "flex", alignContent: "center"}}>
+          <Image 
+          src="/youCoinsLogo.png"
+        width={20}
+        height={20}
+        alt="Picture of the author"
+        />
+        100! 
+        </div>
+      
+        </span><p style={{display: "flex",fontSize:"10px", justifyContent: "center"}}>If you want to reset, click on your profile and click "Reset Everything"</p>
+      </div>
+      
+      
+    </div>
+              </>
+              
+              }
   {(firestoreUserData?.rank && user) && (
   <div className={styles.rankSection} style={firestoreUserData.rank <= 3 ? {backgroundImage: "linear-gradient(135deg, #540d0d, #000000)", borderRadius: "16px"}: {background: "black", borderRadius: "16px"}}>
     <div className={styles.rankWrapper}>
